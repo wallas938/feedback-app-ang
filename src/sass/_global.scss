@@ -1,0 +1,39 @@
+@import "./variables";
+
+body,
+html,
+#app {
+  height: 100%;
+}
+
+html {
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+.container {
+  // 480px
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: $tablet-min) {
+
+  .container {
+    // 991px
+    max-width: 66.066666rem;
+  }
+}
+
+@media screen and (min-width: $desktop-min) {
+
+  .container {
+    // 1920px;
+    max-width: 128rem;
+  }
+}
