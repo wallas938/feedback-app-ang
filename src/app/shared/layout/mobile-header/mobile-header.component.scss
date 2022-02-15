@@ -1,0 +1,27 @@
+.root {
+  padding: 1rem 1.6rem;
+  background: radial-gradient(128.88% 128.88% at 103.9% -10.39%, #E84D70 0%, #A337F6 53.09%, #28A7ED 100%);
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+
+    .text>p {
+      font-style: normal;
+    }
+
+    .text>p:nth-child(1) {
+      font-weight: bold;
+      line-height: 21.68px;
+      letter-spacing: -.19;
+    }
+
+    .text>p:nth-child(2) {
+      opacity: .75;
+      font-size: 0.866666rem; // 13px
+      line-height: 18.79px;
+    }
+  }
+}
