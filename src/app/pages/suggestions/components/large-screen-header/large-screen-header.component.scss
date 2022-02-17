@@ -140,37 +140,26 @@
 
 @media screen and (min-width: $desktop-min) {
   .root {
-    margin-bottom: 2.666666rem;
+    margin-bottom: 0;
+    margin-right: 2rem;
+    width: 17rem;
 
     .content {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: unset;
 
       .card {
-        width: 14.866666rem;
-        height: 11.866666rem;
-        border-radius: .666666rem;
-      }
-
-      .categories,
-      .roadmap {
-        background-color: #fff;
+        width: auto;
+        height: auto;
       }
 
       .bg {
-        background-image: url("../../../../../assets/suggestions/tablet/background-header.png");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: flex;
-        flex-direction: column;
-        padding: 0 0 1.6rem 1.6rem;
-        justify-content: flex-end;
-        align-items: flex-start;
+        padding-top: 4.133333rem;
       }
 
-      .bg>p {
-        font-style: normal;
+      .bg,.categories {
+        margin-bottom: 1.2rem;
       }
 
       .bg>p:nth-child(1) {
