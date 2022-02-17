@@ -1,0 +1,17 @@
+@import "../../../../../sass/variables";
+@import "../../../../../sass/colors";
+
+.root {
+
+  .wrapper {
+    padding: .333333rem 1.066666rem; //5px //16px
+    color: white;
+    font-weight: 600;
+    font-style: normal;
+    font-size: .866666rem;
+    line-height: 18.79px;
+    // background-color: $light-white;
+    background-color: $strong-blue;
+    border-radius: .666666rem;
+  }
+}
