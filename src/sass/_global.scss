@@ -1,4 +1,5 @@
 @import "./variables";
+@import "./colors";
 
 body,
 html,
@@ -9,6 +10,7 @@ html,
 html {
   font-family: 'Jost', sans-serif;
   font-size: 15px;
+  background-color: $lighter-white;
 }
 
 button,
