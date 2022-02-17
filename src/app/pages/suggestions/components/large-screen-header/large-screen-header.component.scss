@@ -2,10 +2,9 @@
 @import "../../../../../sass/colors";
 
 .root {
-  padding: 0 2.666666rem 0 2.6rem;
   margin-bottom: 2.666666rem;
 
-  .wrapper {
+  .content {
     display: flex;
     justify-content: space-between;
 
@@ -141,10 +140,9 @@
 
 @media screen and (min-width: $desktop-min) {
   .root {
-    padding: 0 2.666666rem 0 2.6rem;
     margin-bottom: 2.666666rem;
 
-    .wrapper {
+    .content {
       display: flex;
       justify-content: space-between;
 

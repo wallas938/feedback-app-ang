@@ -2,51 +2,15 @@
 @import "../../../sass/colors";
 
 .root {
-  background-color: #373F68;
-  padding: 1.2rem 1.6rem 1.266666rem 1.2rem;
 
   .wrapper {
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    .left-side {
-      display: flex;
+    .header {
+      background: radial-gradient(128.88% 128.88% at 103.9% -10.39%, #E84D70 0%, #A337F6 53.09%, #28A7ED 100%);
     }
 
-    .left-side .sort {
-      font-weight: 400;
-      font-style: normal;
-      font-size: .933333rem;
-      line-height: 20.23px;
-      position: relative;
-    }
-
-    .left-side .sort>svg {
-      margin-left: .533333rem;
-    }
-
-    .left-side .sort>svg>path {
-      stroke: white;
-    }
-
-    .left-side .sortby {
-      font-weight: bold;
-    }
-
-    .right-side>a.link {
-      color: white;
-      padding: .7rem 1.133333rem .7rem 1.066666rem;
-      background-color: $violet;
-      border-radius: .666666rem; // 10px
-      font-weight: bold;
-      font-size: .933333rem;
-      line-height: 18.79px;
-    }
-
-    .right-side>a.link:hover {
-      background-color: $hovered-violet;
+    .filter {
+      background-color: #373F68;
     }
   }
 
@@ -54,51 +18,28 @@
 
 @media screen and (min-width: $tablet-min) {
   .root {
-    padding: 0 2.666666rem 0 2.6rem;
-    background-color: #fff;
+    padding: 3.733333rem 2.666666rem 0 2.6rem;
 
     .wrapper {
-      background-color: #373F68;
-      padding: 1.533333rem .8rem 1.533333rem 1.6rem;
-      border-radius: .666666rem;
 
-      .left-side {
-        display: flex;
+      .header {
+        background: none;
       }
 
-      .left-side>div {
-        display: flex;
-        align-items: center;
+      .filter {
+        background-color: initial;
       }
+    }
+  }
+}
 
-      .left-side .count {
-        display: flex;
-        font-weight: bold;
-        font-style: normal;
-        font-size: 1.2rem;
-        line-height: 26.01px;
-        letter-spacing: -.25px;
-      }
+@media screen and (min-width: $desktop-min) {
+  .root {
+    padding: 6.266666rem 11rem 0 11rem;
 
-      .left-side .count span {
-        margin-left: 1.066666rem;
-      }
-
-      .left-side .sort {
-        margin-left: 2.533333rem;
-      }
-
-      .left-side .sort>svg {
-        margin-left: .533333rem;
-      }
-
-      .left-side .sort>svg>path {
-        stroke: white;
-      }
-
-      .left-side .sortby {
-        font-weight: bold;
-      }
+    .wrapper {
+      display: flex;
+      align-items: flex-start;
     }
   }
 }
