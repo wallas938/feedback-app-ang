@@ -19,8 +19,8 @@ a {
 }
 
 .container {
-  // 480px
-  max-width: 32rem;
+  // 576px
+  max-width: 38.4rem;
   margin: 0 auto;
 }
 
@@ -35,7 +35,7 @@ a {
 @media screen and (min-width: $desktop-min) {
 
   .container {
-    // 1920px;
-    max-width: 128rem;
+    // 1680px;
+    max-width: 112rem;
   }
 }

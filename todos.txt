@@ -1,0 +1,4 @@
+Feedback app 
+
+	-> filter component 
+		redimensionner le bouton + add feedback
