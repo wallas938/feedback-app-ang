@@ -10,12 +10,14 @@
     }
 
     .main {
+
       .filter {
         background-color: #373F68;
         margin-bottom: 2.133333rem;
       }
 
       .suggestions {
+        padding: 0 1.6rem 3.666666rem 1.6rem;
       }
     }
   }
@@ -36,6 +38,11 @@
         .filter {
           background-color: inherit;
           margin-bottom: 1.6rem;
+        }
+
+        .suggestions {
+          padding-left: 0;
+          padding-right: 0;
         }
       }
     }

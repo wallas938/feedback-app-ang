@@ -1,0 +1,89 @@
+@import "../../../../../sass/variables";
+@import "../../../../../sass/colors";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5.066666rem 1.6rem 5.066666rem 1.666666rem;
+  border-radius: .666666rem;
+  background-color: #fff;
+  .logo {
+    margin-bottom: 2.6rem;
+  }
+
+  p {
+    font-style: normal;
+    text-align: center;
+
+  }
+
+  >.no-feedback {
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 26.01px;
+    letter-spacing: -.25px;
+    margin-bottom: .933333rem;
+    color: $night-blue;
+  }
+
+  .request {
+    font-weight: 400;
+    font-size: .866666rem;
+    line-height: 18.79px;
+    color: $grey-blue;
+    margin-bottom: 1.6rem;
+  }
+
+  .cta a {
+    color: white;
+    padding: .7rem 1.133333rem .7rem 1.066666rem;
+    background-color: $violet;
+    border-radius: .666666rem; // 10px
+    font-weight: bold;
+    font-size: .933333rem;
+    line-height: 18.79px;
+    display: inline-block;
+  }
+
+  .cta a:hover {
+    background-color: $hovered-violet;
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .root {
+    padding: 7.333333rem 9.266666rem 5.066666rem 9.333333rem;
+
+    .logo {
+      margin-bottom: 3.550666rem;
+      width: 8.642666rem; // 129.64
+      height: 9.116rem; // 136.74
+    }
+
+    >.no-feedback {
+      font-size: 1.6rem;
+      line-height: 34.68px;
+      letter-spacing: -.33px;
+      margin-bottom: 1.066666rem;
+    }
+
+    .request {
+      font-size: 1.066666rem;
+      line-height: 23.12px;
+      margin-bottom: 3.2rem;
+    }
+
+    .cta a {
+      padding: .833333rem 1.666666rem .766666rem 1.6rem;
+      line-height: 20.23px;
+    }
+  }
+}
+
+@media screen and (min-width: $desktop-min) {
+  .root {
+    padding: 7.333333rem 9.266666rem 5.066666rem 9.333333rem;
+  }
+}
