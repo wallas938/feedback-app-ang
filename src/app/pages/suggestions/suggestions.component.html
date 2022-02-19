@@ -9,7 +9,10 @@
         <app-suggestions-filter *ngIf="true"></app-suggestions-filter>
       </div>
       <div class="suggestions">
-        <app-suggestions-empty></app-suggestions-empty>
+        <app-suggestions-empty *ngIf="!data;else suggestions"></app-suggestions-empty>
+        <ng-template #suggestions>
+          <app-suggestions-list [suggestions]="data.productRequests"></app-suggestions-list>
+        </ng-template>
       </div>
     </main>
   </div>

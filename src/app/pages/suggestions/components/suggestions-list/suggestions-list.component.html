@@ -14,7 +14,7 @@
     </div>
     <div class="comments-count">
       <div class="grid-item">
-        <span>{{suggestion.comments?.length}}</span>
+        <span>{{suggestion.comments ? getMessagesCount(suggestion.comments) : 0}}</span>
       </div>
     </div>
   </div>

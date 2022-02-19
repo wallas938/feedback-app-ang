@@ -6,6 +6,7 @@ import { AppComponent } from '@/app/app.component';
 import { SharedModule } from '@/app/shared/shared.module';
 import { SuggestionsComponent } from '@/app/pages/suggestions/suggestions.component';
 import { SuggestionsFilterComponent } from '@/app/pages/suggestions/components/suggestions-filter/suggestions-filter.component';
+import { SuggestionsListComponent } from '@/app/pages/suggestions/components/suggestions-list/suggestions-list.component';
 import { SuggestionsEmptyComponent } from '@/app/pages/suggestions/components/suggestions-empty/suggestions-empty.component';
 import { MobileHeaderComponent } from './pages/suggestions/components/mobile-header/mobile-header.component';
 import { LargeScreenHeaderComponent } from './pages/suggestions/components/large-screen-header/large-screen-header.component';
@@ -21,7 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SuggestionsEmptyComponent,
     MobileHeaderComponent,
     LargeScreenHeaderComponent,
-    CategoryChipsComponent
+    CategoryChipsComponent,
+    SuggestionsListComponent
   ],
   imports: [
     BrowserModule,
