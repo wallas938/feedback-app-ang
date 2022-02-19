@@ -16,4 +16,12 @@ export class SuggestionsListComponent implements OnInit {
     console.log(this.suggestions);
   }
 
+  getMessagesCount(comments: any[]): number {
+    let globalMessageNumber = comments ? comments.length : 0;
+    comments.map(comment => {
+      globalMessageNumber += comment.replies ? comment.replies.length : 0;
+    })
+    return globalMessageNumber;
+  }
+
 }

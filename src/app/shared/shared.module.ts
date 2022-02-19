@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
+  imports: [HttpClientModule],
   exports: [],
   providers: []
 })
