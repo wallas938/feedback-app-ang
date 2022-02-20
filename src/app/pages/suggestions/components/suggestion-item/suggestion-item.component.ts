@@ -2,18 +2,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-suggestions-list',
-  templateUrl: './suggestions-list.component.html',
-  styleUrls: ['./suggestions-list.component.scss']
+  selector: 'app-suggestion-item',
+  templateUrl: './suggestion-item.component.html',
+  styleUrls: ['./suggestion-item.component.scss']
 })
-export class SuggestionsListComponent implements OnInit {
+export class SuggestionItemComponent implements OnInit {
 
-  @Input() public suggestions: any = [];
+  @Input() public suggestion: any;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.suggestions);
   }
 
   getMessagesCount(comments: any[]): number {

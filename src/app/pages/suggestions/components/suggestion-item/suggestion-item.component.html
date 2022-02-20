@@ -1,6 +1,5 @@
-<div class="root container">
-  <div *ngFor="let suggestion of suggestions" class="suggestion">
-    <p class="title">{{suggestion.title}}</p>
+<div class="root">
+  <p class="title">{{suggestion.title}}</p>
     <p class="description">{{suggestion.description}}</p>
     <div class="category">
       <app-category-chips>
@@ -17,5 +16,4 @@
         <span>{{suggestion.comments ? getMessagesCount(suggestion.comments) : 0}}</span>
       </div>
     </div>
-  </div>
 </div>
