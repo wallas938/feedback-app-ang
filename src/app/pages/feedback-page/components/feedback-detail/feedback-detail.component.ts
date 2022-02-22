@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { DataService } from '@/app/shared/services/data.service';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-suggestions',
-  templateUrl: './suggestions.component.html',
-  styleUrls: ['./suggestions.component.scss']
+  selector: 'app-feedback-detail',
+  templateUrl: './feedback-detail.component.html',
+  styleUrls: ['./feedback-detail.component.scss']
 })
-export class SuggestionsComponent implements OnInit {
+export class FeedbackDetailComponent implements OnInit {
+
+  feedbackId = 0;
 
   data: any = {
     "currentUser": {
@@ -311,9 +314,29 @@ export class SuggestionsComponent implements OnInit {
       }
     ]
   };
+  suggestion: any;
+  comments: any = [];
 
-  constructor() { }
+  constructor(private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.feedbackId = +params['id'];
+      const suggestion = this.data.productRequests
+        .find((suggestion: any) => {
+          return suggestion.id === this.feedbackId
+        });
+      this.suggestion = suggestion;
+      this.comments = suggestion.comments;
+    })
   }
+
+  /* getSuggestion() {
+    this.http.get(this._jsonUrl).subscribe((data: any) => {
+      this.data = data.productRequests
+        .find((suggestion: any) => suggestion.id === this.feedbackId);
+      this.comments = this.data.comments;
+      console.log(this.comments);
+    }) */
 }

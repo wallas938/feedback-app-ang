@@ -1,0 +1,53 @@
+@import "../../../../../sass/variables";
+@import "../../../../../sass/colors";
+
+.root {
+  .wrapper {
+    background-color: #fff;
+    border-radius: .666666rem;
+
+    .comments-count {
+      font-weight: bold;
+      font-style: normal;
+      font-size: 1.2rem;
+      line-height: 26.01px;
+      letter-spacing: -.25px;
+      color: $night-blue;
+      padding: 1.6rem;
+    }
+
+    .comments {
+      padding: 0 1.6rem;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .root {
+    .wrapper {
+
+      .comments-count {
+        padding: 1.6rem 2.266666rem 1.866666rem 2.266666rem;
+      }
+
+      .comments {
+        padding: 0 2.133333rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $desktop-min) {
+  .root {
+    .wrapper {
+
+      .comments-count {
+        padding: 1.6rem 2.266666rem 1.866666rem 2.266666rem;
+      }
+
+      .comments {
+        padding: 0 2.133333rem;
+      }
+    }
+  }
+}

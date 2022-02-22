@@ -1,4 +1,9 @@
-Feedback app 
+Feedback app
 
-	-> filter component 
-		redimensionner le bouton + add feedback
+	-> suggestion item
+		  sur feedback detail conditionner la navigation au click sur le composant en fonction
+      du path
+
+  -> app-message
+      faire apparaître ou non la border bottom en fonction de si oui ou non
+      le message principale a des reponses

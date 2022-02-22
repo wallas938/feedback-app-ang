@@ -1,0 +1,24 @@
+<div class="root container">
+  <div class="wrapper">
+    <div class="top">
+      <a routerLink="/suggestions">Go Back</a>
+      <button class="edit">
+        Edit Feedback
+      </button>
+    </div>
+    <div class="suggestion">
+      <app-suggestion-item [suggestion]="suggestion"></app-suggestion-item>
+    </div>
+    <div class="comments">
+      <app-comments [comments]="comments"></app-comments>
+    </div>
+    <form class="comment-form">
+      <p>Add Comment</p>
+      <textarea class="message" placeholder="Type your comment here"></textarea>
+      <div class="cta">
+        <p class="input-left">250 Characters left</p>
+        <button>Post Comment</button>
+      </div>
+    </form>
+  </div>
+</div>
