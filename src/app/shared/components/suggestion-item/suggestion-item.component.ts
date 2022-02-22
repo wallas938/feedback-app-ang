@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-suggestion-item',
@@ -10,9 +11,14 @@ export class SuggestionItemComponent implements OnInit {
 
   @Input() public suggestion: any;
 
-  constructor() { }
+  constructor(private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+  }
+
+  goFeedback(id: string) {
+    this.router.navigate(['feedbacks', id])
   }
 
   getMessagesCount(comments: any[]): number {

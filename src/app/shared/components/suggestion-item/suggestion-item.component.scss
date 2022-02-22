@@ -1,7 +1,8 @@
-@import "../../../../../sass/variables";
-@import "../../../../../sass/colors";
+@import "../../../../sass/variables";
+@import "../../../../sass/colors";
 
 .root {
+  cursor: pointer;
   background-color: #fff;
   margin-bottom: 1.066666rem;
   border-radius: .533333rem;
@@ -13,6 +14,14 @@
     "description description"
     "category category"
     "upvotes comments";
+
+
+    &:hover {
+
+      .title {
+        color: $strong-blue;
+      }
+    }
 
 
   .title,

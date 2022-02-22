@@ -1,0 +1,198 @@
+@import "../../../../../sass/variables";
+@import "../../../../../sass/colors";
+
+.root {
+  .wrapper {
+    padding: 1.6rem 1.6rem 5.866666rem 1.6rem;
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.6rem;
+      position: relative;
+
+      a,
+      button {
+        font-weight: bold;
+        font-style: normal;
+        font-size: .866666rem;
+        line-height: 18.79px;
+      }
+
+      a {
+        color: $grey-blue;
+        margin-left: 1.066666rem;
+      }
+
+      &::before {
+        content: url("/assets/shared/icon-arrow-left.svg");
+        position: absolute;
+        left: 0;
+      }
+
+      button {
+        background-color: $strong-blue;
+        transition: background-color 100ms ease-in-out;
+        border: none;
+        color: #F2F4FE;
+        padding: .7rem 1.066666rem;
+        border-radius: .666666rem;
+      }
+
+      button:hover {
+        background-color: $hovered-blue;
+      }
+    }
+
+    .suggestion {
+      margin-bottom: 1.6rem;
+    }
+
+    .comments {
+      margin-bottom: 1.6rem;
+    }
+
+    .comment-form {
+      background-color: #fff;
+      border-radius: .666666rem;
+      padding: 1.6rem;
+
+      >p {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1.2rem;
+        line-height: 26.01px;
+        letter-spacing: -.25px;
+        color: $night-blue;
+        margin-bottom: 1.6rem;
+      }
+
+      textarea {
+        border-radius: .333333rem;
+        border: 1px solid $lighter-white;
+        background-color: $lighter-white;
+        font-size: .866666rem;
+        color: $line-color;
+        font-weight: 400;
+        line-height: 18.79px;
+        margin-bottom: 1.066666rem;
+        resize: none;
+        width: 100%;
+        height: 5.333333rem;
+        padding: 1.066666rem 0 0 1.066666rem;
+      }
+
+      textarea:focus {
+        border: 1px solid $strong-blue;
+      }
+
+      .cta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .input-left {
+          font-weight: 400;
+          line-height: 18.79px;
+          font-size: .866666rem;
+          color: $grey-blue;
+        }
+
+        button {
+          font-weight: bold;
+          color: #F2F4FE;
+          background-color: $violet;
+          transition: background-color 100ms ease-in-out;
+          border: transparent;
+          padding: .7rem 1.066666rem;
+          line-height: 18.79px;
+          font-size: .866666rem;
+          border-radius: .666666rem;
+        }
+
+        button:hover {
+          background-color: $hovered-violet;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .root {
+
+    .wrapper {
+      padding: 3.733333rem 2.666666rem 8rem 2.6rem;
+
+      .top {
+
+        a,
+        button {
+          font-size: .933333rem;
+          line-height: 20.23px;
+        }
+
+        a {
+          margin-left: 1.066666rem;
+        }
+
+        a:hover {
+          text-decoration: underline;
+        }
+
+        button {
+          padding: .833333rem 1.6rem .766666rem 1.6rem;
+        }
+
+        button:hover {
+          background-color: $hovered-blue;
+        }
+      }
+
+      .comment-form {
+        padding: 1.6rem 2.133333rem 2.133333rem 2.266666rem;
+
+        textarea {
+          font-size: 1rem;
+          line-height: 21.68px;
+        }
+
+        .cta {
+
+          .input-left {
+            line-height: 21.68px;
+            font-size: 1rem;
+          }
+
+          button {
+            padding: .833333rem 1.6rem .766666rem 1.6rem;
+            line-height: 21.68px;
+            font-size: 1rem;
+            transition: background-color 100ms ease-in-out;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $desktop-min) {
+  .root {
+
+    .wrapper {
+      padding: 5.333333rem 23.666666rem 9.133333rem 23.666666rem;
+    }
+
+    .comment-form {
+
+      .cta {
+
+        button {
+          line-height: 20.23px;
+          font-size: .933333rem;
+        }
+      }
+    }
+  }
+}
