@@ -1,0 +1,20 @@
+@import "../variables";
+@import "../colors";
+
+.app-btn {
+  color: #F2F4FE;
+  padding: .7rem 1.133333rem .7rem 1.066666rem;
+  border: transparent;
+  border-radius: .666666rem; // 10px
+  transition: background-color 100ms ease-in-out;
+  font-weight: bold;
+  font-size: .866666rem;
+  line-height: 18.79px;
+}
+
+@media screen and (min-width: $tablet-min) {
+  .app-btn {
+    padding: .833333rem 1.666666rem .766666rem 1.6rem;
+    line-height: 20.23px;
+  }
+}

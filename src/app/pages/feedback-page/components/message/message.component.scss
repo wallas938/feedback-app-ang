@@ -51,11 +51,8 @@
           align-items: center;
 
           >button {
-            border: none;
             color: $strong-blue;
-            font-size: .866666rem;
-            font-weight: 600;
-            line-height: 18.79px;
+            font-weight: 600 !important;
             background-color: transparent;
           }
 
@@ -103,15 +100,7 @@
           }
 
           button {
-            font-weight: bold;
-            color: #F2F4FE;
             background-color: $violet;
-            transition: background-color 100ms ease-in-out;
-            border: transparent;
-            padding: .7rem 1.066666rem;
-            line-height: 18.79px;
-            font-size: .866666rem;
-            border-radius: .666666rem;
           }
 
           button:hover {
@@ -209,16 +198,6 @@
               width: unset;
               flex: 1;
               height: 5.333333rem;
-            }
-
-            button {
-              padding: .833333rem 1.6rem .766666rem 1.6rem;
-              line-height: 18.79px;
-              font-size: .933333rem;
-            }
-
-            button:hover {
-              background-color: $hovered-violet;
             }
           }
         }
