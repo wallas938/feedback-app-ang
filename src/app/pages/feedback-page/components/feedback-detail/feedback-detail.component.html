@@ -2,9 +2,9 @@
   <div class="wrapper">
     <div class="top">
       <a routerLink="/suggestions">Go Back</a>
-      <button class="edit">
+      <a class="edit app-btn">
         Edit Feedback
-      </button>
+      </a>
     </div>
     <div class="suggestion">
       <app-suggestion-item [suggestion]="suggestion"></app-suggestion-item>
@@ -14,10 +14,10 @@
     </div>
     <form class="comment-form">
       <p>Add Comment</p>
-      <textarea class="message" placeholder="Type your comment here"></textarea>
+      <textarea class="message app-form-field" placeholder="Type your comment here"></textarea>
       <div class="cta">
         <p class="input-left">250 Characters left</p>
-        <button>Post Comment</button>
+        <button class="app-btn">Post Comment</button>
       </div>
     </form>
   </div>

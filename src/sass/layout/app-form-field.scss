@@ -1,0 +1,24 @@
+@import "../variables";
+@import "../colors";
+
+.app-form-field {
+  border-radius: .333333rem;
+  font-style: normal;
+  border: 1px solid $lighter-white;
+  background-color: $lighter-white;
+  font-size: .866666rem;
+  color: $night-blue;
+  font-weight: 400;
+  line-height: 18.79px;
+
+  &:focus {
+    border: 1px solid $strong-blue;
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .app-form-field {
+    font-size: 1rem;
+    line-height: 21.68px;
+  }
+}

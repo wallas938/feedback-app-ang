@@ -67,13 +67,7 @@
 
   .right-side {
     a.link {
-      color: white;
-      padding: .7rem 1.133333rem .7rem 1.066666rem;
       background-color: $violet;
-      border-radius: .666666rem; // 10px
-      font-weight: bold;
-      font-size: .933333rem;
-      line-height: 18.79px;
     }
 
     a.link:hover {
@@ -143,14 +137,6 @@
             color: $violet;
           }
         }
-      }
-    }
-
-    .right-side {
-      a.link {
-        color: white;
-        padding: .833333rem 1.666666rem .766666rem 1.6rem;
-        line-height: 20.23px;
       }
     }
   }
