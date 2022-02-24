@@ -1,0 +1,397 @@
+@import "../../../../../sass/variables";
+@import "../../../../../sass/colors";
+
+.root {
+  background-color: pink;
+
+  .wrapper {
+    padding: 2.266666rem 1.6rem 5.866666rem 1.6rem;
+
+    .top {
+      display: flex;
+      margin-bottom: 3.366666rem;
+
+      a {
+        margin-left: 1.066666rem;
+        font-weight: bold;
+        font-style: normal;
+        font-size: .866666rem;
+        line-height: 18.79px;
+        color: $grey-blue;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      &::before {
+        content: url("/assets/shared/icon-arrow-left.svg");
+        position: absolute;
+      }
+    }
+
+    form {
+      background-color: #fff;
+      border-radius: .666666rem;
+      padding: 2.933333rem 1.6rem 1.6rem 1.6rem;
+      position: relative;
+
+      img {
+        position: absolute;
+        top: -1.333333rem;
+        left: 1.6rem;
+        z-index: 5;
+        width: 2.666666rem;
+        height: 2.666666rem;
+      }
+
+      h1 {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1.2rem;
+        line-height: 26.01px;
+        letter-spacing: -.25px;
+        color: $night-blue;
+        margin-bottom: 1.6rem;
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+
+        >label,
+        .form-field>small {
+          font-style: normal;
+          font-size: .866666rem;
+          line-height: 18.79px;
+          letter-spacing: -.18px;
+        }
+
+        >label {
+          font-weight: bold;
+          color: $night-blue;
+          margin-bottom: 3px;
+        }
+
+        >small {
+          font-weight: 400;
+          color: $grey-blue;
+          margin-bottom: 1.066666rem;
+        }
+
+      }
+
+      .title {
+        margin-bottom: 1.6rem;
+        >input {
+          width: 100%;
+          height: 3.2rem;
+          padding: 1rem 1.066666rem;
+        }
+      }
+
+      .category {
+        margin-bottom: 1.6rem;
+        >.select-container {
+
+          .selected-value {
+            width: 100%;
+            height: 3.2rem;
+            border: none;
+            background-color: $lighter-white;
+            color: $night-blue;
+            font-weight: 400;
+            font-size: .866666rem;
+            line-height: 18.79px;
+            position: relative;
+            border-radius: .333333rem;
+            padding: .933333rem 1.066666rem 1rem 1.066666rem;
+          }
+
+          .selected-value::after {
+            content: url("/assets/shared/icon-arrow-down.svg");
+            position: absolute;
+            right: 1.6rem;
+            top: 1rem;
+          }
+
+          /* A ajouter au momenent de l'apparition de la dropdown */
+          .--selecting::after {
+            content: url("/assets/shared/icon-arrow-up.svg");
+          }
+
+          .dropdown {
+            background-color: #fff;
+            box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
+            position: absolute;
+            top: calc(100% + .866666rem);
+            left: 0;
+            width: 100%;
+            z-index: 5;
+            height: 16rem;
+            border-radius: .666666rem;
+            box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
+
+            ul li {
+              padding: .8rem 1.6rem;
+              color: $grey-blue;
+              font-weight: 400;
+              font-size: 1.066666rem;
+              line-height: 23.12px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              cursor: pointer;
+            }
+
+            ul li:not(:last-child) {
+              border-bottom: 1px solid rgba($color: $night-blue, $alpha: .15);
+            }
+
+            ul li:hover {
+              color: $violet;
+            }
+          }
+        }
+      }
+
+      .update-status {
+        margin-bottom: 1.6rem;
+        >.select-container {
+
+          .selected-value {
+            width: 100%;
+            height: 3.2rem;
+            border: none;
+            background-color: $lighter-white;
+            color: $night-blue;
+            font-weight: 400;
+            font-size: .866666rem;
+            line-height: 18.79px;
+            position: relative;
+            border-radius: .333333rem;
+            padding: .933333rem 1.066666rem 1rem 1.066666rem;
+          }
+
+          .selected-value::after {
+            content: url("/assets/shared/icon-arrow-down.svg");
+            position: absolute;
+            right: 1.6rem;
+            top: 1rem;
+          }
+
+          /* A ajouter au momenent de l'apparition de la dropdown */
+          .--selecting::after {
+            content: url("/assets/shared/icon-arrow-up.svg");
+          }
+
+          .dropdown {
+            background-color: #fff;
+            box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
+            position: absolute;
+            top: calc(100% + .866666rem);
+            left: 0;
+            z-index: 5;
+            width: 100%;
+            height: 12.733333rem;
+            border-radius: .666666rem;
+            box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
+
+            ul li {
+              padding: .8rem 1.6rem;
+              color: $grey-blue;
+              font-weight: 400;
+              font-size: 1.066666rem;
+              line-height: 23.12px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              cursor: pointer;
+            }
+
+            ul li:not(:last-child) {
+              border-bottom: 1px solid rgba($color: $night-blue, $alpha: .15);
+            }
+
+            ul li:hover {
+              color: $violet;
+            }
+          }
+        }
+      }
+
+      .comment {
+        margin-bottom: 2.666666rem;
+
+        textarea {
+          height: 8rem;
+          resize: none;
+          padding: 1.066666rem;
+        }
+      }
+
+      .cta {
+        display: flex;
+        flex-direction: column;
+        gap: 1.066666rem;
+
+        >.save button {
+          background-color: $violet;
+
+          &:hover {
+            background-color: $hovered-violet;
+          }
+        }
+
+        >.cancel button {
+          background-color: $night-blue;
+
+          &:hover {
+            background-color: $hovered-night-blue;
+          }
+        }
+
+        >.delete button {
+          background-color: $red;
+
+          &:hover {
+            background-color: $hovered-red;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .root {
+
+    .wrapper {
+      padding: 3.733333rem 7.6rem 8.133333rem 7.6rem;
+
+      .top {
+        margin-bottom: 4.533333rem;
+
+        a {
+          margin-left: 1.066666rem;
+          font-size: .933333rem;
+          line-height: 20.23px;
+        }
+      }
+
+      form {
+        padding: 3.466666rem 2.8rem 2.666666rem 2.8rem;
+
+        img {
+          top: -1.866666rem;
+          left: 2.8rem;
+          width: auto;
+          height: auto;
+        }
+
+        h1 {
+          font-size: 1.6rem;
+          line-height: 34.68px;
+          letter-spacing: -.33px;
+          margin-bottom: 2.666666rem;
+        }
+
+        .form-field {
+          display: flex;
+          flex-direction: column;
+
+          >label,
+          .form-field>small {
+            font-style: normal;
+            font-size: .933333rem;
+            line-height: 20.23px;
+            letter-spacing: -.19px;
+          }
+
+          >label {
+            margin-bottom: 2px;
+          }
+
+        }
+
+        .category {
+          >.select-container {
+            .selected-value {
+              font-size: 1rem;
+              line-height: 21.68px;
+              padding: .866666rem 1.6rem;
+            }
+
+            .selected-value::after {
+              top: .8rem;
+            }
+
+            .dropdown {
+              top: calc(100% + 1.066666rem);
+            }
+          }
+        }
+
+        .update-status {
+          >.select-container {
+
+            .selected-value {
+              font-size: 1rem;
+              line-height: 21.68px;
+              padding: .866666rem 1.6rem;
+            }
+
+            .selected-value::after {
+              top: .8rem;
+            }
+
+            .dropdown {
+              top: calc(100% + 1.066666rem);
+            }
+          }
+        }
+
+        .comment {
+          margin-bottom: 2.666666rem;
+
+          textarea {
+            height: 8rem;
+            resize: none;
+            padding: 1.066666rem;
+          }
+        }
+
+        .cta {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-rows: 1fr;
+          grid-template-areas: "delete cancel save";
+          align-items: flex-start;
+
+          >.save {
+            grid-area: save;
+            justify-self: flex-end;
+          }
+
+          >.cancel {
+            grid-area: cancel;
+            justify-self: flex-end;
+          }
+
+          >.delete {
+            grid-area: delete;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $desktop-min) {
+  .root {
+
+    .wrapper {
+      padding: 6.133333rem 30rem 12.466666rem 30rem;
+    }
+  }
+}

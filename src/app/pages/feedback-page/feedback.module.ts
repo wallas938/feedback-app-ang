@@ -6,6 +6,7 @@ import { FeedbackDetailComponent } from './components/feedback-detail/feedback-d
 import { FeedbackRoutingModule } from './feedback-routing.module';
 import { CommentsComponent } from './components/comments/comments.component';
 import { MessageComponent } from './components/message/message.component';
+import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { MessageComponent } from './components/message/message.component';
     FeedbackDetailComponent,
     CommentsComponent,
     MessageComponent,
+    FeedbackFormComponent,
   ],
   imports: [
     SharedModule,

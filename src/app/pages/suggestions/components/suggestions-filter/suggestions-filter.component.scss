@@ -36,27 +36,24 @@
       border-radius: .666666rem;
       box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
 
-      .wrapper {
+      ul li {
+        padding: .8rem 1.6rem;
+        color: $grey-blue;
+        font-weight: 400;
+        font-size: 1.066666rem;
+        line-height: 23.12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
 
-        ul li {
-          padding: .8rem 1.6rem;
-          color: $grey-blue;
-          font-weight: 400;
-          font-size: 1.066666rem;
-          line-height: 23.12px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          cursor: pointer;
-        }
+      ul li:not(:last-child) {
+        border-bottom: 1px solid rgba($color: $night-blue, $alpha: .15);
+      }
 
-        ul li:not(:last-child) {
-          border-bottom: 1px solid rgba($color: $night-blue, $alpha: .15);
-        }
-
-        ul li:hover {
-          color: $violet;
-        }
+      ul li:hover {
+        color: $violet;
       }
     }
 
