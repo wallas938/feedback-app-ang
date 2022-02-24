@@ -8,7 +8,7 @@
       <div class="filter">
         <app-suggestions-filter *ngIf="true"></app-suggestions-filter>
       </div>
-      <div class="suggestions">
+      <div class="suggestions container">
         <app-suggestions-empty *ngIf="!data;else suggestions"></app-suggestions-empty>
         <ng-template #suggestions>
           <div class="suggestions-list">

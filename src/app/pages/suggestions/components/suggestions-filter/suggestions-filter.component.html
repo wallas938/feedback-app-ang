@@ -8,27 +8,28 @@
             fill="#FFF" fill-rule="nonzero" /></svg> <span>6 Suggestions</span>
       </p>
 
-      <p class="sort">
+      <div class="sort">
         Sort by : <span class="sortby">Most Upvotes</span> <svg width="10" height="7"
           xmlns="http://www.w3.org/2000/svg">
           <path id="arrow-down-icon" d="M1 1l4 4 4-4" stroke="#4661E6" stroke-width="2" fill="none"
             fill-rule="evenodd" /></svg>
-      </p>
+        <div *ngIf="false" class="dropdown">
+          <ul class="sort-values">
+            <li><span>Most Upvotes</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+            <li><span>Least Upvotes</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+            <li><span>Most Comments</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+            <li><span>Least Comments</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13"
+                height="11">
+                <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
   <div class="right-side">
     <a routerLink="/feedbacks/new-feedback" class="link app-btn">+ Add Feedback</a>
   </div>
-</div>
-<div *ngIf="true" class="dropdown">
-  <ul class="sort-values">
-    <li><span>Most Upvotes</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
-        <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
-    <li><span>Least Upvotes</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
-        <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
-    <li><span>Most Comments</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
-        <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
-    <li><span>Least Comments</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
-        <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
-  </ul>
 </div>
