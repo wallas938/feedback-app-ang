@@ -1,0 +1,82 @@
+<div class="root container">
+  <div class="wrapper">
+    <div class="top">
+      <a routerLink="/suggestions">Go Back</a>
+    </div>
+    <form>
+      <img [src]="true ? '/assets/shared/icon-new-feedback.svg' : '/assets/shared/icon-edit-feedback.svg'" alt="plus icon">
+      <h1>Create New Feedback</h1>
+      <div class="form-field title">
+        <label for="title">Feddback Title</label>
+        <small>Add a short, descriptive headline</small>
+        <input class="app-form-field" type="text">
+      </div>
+
+      <div class="form-field category">
+        <label for="category">Category</label>
+        <small>Choose a category for your feedback</small>
+        <div class="select-container">
+          <div class="selected-value">
+            Features
+            <div *ngIf="false" class="dropdown">
+              <ul class="sort-values">
+                <li><span>Features</span> <svg *ngIf="true" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+                <li><span>UI</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+                <li><span>UX</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+                <li><span>Enhancement</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13"
+                    height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+                <li><span>Bug</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field update-status">
+        <label for="update-status">Update Status</label>
+        <small>Change feature state</small>
+        <div class="select-container">
+          <div class="selected-value">
+            Planned
+            <div *ngIf="false" class="dropdown">
+              <ul class="sort-values">
+                <li><span>Suggestion</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+                <li><span>Planned</span> <svg *ngIf="true" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+                <li><span>In-Progress</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13"
+                    height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+                <li><span>Live</span> <svg *ngIf="false" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+                    <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field comment">
+        <label for="detail">Feedback Detail</label>
+        <small>Include any specific comments on what should be improved, added, etc.</small>
+        <textarea class="app-form-field"></textarea>
+      </div>
+
+      <div class="cta">
+        <div class="delete">
+          <button *ngIf="true" class="app-btn">Delete</button>
+        </div>
+        <div class="cancel">
+          <button class="app-btn">Cancel</button>
+        </div>
+        <div class="save">
+          <button class="app-btn">{{ false ? 'Add Feedback' : 'Save Changes'}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

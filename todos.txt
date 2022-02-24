@@ -7,3 +7,6 @@ Feedback app
   -> app-message
       faire apparaître ou non la border bottom en fonction de si oui ou non
       le message principale a des reponses
+
+  -> Filter component
+      revoir la dropdown
