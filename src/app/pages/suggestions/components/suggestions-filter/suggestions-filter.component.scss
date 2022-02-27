@@ -7,6 +7,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.6rem;
+
   .left-side {
     display: flex;
 
@@ -16,6 +17,11 @@
       font-size: .933333rem;
       line-height: 20.23px;
       position: relative;
+      cursor: pointer;
+    }
+
+    .sort:hover {
+      color: rgba($color: $interactive-item-def, $alpha: .75);
     }
 
     .sort>svg {
