@@ -2,7 +2,6 @@
 @import "../../../../../sass/colors";
 
 .root {
-  background-color: pink;
 
   .wrapper {
     padding: 2.266666rem 1.6rem 5.866666rem 1.6rem;
@@ -235,6 +234,10 @@
         flex-direction: column;
         gap: 1.066666rem;
 
+        button {
+          width: 100%;
+        }
+
         >.save button {
           background-color: $violet;
 
@@ -367,6 +370,10 @@
           grid-template-rows: 1fr;
           grid-template-areas: "delete cancel save";
           align-items: flex-start;
+
+          button {
+            width: auto;
+          }
 
           >.save {
             grid-area: save;
