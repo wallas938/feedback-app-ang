@@ -8,6 +8,8 @@
     header {
       background-color: #373F68;
       padding: 1.733333rem 1.6rem;
+      align-items: center;
+      margin-bottom: 2.133333rem;
       color: #fff;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -17,7 +19,6 @@
         "link button"
         "title button";
 
-      align-items: center;
 
       >a {
         grid-area: link;
@@ -66,11 +67,6 @@
         }
       }
     }
-
-    .main {
-
-      .mobile-view {}
-    }
   }
 }
 
@@ -84,6 +80,7 @@
         padding: 1.8rem 2.133333rem; //27px 32px
         row-gap: .266666rem;
         border-radius: .666666rem;
+
         >a {
           grid-area: link;
           font-size: .933333rem;
@@ -105,6 +102,38 @@
           grid-area: button;
         }
       }
+
+      main {
+
+        .large-screen-view>.roadmap {
+          display: flex;
+          justify-content: center;
+          column-gap: .666666rem;
+
+          .content .col__header {
+            margin-bottom: 1.6rem;
+          }
+
+          .content>.col__header>h2 {
+            font-weight: bold;
+            font-style: normal;
+            font-size: 1.2rem;
+            line-height: 26.01px;
+            letter-spacing: -.25px;
+            color: $night-blue;
+            margin-bottom: .266666rem;
+          }
+
+          .content>.col__header>p {
+            font-weight: 400;
+            font-style: normal;
+            font-size: .866666rem;
+            line-height: 18.79px;
+            color: $grey-blue;
+            margin-bottom: 1.6rem;
+          }
+        }
+      }
     }
   }
 }
@@ -119,6 +148,7 @@
         padding: 1.8rem 2.133333rem; //27px 32px
         row-gap: .266666rem;
         border-radius: .666666rem;
+
         >a {
           grid-area: link;
           font-size: .933333rem;
@@ -138,6 +168,23 @@
 
         .cta {
           grid-area: button;
+        }
+      }
+
+      main {
+
+        .large-screen-view>.roadmap {
+          column-gap: 2.133333rem;
+
+          .content .col__header {
+            margin-bottom: 2.133333rem;
+          }
+
+          .content>.col__header>p {
+            font-size: 1.066666rem;
+            line-height: 23.12px;
+            margin-bottom: 2.133333rem;
+          }
         }
       }
     }
