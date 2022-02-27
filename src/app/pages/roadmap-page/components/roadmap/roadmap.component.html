@@ -13,7 +13,44 @@
         <app-roadmap-mobile></app-roadmap-mobile>
       </div>
       <div class="large-screen-view hide-for-mobile">
-        Hide for mobile
+        <div class="roadmap">
+          <div class="col planned">
+            <div class="content">
+              <div class="col__header">
+                <h2>Planned ({{getPlannedSuggestionsCount()}})</h2>
+                <p>Ideas prioritized for research</p>
+              </div>
+              <div class="cards">
+                <app-status-card *ngFor="let suggestion of getPlannedSuggestions()" [suggestion]="suggestion">
+                </app-status-card>
+              </div>
+            </div>
+          </div>
+          <div class="col in-progress">
+            <div class="content">
+              <div class="col__header">
+                <h2>In-Progress ({{getInProgressSuggestionsCount()}})</h2>
+                <p>Currently being developed</p>
+              </div>
+              <div class="cards">
+                <app-status-card *ngFor="let suggestion of getInProgressSuggestions()" [suggestion]="suggestion">
+                </app-status-card>
+              </div>
+            </div>
+          </div>
+          <div class="col live">
+            <div class="content">
+              <div class="col__header">
+                <h2>PlannLive ({{getLiveSuggestionsCount()}})</h2>
+                <p>Released features</p>
+              </div>
+              <div class="cards">
+                <app-status-card *ngFor="let suggestion of getLiveSuggestions()" [suggestion]="suggestion">
+                </app-status-card>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
