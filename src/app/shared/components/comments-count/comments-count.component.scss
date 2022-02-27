@@ -1,0 +1,46 @@
+@import "../../../../sass/variables";
+@import "../../../../sass/colors";
+
+.root {
+  .wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    span {
+      font-weight: bold;
+      letter-spacing: -.18px;
+      color: $night-blue;
+      line-height: 18.79px;
+      font-size: .866666rem;
+      position: relative;
+
+      &::before {
+        content: url("/assets/shared/icon-comments.svg");
+        position: absolute;
+        right: 16px;
+        top: 1px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .root {
+    .wrapper {
+      display: flex;
+      span {
+        font-weight: bold;
+        color: $night-blue;
+        position: relative;
+        letter-spacing: -.22px;
+        line-height: 23.12px;
+        font-size: 1.066666rem;
+
+        &::before {
+          right: 1.266666rem;
+          top: 3px;
+        }
+      }
+    }
+  }
+}

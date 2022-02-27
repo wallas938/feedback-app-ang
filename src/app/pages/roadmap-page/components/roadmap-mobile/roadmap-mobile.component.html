@@ -1,0 +1,26 @@
+<div class="root">
+  <div class="wrapper">
+    <div class="tabs">
+      <div (click)="displayPlanned('planned')" class="tab" [ngClass]="{'planned': currentTab === 'planned'}">
+        <p>Planned ({{getPlannedCount()}})</p>
+      </div>
+      <div (click)="displayInProgress('in-progress')" class="tab" [ngClass]="{'in-progress': currentTab === 'in-progress'}">
+        <p>In-Progress ({{getInProgressCount()}})</p>
+      </div>
+      <div (click)="displayLive('live')" class="tab" [ngClass]="{'live': currentTab === 'live'}">
+        <p>Live ({{getLiveCount()}})</p>
+      </div>
+    </div>
+
+    <main class="status">
+      <h2>{{statusCount}}</h2>
+      <p>
+        {{statusText}}
+      </p>
+
+      <div class="cards">
+        <app-status-card *ngFor="let item of toDisplay" [suggestion]="item"></app-status-card>
+      </div>
+    </main>
+  </div>
+</div>

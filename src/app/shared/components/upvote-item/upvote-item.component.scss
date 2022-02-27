@@ -1,0 +1,53 @@
+@import "../../../../sass/variables";
+@import "../../../../sass/colors";
+
+.root {
+  background-color: $interactive-item-def;
+  border-radius: .666666rem;
+  padding: .4rem .866666rem .466666rem 0;
+  width: 4.6rem;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+
+  span {
+    font-weight: bold;
+    font-style: normal;
+    font-size: .866666rem;
+    letter-spacing: -.18px;
+    line-height: 18.79px;
+    color: $night-blue;
+  }
+
+  &::before {
+    content: url("/assets/shared/icon-arrow-up.svg");
+    position: absolute;
+    left: 1.066666rem;
+    bottom: .5rem;
+  }
+
+  &:hover {
+    background-color: $interactive-item-hover;
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .root {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    height: 3.533333rem;
+    width: 2.666666rem;
+    padding: .933333rem .6rem .533333rem .6rem;
+
+    &::before {
+      content: url("/assets/shared/icon-arrow-up.svg");
+      position: absolute;
+      left: unset;
+      bottom: unset;
+      top: 0.05rem;
+    }
+  }
+}

@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'suggestions', pathMatch: 'full' },
   { path: 'suggestions', component: SuggestionsComponent },
   { path: 'feedbacks', loadChildren: () => import('@/app/pages/feedback-page/feedback.module').then(m => m.FeedbackModule) },
+  { path: 'roadmap', loadChildren: () => import('@/app/pages/roadmap-page/roadmap.module').then(m => m.RoadmapModule) },
   { path: '**', redirectTo: '/suggestions', pathMatch: 'full' }
 ];
 
