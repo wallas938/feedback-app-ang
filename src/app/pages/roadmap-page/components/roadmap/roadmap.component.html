@@ -1,0 +1,20 @@
+<div class="root">
+  <div class="wrapper">
+    <header>
+      <a routerLink="/suggestions"> <svg width="7" height="10" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 9L2 5l4-4" stroke="#4661E6" stroke-width="2" fill="none" fill-rule="evenodd" /></svg> Go Back</a>
+      <p>Roadmap</p>
+      <div class="cta">
+        <a class="app-btn">+ Add Feedback</a>
+      </div>
+    </header>
+    <main>
+      <div class="mobile-view hide-for-tablet-and-desktop">
+        <app-roadmap-mobile></app-roadmap-mobile>
+      </div>
+      <div class="large-screen-view hide-for-mobile">
+        Hide for mobile
+      </div>
+    </main>
+  </div>
+</div>

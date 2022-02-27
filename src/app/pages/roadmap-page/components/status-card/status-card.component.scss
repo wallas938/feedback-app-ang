@@ -1,0 +1,106 @@
+@import "../../../../../sass/variables";
+@import "../../../../../sass/colors";
+
+.root {
+  margin-bottom: 1.066666rem;
+
+  .wrapper {
+    padding: 1.866666rem 1.6rem 1.6rem 1.6rem;
+    border-radius: .666666rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, auto);
+    grid-template-areas: "status status status"
+      "title    title   title"
+      "desc     desc    desc"
+      "category  category category"
+      "upvote   .       comments";
+
+    .status {
+      grid-area: status;
+      font-style: normal;
+      font-weight: 400;
+      font-size: .866666rem;
+      line-height: 18.79px;
+      color: $grey-blue;
+      margin-bottom: 1.066666rem;
+      padding-left: 1.066666rem;
+      position: relative;
+    }
+
+    .status::before {
+      content: "";
+      position: absolute;
+      width: .566666rem;
+      height: .566666rem;
+      left: 0;
+      top: .4rem;
+      border-radius: 100%;
+    }
+
+    .title {
+      grid-area: title;
+      font-style: normal;
+      font-weight: bold;
+      font-size: .866666rem;
+      line-height: 18.79px;
+      letter-spacing: -.18px;
+      margin-bottom: .933333rem;
+      color: $night-blue;
+    }
+
+    .description {
+      grid-area: desc;
+      font-style: normal;
+      font-weight: 400;
+      size: .866666rem;
+      line-height: 18.79px;
+      color: $grey-blue;
+      margin-bottom: .566666rem;
+    }
+
+    .category {
+      grid-area: category;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.066666rem;
+    }
+
+    .comments-count {
+      grid-area: comments;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  .planned {
+    background: linear-gradient(to bottom, $orange 0, $orange 6px, #fff 6px, #fff 100%);
+    .status::before {
+      content: "";
+      background-color: $orange;
+    }
+  }
+
+  .in-progress {
+    background: linear-gradient(to bottom, $violet 0, $violet 6px, #fff 6px, #fff 100%);
+    .status::before {
+      content: "";
+      background-color: $violet;
+    }
+  }
+
+  .live {
+    background: linear-gradient(to bottom, $sky-blue 0, $sky-blue 6px, #fff 6px, #fff 100%);
+    .status::before {
+      content: "";
+      background-color: $sky-blue;
+    }
+  }
+}
+
+@media screen and (min-width: $desktop-min) {
+  .root {
+    margin-bottom: 1.6rem;
+  }
+}

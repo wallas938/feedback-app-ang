@@ -1,0 +1,145 @@
+@import "../../../../../sass/variables";
+@import "../../../../../sass/colors";
+
+
+.root {
+
+  .wrapper {
+    header {
+      background-color: #373F68;
+      padding: 1.733333rem 1.6rem;
+      color: #fff;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      row-gap: .2rem;
+      grid-template-areas:
+        "link button"
+        "title button";
+
+      align-items: center;
+
+      >a {
+        grid-area: link;
+        margin-left: 1.066666rem;
+        font-weight: bold;
+        font-style: normal;
+        font-size: .866666rem;
+        line-height: 18.79px;
+        position: relative;
+      }
+
+      >a>svg {
+        position: absolute;
+        top: .333333rem;
+        left: -1.066666rem;
+      }
+
+      >a>svg path {
+        stroke: white;
+      }
+
+      >a:hover {
+        text-decoration: underline;
+      }
+
+      p {
+        grid-area: title;
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1.2rem;
+        line-height: 26.01px;
+        letter-spacing: -.25px;
+      }
+
+      .cta {
+        grid-area: button;
+        display: flex;
+        justify-content: flex-end;
+
+        >a {
+          background-color: $violet;
+        }
+
+        >a:hover {
+          background-color: $hovered-violet;
+        }
+      }
+    }
+
+    .main {
+
+      .mobile-view {}
+    }
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .root {
+
+    .wrapper {
+      padding: 3.733333rem 2.666666rem 6.333333rem 2.6rem;
+
+      header {
+        padding: 1.8rem 2.133333rem; //27px 32px
+        row-gap: .266666rem;
+        border-radius: .666666rem;
+        >a {
+          grid-area: link;
+          font-size: .933333rem;
+          line-height: 20.23px;
+        }
+
+        >a>svg {
+          top: .366666rem;
+        }
+
+        p {
+          grid-area: title;
+          font-size: 1.6rem;
+          line-height: 34.68px;
+          letter-spacing: -.33px;
+        }
+
+        .cta {
+          grid-area: button;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $desktop-min) {
+  .root {
+
+    .wrapper {
+      padding: 5.2rem 11rem 11.933333rem 11rem;
+
+      header {
+        padding: 1.8rem 2.133333rem; //27px 32px
+        row-gap: .266666rem;
+        border-radius: .666666rem;
+        >a {
+          grid-area: link;
+          font-size: .933333rem;
+          line-height: 20.23px;
+        }
+
+        >a>svg {
+          top: .366666rem;
+        }
+
+        p {
+          grid-area: title;
+          font-size: 1.6rem;
+          line-height: 34.68px;
+          letter-spacing: -.33px;
+        }
+
+        .cta {
+          grid-area: button;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+@import "../../../../../sass/variables";
+@import "../../../../../sass/colors";
+
+.root {
+
+  .wrapper {
+    padding-top: 1.333333rem;
+    padding-bottom: 6.533333rem;
+
+    .tabs {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-bottom: 1.6rem;
+      border-bottom: 1px solid rgba($color: $line-color, $alpha: .25);
+
+      .tab {
+        flex-basis: 8.333333rem;
+        padding-bottom: 1.1rem;
+        cursor: pointer;
+      }
+
+      .planned {
+        border-bottom: .266666rem solid $orange;
+      }
+
+      .in-progress {
+        border-bottom: .266666rem solid $violet;
+      }
+
+      .live {
+        border-bottom: .266666rem solid $sky-blue;
+      }
+
+      .tab:nth-child(2) > p {
+        color: $night-blue;
+      }
+
+      .tab p {
+        text-align: center;
+        font-weight: bold;
+        font-style: normal;
+        font-size: .866666rem;
+        line-height: 18.79px;
+        letter-spacing: -.18px;
+        color: rgba($color: $night-blue, $alpha: .4);
+      }
+    }
+
+    .status {
+      padding: 0 1.6rem;
+      h2 {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1.2rem;
+        line-height: 26.01px;
+        letter-spacing: -.25px;
+        color: $night-blue;
+        margin-bottom: .266666rem;
+      }
+
+      >p {
+        font-weight: 400;
+        font-style: normal;
+        font-size: .866666rem;
+        line-height: 18.79px;
+        color: $grey-blue;
+        margin-bottom: 1.6rem;
+      }
+
+      .cards {
+
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 Feedback app
 
 	-> suggestion item
-		  sur feedback detail conditionner la navigation au click sur le composant en fonction
-      du path
+		  revoir l'event click du composant car impossible de changer la valeur du upvote sans naviguer vers le detail
+      de la suggestion
 
   -> app-message
       faire apparaître ou non la border bottom en fonction de si oui ou non
@@ -10,3 +10,5 @@ Feedback app
 
   -> Filter component
       revoir la dropdown
+
+

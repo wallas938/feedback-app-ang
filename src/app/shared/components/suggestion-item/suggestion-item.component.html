@@ -7,13 +7,13 @@
       </app-category-chips>
     </div>
     <div class="upvotes">
-      <div class="grid-item">
-        <span>{{suggestion?.upvotes}}</span>
-      </div>
+      <app-upvote-item [upvotes]="suggestion?.upvotes"></app-upvote-item>
     </div>
     <div class="comments-count">
-      <div class="grid-item">
-        <span>{{suggestion?.comments ? getMessagesCount(suggestion.comments) : 0}}</span>
-      </div>
+      <app-comments-count>
+        {{suggestion?.comments ? getMessagesCount(suggestion.comments) : 0}}
+      </app-comments-count>
+<!--         <span>{{suggestion?.comments ? getMessagesCount(suggestion.comments) : 0}}</span>
+ -->
     </div>
 </div>

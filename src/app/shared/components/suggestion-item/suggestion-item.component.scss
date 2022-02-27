@@ -16,12 +16,12 @@
     "upvotes comments";
 
 
-    &:hover {
+  &:hover {
 
-      .title {
-        color: $strong-blue;
-      }
+    .title {
+      color: $strong-blue;
     }
+  }
 
 
   .title,
@@ -56,61 +56,13 @@
 
   .upvotes {
     grid-area: upvotes;
-
-    .grid-item {
-      background-color: $interactive-item-def;
-      border-radius: .666666rem;
-      padding: .4rem .866666rem .466666rem 0;
-      width: 4.6rem;
-      display: flex;
-      justify-content: flex-end;
-      position: relative;
-    }
-
-    .grid-item span {
-      font-weight: bold;
-      font-style: normal;
-      font-size: .866666rem;
-      letter-spacing: -.18px;
-      line-height: 18.79px;
-      color: $night-blue;
-    }
-
-    .grid-item::before {
-      content: url("/assets/shared/icon-arrow-up.svg");
-      position: absolute;
-      left: 1.066666rem;
-      bottom: .5rem;
-    }
-
-    .grid-item:hover {
-      background-color: $interactive-item-hover;
-    }
   }
 
   .comments-count {
-    position: relative;
     grid-area: comments;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
-    .grid-item {}
-
-    .grid-item>span {
-      font-weight: bold;
-      letter-spacing: -.18px;
-      color: $night-blue;
-      line-height: 18.79px;
-      font-size: .866666rem;
-    }
-  }
-
-  .comments-count::before {
-    content: url("/assets/shared/icon-comments.svg");
-    position: absolute;
-    right: 16px;
-    top: 9px;
   }
 }
 
@@ -170,28 +122,15 @@
     }
 
     .comments-count {
-      position: relative;
       grid-area: comments;
       display: flex;
-      justify-content: flex-end;
       align-items: flex-start;
-
-      .grid-item {
-        padding-top: 2px;
-      }
-
-      .grid-item>span {
+      padding-top: 6px;
+      /* span {
         letter-spacing: -.22px;
         line-height: 23.12px;
         font-size: 1.066666rem;
-      }
-    }
-
-    .comments-count::before {
-      content: url("/assets/shared/icon-comments.svg");
-      position: absolute;
-      right: 16px;
-      top: 7px;
+      } */
     }
   }
 }
