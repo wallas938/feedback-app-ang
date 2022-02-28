@@ -19,6 +19,13 @@
       .suggestions {
         padding: 0 1.6rem 3.666666rem 1.6rem;
       }
+
+      .loading-container {
+        height: 25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 
@@ -35,6 +42,7 @@
       }
 
       .main {
+
         .filter {
           background-color: inherit;
           margin-bottom: 1.6rem;
@@ -43,6 +51,10 @@
         .suggestions {
           padding-left: 0;
           padding-right: 0;
+        }
+
+        .loading-container {
+          height: 15rem;
         }
       }
     }
@@ -58,6 +70,10 @@
 
       .main {
         flex: 1;
+
+        .loading-container {
+          height: 20rem;
+        }
       }
     }
   }
