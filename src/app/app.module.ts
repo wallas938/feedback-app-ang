@@ -11,6 +11,8 @@ import { LargeScreenHeaderComponent } from './pages/suggestions/components/large
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from 'store/reducers/index';
+import { EffectsModule } from '@ngrx/effects';
+import { SuggestionEffects } from 'store/effects/suggestion.effects';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { reducers } from 'store/reducers/index';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    EffectsModule.forRoot([SuggestionEffects]),
     StoreModule.forRoot(reducers)
   ],
   providers: [],
