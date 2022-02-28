@@ -9,10 +9,12 @@
         <app-suggestions-filter *ngIf="true"></app-suggestions-filter>
       </div>
       <div class="suggestions container">
-        <app-suggestions-empty *ngIf="!data;else suggestions"></app-suggestions-empty>
-        <ng-template #suggestions>
+        <app-suggestions-empty *ngIf="!!suggestions;else suggestionList">
+        </app-suggestions-empty>
+
+        <ng-template #suggestionList>
           <div class="suggestions-list">
-            <app-suggestion-item *ngFor="let suggestion of data.productRequests" [suggestion]="suggestion">
+            <app-suggestion-item *ngFor="let suggestion of suggestions" [suggestion]="suggestion">
             </app-suggestion-item>
           </div>
         </ng-template>
