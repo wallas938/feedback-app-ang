@@ -12,7 +12,12 @@
     line-height: 18.79px;
     background-color: $light-white;
     text-transform: capitalize;
-    // background-color: $strong-blue;
     border-radius: .666666rem;
+    cursor: pointer;
+  }
+
+  .--selected {
+    background-color: $strong-blue;
+    color:  #fff;
   }
 }

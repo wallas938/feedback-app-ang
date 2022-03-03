@@ -26,7 +26,7 @@ export class SuggestionsComponent implements OnInit {
       this.suggestions = state.suggestions;
       this.loadingState = state.loadingState;
       if (!state.filterBy) {
-        this.store.dispatch(new SuggestionActions.FetchSuggestionsStart(fromSuggestions.FILTER.MOST_UPVOTES))
+        this.store.dispatch(new SuggestionActions.FetchSuggestionsStart({_filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES}))
       }
     });
   }

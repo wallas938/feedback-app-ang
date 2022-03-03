@@ -1,5 +1,5 @@
 <div class="root">
-  <div class="wrapper">
-    <ng-content></ng-content>
+  <div (click)="onSetFilter()" class="wrapper" [ngClass]="{'--selected': selected}">
+    {{categoryValue}}
   </div>
 </div>

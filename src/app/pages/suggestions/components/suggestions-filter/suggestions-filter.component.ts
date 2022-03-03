@@ -51,21 +51,23 @@ import { Router } from '@angular/router';
 })
 export class SuggestionsFilterComponent implements OnInit {
   suggestionsCount: number;
-  showFilter = false;
+  showSortBy = false;
   arrowState = 'arrowDown';
-  currentFilter: fromSuggestions.FILTER;
+  currentFilterValue: fromSuggestions.FILTER;
+  currentSortValue: fromSuggestions.SORT;
   constructor(private store: Store<fromApp.AppState>, private router: Router) { }
 
   ngOnInit(): void {
     this.store.select('suggestions').subscribe(
       (state: fromSuggestions.State) => {
         this.suggestionsCount = state.suggestions.length;
-        this.currentFilter = state.filterBy
+        this.currentSortValue = state.sortBy;
+        this.currentFilterValue = state.filterBy;
       })
   }
 
-  onToggleFilter() {
-    this.showFilter = !this.showFilter;
+  onToggleSort() {
+    this.showSortBy = !this.showSortBy;
     switch (this.arrowState) {
       case 'arrowDown':
         this.arrowState = 'arrowUp';
@@ -80,32 +82,32 @@ export class SuggestionsFilterComponent implements OnInit {
     }
   }
 
-  onSelectFilter(filter: string) {
-    switch (filter) {
-      case fromSuggestions.FILTER.MOST_UPVOTES:
-        this.currentFilter = fromSuggestions.FILTER.MOST_UPVOTES;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart(fromSuggestions.FILTER.MOST_UPVOTES));
-        this.onToggleFilter();
+  onSelectSort(sortValue: string) {
+    switch (sortValue) {
+      case fromSuggestions.SORT.MOST_UPVOTES:
+        this.currentSortValue = fromSuggestions.SORT.MOST_UPVOTES;
+        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({_filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_UPVOTES}));
+        this.onToggleSort();
         break;
-      case fromSuggestions.FILTER.LEAST_UPVOTES:
-        this.currentFilter = fromSuggestions.FILTER.LEAST_UPVOTES;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart(fromSuggestions.FILTER.LEAST_UPVOTES));
-        this.onToggleFilter();
+      case fromSuggestions.SORT.LEAST_UPVOTES:
+        this.currentSortValue = fromSuggestions.SORT.LEAST_UPVOTES;
+        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({_filter: this.currentFilterValue, _sort: fromSuggestions.SORT.LEAST_UPVOTES}));
+        this.onToggleSort();
         break;
-      case fromSuggestions.FILTER.MOST_COMMENTS:
-        this.currentFilter = fromSuggestions.FILTER.MOST_COMMENTS;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart(fromSuggestions.FILTER.MOST_COMMENTS));
-        this.onToggleFilter();
+      case fromSuggestions.SORT.MOST_COMMENTS:
+        this.currentSortValue = fromSuggestions.SORT.MOST_COMMENTS;
+        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({_filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_COMMENTS}));
+        this.onToggleSort();
         break;
-      case fromSuggestions.FILTER.LEAST_COMMENTS:
-        this.currentFilter = fromSuggestions.FILTER.LEAST_COMMENTS;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart(fromSuggestions.FILTER.LEAST_COMMENTS));
-        this.onToggleFilter();
+      case fromSuggestions.SORT.LEAST_COMMENTS:
+        this.currentSortValue = fromSuggestions.SORT.LEAST_COMMENTS;
+        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({_filter: this.currentFilterValue, _sort: fromSuggestions.SORT.LEAST_COMMENTS}));
+        this.onToggleSort();
         break;
       default:
-        this.currentFilter = fromSuggestions.FILTER.MOST_COMMENTS;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart(fromSuggestions.FILTER.MOST_UPVOTES));
-        this.onToggleFilter();
+        this.currentSortValue = fromSuggestions.SORT.MOST_COMMENTS;
+        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({_filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_COMMENTS}));
+        this.onToggleSort();
         break;
     }
   }

@@ -11,18 +11,18 @@
       </p>
 
       <div class="sort">
-        Sort by : <span class="sortby" (click)="onToggleFilter()">{{ currentFilter }}</span>
+        Sort by : <span class="sortby" (click)="onToggleSort()">{{ currentSortValue }}</span>
         <svg [@rotate]="arrowState" width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" stroke="#4661E6" stroke-width="2" fill="none" fill-rule="evenodd"/></svg>
 
-        <div [@dropdown] *ngIf="showFilter" class="dropdown">
+        <div [@dropdown] *ngIf="showSortBy" class="dropdown">
           <ul class="sort-values">
-            <li (click)="onSelectFilter('Most Upvotes')"><span>Most Upvotes</span> <svg *ngIf="currentFilter === 'Most Upvotes'" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+            <li (click)="onSelectSort('Most Upvotes')"><span>Most Upvotes</span> <svg *ngIf="currentSortValue === 'Most Upvotes'" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
                 <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
-            <li (click)="onSelectFilter('Least Upvotes')"><span>Least Upvotes</span> <svg *ngIf="currentFilter === 'Least Upvotes'" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+            <li (click)="onSelectSort('Least Upvotes')"><span>Least Upvotes</span> <svg *ngIf="currentSortValue === 'Least Upvotes'" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
                 <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
-            <li (click)="onSelectFilter('Most Comments')"><span>Most Comments</span> <svg *ngIf="currentFilter === 'Most Comments'" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
+            <li (click)="onSelectSort('Most Comments')"><span>Most Comments</span> <svg *ngIf="currentSortValue === 'Most Comments'" xmlns="http://www.w3.org/2000/svg" width="13" height="11">
                 <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
-            <li (click)="onSelectFilter('Least Comments')"><span>Least Comments</span> <svg *ngIf="currentFilter === 'Least Comments'" xmlns="http://www.w3.org/2000/svg" width="13"
+            <li (click)="onSelectSort('Least Comments')"><span>Least Comments</span> <svg *ngIf="currentSortValue === 'Least Comments'" xmlns="http://www.w3.org/2000/svg" width="13"
                 height="11">
                 <path fill="none" stroke="#AD1FEA" stroke-width="2" d="M1 5.233L4.522 9 12 1" /></svg></li>
           </ul>
