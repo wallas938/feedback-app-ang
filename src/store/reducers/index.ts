@@ -7,7 +7,6 @@ export interface AppState {
   suggestions: fromSuggestions.State;
 }
 
-
 export const reducers: ActionReducerMap<AppState, any> = {
     suggestions: fromSuggestions.suggestionReducer
 };

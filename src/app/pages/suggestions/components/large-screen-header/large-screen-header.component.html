@@ -5,8 +5,7 @@
       <p>Feedback Board</p>
     </div>
     <div class="categories card">
-      <app-category-chips *ngFor="let category of categories">
-        {{category}}
+      <app-category-chips [categoryValue]="category" *ngFor="let category of categories">
       </app-category-chips>
     </div>
     <div class="roadmap card">

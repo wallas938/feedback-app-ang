@@ -1,5 +1,6 @@
 Feedback app
 
-
+    -> Suggestion Item
+        ne plus utiliser le composant category chips . Utiliser simple css
 
 

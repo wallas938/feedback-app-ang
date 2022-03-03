@@ -31,9 +31,6 @@ export class FeedbackFormComponent implements OnInit {
           if (resolverData['feedback']) {
             this.feedback = resolverData['feedback'].payload;
           }
-
-          console.log(this.isEditMode);
-
         }
       )
   }

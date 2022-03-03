@@ -6,11 +6,26 @@ export enum FORM_MODES {
   FORM_EDITING_MODE = "FORM_EDITING_MODE",
 }
 
-export enum FILTER {
+export enum SORT {
   MOST_UPVOTES = "Most Upvotes",
   LEAST_UPVOTES = "Least Upvotes",
   MOST_COMMENTS = "Most Comments",
   LEAST_COMMENTS = "Least Comments"
+}
+
+export enum FILTER {
+  BY_ALL = "BY_ALL",
+  BY_BUG = "BY_BUG",
+  BY_ENHANCEMENT = "BY_ENHANCEMENT",
+  BY_UI = "BY_UI",
+  BY_UX = "BY_UX",
+  BY_FEATURE = "BY_FEATURE",
+}
+
+export interface SuggestionsQuery {
+  _sort: SORT,
+  _filter: FILTER,
+  type?: SuggestionActions.SuggestionActionsTypes
 }
 
 export interface State {
@@ -18,6 +33,7 @@ export interface State {
   suggestion: Suggestion;
   loadingState: boolean;
   formMode: FORM_MODES;
+  sortBy: SORT,
   filterBy: FILTER
 }
 
@@ -55,25 +71,30 @@ const initialState: State = {
   suggestion: null,
   loadingState: false,
   formMode: FORM_MODES.FORM_ADDING_MODE,
-  filterBy: null
+  filterBy: null,
+  sortBy: null
 }
 
 export function suggestionReducer(state: State = initialState, action: SuggestionActions.SuggestionActionsTypes) {
   switch (action.type) {
     case SuggestionActions.FETCHING_SUGGESTIONS_START:
-
       return {
         ...state,
         loadingState: true,
-        filterBy: action.payload
+        filterBy: action.query._filter,
+        sortBy: action.query._sort,
       }
     case SuggestionActions.FETCHING_SUGGESTIONS_SUCCEEDED:
-      console.log(action.payload);
-
       return {
         ...state,
         loadingState: false,
         suggestions: [...action.payload]
+      }
+    case SuggestionActions.FETCHING_SUGGESTIONS_FAILED:
+
+      return {
+        ...state,
+        loadingState: false
       }
     case SuggestionActions.FETCHING_ONE_SUGGESTION_START:
 
@@ -98,25 +119,6 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         ...state,
         formMode: FORM_MODES.FORM_EDITING_MODE
       }
-    /* case SuggestionActions.FILTER_BY_MOST_UPVOTES:
-      return {
-        ...state,
-        loadingState: true
-      }
-    case SuggestionActions.FILTER_BY_LEAST_UPVOTES:
-      return {
-        ...state,
-        loadingState: false,
-      }
-    case SuggestionActions.FILTER_BY_MOST_COMMENTS:
-
-      return {
-        ...state,
-      }
-    case SuggestionActions.FILTER_BY_LEAST_COMMENTS:
-      return {
-        ...state,
-      } */
     default:
       return {
         ...state,

@@ -20,19 +20,31 @@ export const FETCHING_ONE_SUGGESTION_FAILED = '[Suggestions]  FETCHING_ONE_SUGGE
 export const FORM_ADDING_MODE = '[Suggestions]  FORM_ADDING_MODE';
 export const FORM_EDITING_MODE = '[Suggestions]  FORM_EDITING_MODE';
 
+/* SUGGESTIONS SORTS IDENTIFIERS */
+
+export const SORT_BY_MOST_UPVOTES = '[Suggestions]  SORT_BY_MOST_UPVOTES';
+export const SORT_BY_LEAST_UPVOTES = '[Suggestions]  SORT_BY_LEAST_UPVOTES';
+export const SORT_BY_MOST_COMMENTS = '[Suggestions]  SORT_BY_MOST_COMMENTS';
+export const SORT_BY_LEAST_COMMENTS = '[Suggestions]  SORT_BY_LEAST_COMMENTS';
+
+
 /* SUGGESTIONS FILTERS IDENTIFIERS */
 
-export const FILTER_BY_MOST_UPVOTES = '[Suggestions]  FILTER_BY_MOST_UPVOTES';
-export const FILTER_BY_LEAST_UPVOTES = '[Suggestions]  FILTER_BY_LEAST_UPVOTES';
-export const FILTER_BY_MOST_COMMENTS = '[Suggestions]  FILTER_BY_MOST_COMMENTS';
-export const FILTER_BY_LEAST_COMMENTS = '[Suggestions]  FILTER_BY_LEAST_COMMENTS';
+/* export const FILTER_BY = '[Suggestions]  FILTER_BY';
+
+export const FILTER_BY_ALL = '[Suggestions]  FILTER_BY_ALL';
+export const FILTER_BY_UI = '[Suggestions]  FILTER_BY_UI';
+export const FILTER_BY_UX = '[Suggestions]  FILTER_BY_UX';
+export const FILTER_BY_ENHANCEMENT = '[Suggestions]  FILTER_BY_ENHANCEMENT';
+export const FILTER_BY_FEATURE = '[Suggestions]  FILTER_BY_FEATURE';
+export const FILTER_BY_BUG = '[Suggestions]  FILTER_BY_BUG'; */
 
 
 /* FETCH SUGGESTIONS ACTIONS */
 
 export class FetchSuggestionsStart implements Action {
   readonly type = FETCHING_SUGGESTIONS_START;
-  constructor(public payload: fromSuggestions.FILTER) {}
+  constructor(public query: fromSuggestions.SuggestionsQuery) { }
 }
 
 export class FetchSuggestionsSucceeded implements Action {
@@ -45,6 +57,7 @@ export class FetchSuggestionsSucceeded implements Action {
 
 export class FetchSuggestionsFailed implements Action {
   readonly type = FETCHING_SUGGESTIONS_FAILED;
+  constructor(public payload: any) { }
 }
 
 /* FETCH ONE SUGGESTION ACTIONS */
@@ -58,7 +71,7 @@ export class FetchOneSuggestionStart implements Action {
 
 export class FetchOneSuggestionSucceeded implements Action {
   readonly type = FETCHING_ONE_SUGGESTION_SUCCEEDED;
-  constructor(public payload: fromSuggestions.Suggestion) {}
+  constructor(public payload: fromSuggestions.Suggestion) { }
 }
 
 export class FetchOneSuggestionFailed implements Action {
@@ -75,28 +88,54 @@ export class FormEditingMode implements Action {
   readonly type = FORM_EDITING_MODE;
 }
 
-/* SUGGESTIONS FILTERS ACTIONS */
+/* SUGGESTIONS SORT ACTIONS */
 
-export class FilterByMostUpvotes implements Action {
-  readonly type = FILTER_BY_MOST_UPVOTES;
+export class SortByMostUpvotes implements Action {
+  readonly type = SORT_BY_MOST_UPVOTES;
 }
 
-export class FilterByLeastUpvotes implements Action {
-  readonly type = FILTER_BY_LEAST_UPVOTES;
+export class SortByLeastUpvotes implements Action {
+  readonly type = SORT_BY_LEAST_UPVOTES;
 }
 
-export class FilterByMostComments implements Action {
-  readonly type = FILTER_BY_MOST_COMMENTS;
+export class SortByMostComments implements Action {
+  readonly type = SORT_BY_MOST_COMMENTS;
 }
 
-export class FilterByLeastComments implements Action {
-  readonly type = FILTER_BY_LEAST_COMMENTS;
+export class SortByLeastComments implements Action {
+  readonly type = SORT_BY_LEAST_COMMENTS;
 }
+
+/* export class FilterByUi implements Action {
+  readonly type = FILTER_BY_UI;
+}
+
+export class FilterByUx implements Action {
+  readonly type = FILTER_BY_UX;
+}
+
+export class FilterByEnhancement implements Action {
+  readonly type = FILTER_BY_ENHANCEMENT;
+}
+export class FilterByBug implements Action {
+  readonly type = FILTER_BY_BUG;
+}
+
+export class FilterByFeature implements Action {
+  readonly type = FILTER_BY_FEATURE;
+} */
 
 export type SuggestionActionsTypes =
   FetchSuggestionsStart | FetchSuggestionsSucceeded | FetchSuggestionsFailed |
   FetchOneSuggestionStart | FetchOneSuggestionSucceeded | FetchOneSuggestionFailed |
-  FormAddingMode | FormEditingMode | FilterByMostUpvotes | FilterByLeastUpvotes |
-  FilterByMostComments | FilterByLeastComments;
+  FormAddingMode | FormEditingMode | SortByMostUpvotes | SortByLeastUpvotes |
+  SortByMostComments | SortByLeastComments;
+
+/* FetchSuggestionsStart | FetchSuggestionsSucceeded | FetchSuggestionsFailed |
+FetchOneSuggestionStart | FetchOneSuggestionSucceeded | FetchOneSuggestionFailed |
+FormAddingMode | FormEditingMode | SortByMostUpvotes | SortByLeastUpvotes |
+SortByMostComments | SortByLeastComments |
+FilterByAll | FilterByUi | FilterByUx | FilterByEnhancement |
+FilterByBug | FilterByFeature; */
 
 

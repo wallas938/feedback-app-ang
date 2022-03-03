@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromApp from 'store/reducers/index';
 
@@ -13,35 +13,61 @@ export class SuggestionService {
 
   constructor(private http: HttpClient, private store: Store<fromApp.AppState>) { }
 
-  fetchSuggestions(filterBy: fromSuggestions.FILTER): Observable<fromSuggestions.Suggestion[]> {
-    this.setRequestQueries(filterBy)
-    return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}?_sort=${this.setRequestQueries(filterBy)._sort}&_order=${this.setRequestQueries(filterBy)._order}`);
+  fetchSuggestions(query: fromSuggestions.SuggestionsQuery): Observable<fromSuggestions.Suggestion[]> {
+    this.setRequestQueries(query);
+    return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}?${this.setRequestQueries(query)._filter}_sort=${this.setRequestQueries(query)._sort}&_order=${this.setRequestQueries(query)._order}`);
   }
 
   fetchSuggestion(id: string): Observable<fromSuggestions.Suggestion> {
     return this.http.get<fromSuggestions.Suggestion>(`${this.suggestionsUrl}/${id}`)
   }
 
-  setRequestQueries(filterBy: fromSuggestions.FILTER): { _sort: string, _order: string } {
-    const filter = filterBy.toString().toLowerCase().split(' ');
-    const sortBy = filter[1] === 'comments' ? 'comments.length,comments.replies.length' : filter[1];
+  setRequestQueries({ _filter, _sort }: fromSuggestions.SuggestionsQuery): { _sort: string, _order: string, _filter: string } {
+    const sortTab = _sort.toLowerCase().split(' ');
+    const sortBy = sortTab[1] === 'comments' ? 'comments.length,comments.replies.length' : sortTab[1];
     let order;
+    let filter;
 
-    switch (filter[0]) {
+    switch (sortTab[0]) {
       case 'most':
-        order = filter[1] === 'comments' ? 'desc,desc' : 'desc';
+        order = sortTab[1] === 'comments' ? 'desc,desc' : 'desc';
         break;
       case 'least':
-        order = filter[1] === 'comments' ? 'asc,asc' : 'asc';
+        order = sortTab[1] === 'comments' ? 'asc,asc' : 'asc';
         break;
 
       default:
-        order = filter[1] === 'comments' ? 'desc,desc' : 'desc';
+        order = sortTab[1] === 'comments' ? 'desc,desc' : 'desc';
+        break;
+    }
+
+    switch (_filter) {
+      case fromSuggestions.FILTER.BY_ALL:
+        filter = ''
+        break;
+      case fromSuggestions.FILTER.BY_BUG:
+        filter = 'category=bug&'
+        break;
+      case fromSuggestions.FILTER.BY_ENHANCEMENT:
+        filter = 'category=enhancement&'
+        break;
+      case fromSuggestions.FILTER.BY_FEATURE:
+        filter = 'category=feature&'
+        break;
+      case fromSuggestions.FILTER.BY_UI:
+        filter = 'category=ui&'
+        break;
+      case fromSuggestions.FILTER.BY_UX:
+        filter = 'category=ux&'
+        break;
+      default:
+        filter = ''
         break;
     }
     return {
       _sort: sortBy,
-      _order: order
+      _order: order,
+      _filter: filter
     }
   }
 }
