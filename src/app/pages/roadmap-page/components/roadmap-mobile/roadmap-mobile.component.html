@@ -18,7 +18,7 @@
         {{statusText}}
       </p>
 
-      <div class="cards">
+      <div [@fadeInOutX] class="cards">
         <app-status-card *ngFor="let item of toDisplay" [suggestion]="item"></app-status-card>
       </div>
     </main>

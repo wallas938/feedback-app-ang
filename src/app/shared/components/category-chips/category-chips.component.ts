@@ -21,7 +21,7 @@ export class CategoryChipsComponent implements OnInit {
   ngOnInit() {
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
       this.sortBy = state.sortBy;
-      this.selected = (!state.filterBy && this.categoryValue.toLowerCase() === "all") && true;
+      this.selected = (!state.filterBy && this.categoryValue?.toLowerCase() === "all") && true;
       this.selected = state.filterBy?.toLowerCase().includes(this.categoryValue?.toLowerCase()) && true;
     })
   }
