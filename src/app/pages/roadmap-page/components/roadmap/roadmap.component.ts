@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
+import * as fadeAnimations from '@/app/shared/animations/fade';
 
 @Component({
   selector: 'app-roadmap',
   templateUrl: './roadmap.component.html',
-  styleUrls: ['./roadmap.component.scss']
+  styleUrls: ['./roadmap.component.scss'],
+  animations: [
+    fadeAnimations.fadeInOutY,
+    fadeAnimations.fadeInOutX
+  ]
 })
 export class RoadmapComponent implements OnInit {
 

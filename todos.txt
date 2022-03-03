@@ -1,14 +1,5 @@
 Feedback app
 
-	-> suggestion item
-		  revoir l'event click du composant car impossible de changer la valeur du upvote sans naviguer vers le detail
-      de la suggestion
 
-  -> app-message
-      faire apparaître ou non la border bottom en fonction de si oui ou non
-      le message principale a des reponses
-
-  -> Filter component
-      revoir la dropdown
 
 
