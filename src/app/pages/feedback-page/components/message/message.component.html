@@ -11,7 +11,7 @@
           <p class="username">@{{message.user.username}}</p>
         </div>
         <div class="reply">
-          <button class="app-btn">Reply</button>
+          <button (click)="onReply()" class="app-btn">Reply</button>
         </div>
       </div>
       <div class="body">
@@ -19,12 +19,11 @@
           <span class="replyingTo" *ngIf="message.replyingTo">@{{message.replyingTo}}</span>
           {{message.content}}
         </p>
-        <form *ngIf="true" class="form-reply">
-          <textarea placeholder="Reply here"></textarea>
-          <button class="app-btn">Post Reply</button>
-        </form>
+          <form [@reply-form-animation] *ngIf="reply" class="form-reply">
+            <textarea placeholder="Reply here"></textarea>
+            <button class="app-btn">Post Reply</button>
+          </form>
       </div>
-
     </div>
     <div *ngIf="message.replies" class="replies">
       <app-message *ngFor="let reply of message.replies" [message]="reply" [isMain]="false"></app-message>

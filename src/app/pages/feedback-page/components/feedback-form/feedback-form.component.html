@@ -3,8 +3,8 @@
     <div class="top">
       <a routerLink="/suggestions">Go Back</a>
     </div>
-    <form>
-      <img [src]="true ? '/assets/shared/icon-new-feedback.svg' : '/assets/shared/icon-edit-feedback.svg'" alt="plus icon">
+    <form [@fadeInOutY]>
+      <img [src]="isEditMode ?  '/assets/shared/icon-edit-feedback.svg' : '/assets/shared/icon-new-feedback.svg'" alt="plus icon">
       <h1>Create New Feedback</h1>
       <div class="form-field title">
         <label for="title">Feddback Title</label>
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="form-field update-status">
+      <div *ngIf="isEditMode" class="form-field update-status">
         <label for="update-status">Update Status</label>
         <small>Change feature state</small>
         <div class="select-container">

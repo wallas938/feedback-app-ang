@@ -1,19 +1,19 @@
-<div class="root" (click)="goFeedback(suggestion?.id)">
-  <p class="title">{{suggestion?.title}}</p>
-    <p class="description">{{suggestion?.description}}</p>
-    <div class="category">
-      <app-category-chips>
-        {{suggestion?.category}}
-      </app-category-chips>
-    </div>
-    <div class="upvotes">
-      <app-upvote-item [upvotes]="suggestion?.upvotes"></app-upvote-item>
-    </div>
-    <div class="comments-count">
-      <app-comments-count>
-        {{suggestion?.comments ? getMessagesCount(suggestion.comments) : 0}}
-      </app-comments-count>
-<!--         <span>{{suggestion?.comments ? getMessagesCount(suggestion.comments) : 0}}</span>
+<div class="root">
+  <p class="title" (click)="goFeedback(suggestion?.id)">{{suggestion?.title}}</p>
+  <p class="description" (click)="goFeedback(suggestion?.id)">{{suggestion?.description}}</p>
+  <div class="category" (click)="goFeedback(suggestion?.id)">
+    <app-category-chips>
+      {{suggestion?.category}}
+    </app-category-chips>
+  </div>
+  <div class="upvotes">
+    <app-upvote-item [upvotes]="suggestion?.upvotes"></app-upvote-item>
+  </div>
+  <div class="comments-count">
+    <app-comments-count>
+      {{suggestion?.comments ? getMessagesCount(suggestion.comments) : 0}}
+    </app-comments-count>
+    <!--         <span>{{suggestion?.comments ? getMessagesCount(suggestion.comments) : 0}}</span>
  -->
-    </div>
+  </div>
 </div>
