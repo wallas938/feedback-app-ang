@@ -1,10 +1,10 @@
 <div class="root">
   <p class="title" (click)="goFeedback(suggestion?.id)">{{suggestion?.title}}</p>
-  <p class="description" (click)="goFeedback(suggestion?.id)">{{suggestion?.description}}</p>
-  <div class="category" (click)="goFeedback(suggestion?.id)">
-    <app-category-chips>
+  <p class="description">{{suggestion?.description}}</p>
+  <div class="category">
+    <span class="chips">
       {{suggestion?.category}}
-    </app-category-chips>
+    </span>
   </div>
   <div class="upvotes">
     <app-upvote-item [upvotes]="suggestion?.upvotes"></app-upvote-item>

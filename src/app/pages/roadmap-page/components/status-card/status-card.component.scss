@@ -47,6 +47,11 @@
       letter-spacing: -.18px;
       margin-bottom: .933333rem;
       color: $night-blue;
+      cursor: pointer;
+
+      &:hover {
+        color: $strong-blue;
+      }
     }
 
     .description {
@@ -66,6 +71,18 @@
       margin-bottom: 1.066666rem;
     }
 
+    .category>.chips {
+      padding: .333333rem 1.066666rem; //5px //16px
+      color: $strong-blue;
+      font-weight: 600;
+      font-style: normal;
+      font-size: .866666rem;
+      line-height: 18.79px;
+      background-color: $light-white;
+      text-transform: capitalize;
+      border-radius: .666666rem;
+    }
+
     .comments-count {
       grid-area: comments;
       display: flex;
@@ -76,6 +93,7 @@
 
   .planned {
     background: linear-gradient(to bottom, $orange 0, $orange 6px, #fff 6px, #fff 100%);
+
     .status::before {
       content: "";
       background-color: $orange;
@@ -84,6 +102,7 @@
 
   .in-progress {
     background: linear-gradient(to bottom, $violet 0, $violet 6px, #fff 6px, #fff 100%);
+
     .status::before {
       content: "";
       background-color: $violet;
@@ -92,6 +111,7 @@
 
   .live {
     background: linear-gradient(to bottom, $sky-blue 0, $sky-blue 6px, #fff 6px, #fff 100%);
+
     .status::before {
       content: "";
       background-color: $sky-blue;
