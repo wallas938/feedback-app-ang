@@ -7,9 +7,9 @@
     <p class="title">{{suggestion.title}}</p>
     <p class="description">{{suggestion.description}}</p>
     <div class="category">
-      <app-category-chips>
+      <span class="chips">
         {{suggestion.category}}
-      </app-category-chips>
+      </span>
     </div>
     <div class="upvote">
       <app-upvote-item [upvotes]="suggestion.upvotes"></app-upvote-item>
