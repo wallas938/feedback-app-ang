@@ -14,6 +14,8 @@ import { reducers } from 'store/reducers/index';
 import { EffectsModule } from '@ngrx/effects';
 import { SuggestionEffects } from 'store/effects/suggestion.effects';
 import { MobileSideNavComponent } from './pages/suggestions/components/mobile-side-nav/mobile-side-nav.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { MobileSideNavComponent } from './pages/suggestions/components/mobile-si
     BrowserAnimationsModule,
     SharedModule,
     EffectsModule.forRoot([SuggestionEffects]),
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

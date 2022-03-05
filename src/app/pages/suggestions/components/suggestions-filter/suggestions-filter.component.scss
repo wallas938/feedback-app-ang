@@ -1,80 +1,97 @@
 @import "../../../../../sass/variables";
 @import "../../../../../sass/colors";
 
-.root {
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.6rem;
-  .left-side {
+div {
+  position: relative;
+
+  .root {
+    color: white;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.6rem;
+    height: 3.733333rem;
 
-    .sort {
-      font-weight: 400;
-      font-style: normal;
-      font-size: .933333rem;
-      line-height: 20.23px;
-      position: relative;
-      cursor: pointer;
-    }
+    .left-side {
+      display: flex;
 
-    .sort:hover {
-      color: rgba($color: $interactive-item-def, $alpha: .75);
-    }
-
-    .sort>svg {
-      margin-left: .533333rem;
-    }
-
-    .sort>svg>path {
-      stroke: white;
-    }
-
-    .dropdown {
-      position: absolute;
-      background-color: #fff;
-      top: 4rem;
-      z-index: 5;
-      width: 17rem;
-      height: 12.8rem;
-      border-radius: .666666rem;
-      box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
-
-      ul li {
-        padding: .8rem 1.6rem;
-        color: $grey-blue;
+      .sort {
         font-weight: 400;
-        font-size: 1.066666rem;
-        line-height: 23.12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        font-style: normal;
+        font-size: .933333rem;
+        line-height: 20.23px;
         cursor: pointer;
+        position: relative;
+
       }
 
-      ul li:not(:last-child) {
-        border-bottom: 1px solid rgba($color: $night-blue, $alpha: .15);
+      .sort:hover {
+        color: rgba($color: $interactive-item-def, $alpha: .75);
       }
 
-      ul li:hover {
-        color: $violet;
+      .sort>svg {
+        margin-left: .533333rem;
+      }
+
+      .sort>svg>path {
+        stroke: white;
+      }
+
+      .dropdown {
+        position: absolute;
+        background-color: #fff;
+        top: 4rem;
+        z-index: 6;
+        width: 17rem;
+        height: 12.8rem;
+        border-radius: .666666rem;
+        box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.350492);
+
+        ul li {
+          padding: .8rem 1.6rem;
+          color: $grey-blue;
+          font-weight: 400;
+          font-size: 1.066666rem;
+          line-height: 23.12px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+        }
+
+        ul li:not(:last-child) {
+          border-bottom: 1px solid rgba($color: $night-blue, $alpha: .15);
+        }
+
+        ul li:hover {
+          color: $violet;
+        }
+      }
+
+      .sortby {
+        font-weight: bold;
       }
     }
 
-    .sortby {
-      font-weight: bold;
+    .right-side {
+      a.link {
+        background-color: $violet;
+      }
+
+      a.link:hover {
+        background-color: $hovered-violet;
+      }
     }
   }
 
-  .right-side {
-    a.link {
-      background-color: $violet;
-    }
-
-    a.link:hover {
-      background-color: $hovered-violet;
-    }
+  .backdrop {
+    z-index: 5;
+    top: 3.733333rem;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba($color: red, $alpha: .15);
   }
 }
 
