@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from 'store/reducers/index';
 import { EffectsModule } from '@ngrx/effects';
 import { SuggestionEffects } from 'store/effects/suggestion.effects';
+import { MobileSideNavComponent } from './pages/suggestions/components/mobile-side-nav/mobile-side-nav.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SuggestionEffects } from 'store/effects/suggestion.effects';
     SuggestionsEmptyComponent,
     MobileHeaderComponent,
     LargeScreenHeaderComponent,
+    MobileSideNavComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,6 +1,13 @@
 Feedback app
 
-    -> Suggestion Item
-        ne plus utiliser le composant category chips . Utiliser simple css
+    -> Filter
+        relier le status de la dropdown au store pour qu'aucune "modal" ne soit ouvert au meme moment
+
+    -> Upvotes
+        Implementer la feature
+
+    -> global
+        Fermer toute les modals pour mobile (sidenav) si l'ecran est agrandi - ngOnInit select sur le store a l'apparition du large header ?
+
 
 

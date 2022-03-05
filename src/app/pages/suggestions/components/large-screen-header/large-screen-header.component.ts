@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromSuggestionsActions from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers/index';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';

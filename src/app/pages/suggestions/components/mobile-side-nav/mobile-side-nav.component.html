@@ -1,0 +1,17 @@
+<div [@sideNavAnimation] class="root">
+  <div class="wrapper">
+    <div class="categories card">
+      <app-category-chips [categoryValue]="category" *ngFor="let category of categories">
+      </app-category-chips>
+    </div>
+    <div class="roadmap card">
+      <p class="card__head"><span>Roadmap</span> <a routerLink="/roadmap"><u>View</u></a></p>
+      <ul class="actions-states">
+        <li class="state planned"><span>Planned</span> <span class="count">{{getPlannedSuggestionsCount()}}</span></li>
+        <li class="state in-progress"><span>In-Progress</span> <span
+            class="count">{{ getInProgressSuggestionsCount() }}</span></li>
+        <li class="state live"><span>Live</span> <span class="count">{{ getLiveSuggestionsCount() }}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>

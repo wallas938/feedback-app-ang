@@ -106,25 +106,6 @@ export class SortByLeastComments implements Action {
   readonly type = SORT_BY_LEAST_COMMENTS;
 }
 
-/* export class FilterByUi implements Action {
-  readonly type = FILTER_BY_UI;
-}
-
-export class FilterByUx implements Action {
-  readonly type = FILTER_BY_UX;
-}
-
-export class FilterByEnhancement implements Action {
-  readonly type = FILTER_BY_ENHANCEMENT;
-}
-export class FilterByBug implements Action {
-  readonly type = FILTER_BY_BUG;
-}
-
-export class FilterByFeature implements Action {
-  readonly type = FILTER_BY_FEATURE;
-} */
-
 export type SuggestionActionsTypes =
   FetchSuggestionsStart | FetchSuggestionsSucceeded | FetchSuggestionsFailed |
   FetchOneSuggestionStart | FetchOneSuggestionSucceeded | FetchOneSuggestionFailed |
