@@ -2,10 +2,12 @@ import * as UIActions from "store/actions/ui.action";
 
 export interface State {
   mobileMenuOpened: boolean;
+  sortModalOpened: boolean;
 }
 
 const initialState: State = {
-  mobileMenuOpened: false
+  mobileMenuOpened: false,
+  sortModalOpened: false
 }
 
 export function uiReducer(state: State = initialState, action: UIActions.UiActionsTypes) {
@@ -14,13 +16,29 @@ export function uiReducer(state: State = initialState, action: UIActions.UiActio
 
       return {
         ...state,
-        mobileMenuOpened: false
+        mobileMenuOpened: false,
+        sortModalOpened: false
       }
     case UIActions.MOBILE_MENU_OPENED:
 
       return {
         ...state,
-        mobileMenuOpened: true
+        mobileMenuOpened: true,
+        sortModalOpened: false
+      }
+    case UIActions.FILTER_MODAL_CLOSED:
+
+      return {
+        ...state,
+        mobileMenuOpened: false,
+        sortModalOpened: false
+      }
+    case UIActions.FILTER_MODAL_OPENED:
+
+      return {
+        ...state,
+        mobileMenuOpened: false,
+        sortModalOpened: true
       }
 
     default:
