@@ -1,0 +1,112 @@
+@import '../../../../../sass/variables';
+@import '../../../../../sass/colors';
+
+.root {
+  width: 18.066666rem;
+  height: 100vh;
+  background-color: $light-white;
+  padding: 1.6rem;
+  position: relative;
+  z-index: 10;
+
+  .wrapper {
+    .card {
+      width: 14.866666rem;
+      height: 11.866666rem;
+      border-radius: .666666rem;
+    }
+
+    .categories,
+    .roadmap {
+      background-color: #fff;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: .533333rem;
+      row-gap: .933333rem;
+      padding: 1.6rem 0 2.4rem 1.6rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .roadmap {
+      padding: 1.266666rem 1.6rem 1.6rem 1.6rem;
+    }
+
+    .roadmap>.card__head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.6rem;
+    }
+
+    .roadmap>.card__head {
+      span:first-child {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1.2rem;
+        line-height: 26.01px;
+        letter-spacing: -.25px;
+        color: $night-blue;
+      }
+
+      a {
+        font-weight: 600;
+        font-style: normal;
+        font-size: .866666rem;
+        line-height: 18.79px;
+        color: $strong-blue;
+      }
+    }
+
+    .actions-states>.state {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      margin-bottom: .533333rem;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: .533333rem;
+        height: .533333rem;
+        border-radius: 100%;
+      }
+    }
+
+    .actions-states>.state>span {
+      font-style: normal;
+      font-size: 1.066666rem;
+      line-height: 23.12px;
+      color: $grey-blue;
+    }
+
+    .actions-states>.state span:first-child {
+      font-weight: 400;
+      margin-left: 1.6rem;
+    }
+
+    .actions-states>.state span:last-child {
+      font-weight: bold;
+    }
+
+    .planned {
+      &::before {
+        background-color: $orange;
+      }
+    }
+
+    .in-progress {
+      &::before {
+        background-color: $violet;
+      }
+    }
+
+    .live {
+      &::before {
+        background-color: $sky-blue;
+      }
+    }
+  }
+}

@@ -1,11 +1,17 @@
-<div class="root hide-for-tablet-and-desktop container"> <!-- wrapper -->
+<div class="root hide-for-tablet-and-desktop">
+  <!-- wrapper -->
   <div class="content">
     <div class="text">
       <p>Frontend Mentor</p>
       <p>Feedback Board</p>
     </div>
-    <div class="hamburger">
-      <img src="assets/shared/mobile/icon-hamburger.svg" alt="hamburger icon">
+    <div (click)="toggleMenu()" class="hamburger">
+      <img [src]="!menuOpened ? 'assets/shared/mobile/icon-hamburger.svg' : 'assets/shared/mobile/icon-close.svg'"
+        alt="hamburger icon">
     </div>
+  </div>
+  <div [@backdropRemovalAnimation] *ngIf="menuOpened" class="side-nav">
+    <div (click)="closeMenu()" class="backdrop"></div>
+    <app-mobile-side-nav></app-mobile-side-nav>
   </div>
 </div>
