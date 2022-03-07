@@ -11,6 +11,12 @@
   position: relative;
   cursor: pointer;
 
+  svg {
+    position: absolute;
+    left: 1.066666rem;
+    top: .95rem;
+  }
+
   span {
     font-weight: bold;
     font-style: normal;
@@ -20,15 +26,24 @@
     color: $night-blue;
   }
 
-  &::before {
-    content: url("/assets/shared/icon-arrow-up.svg");
-    position: absolute;
-    left: 1.066666rem;
-    bottom: .5rem;
+  &:hover {
+    background-color: $interactive-item-hover;
+  }
+}
+
+.--upvoted {
+  background-color: $strong-blue;
+
+  svg path {
+    stroke: white;
   }
 
   &:hover {
-    background-color: $interactive-item-hover;
+    background-color: $strong-blue;
+  }
+
+  span {
+    color: white;
   }
 }
 

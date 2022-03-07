@@ -57,6 +57,7 @@ export class SuggestionsFilterComponent implements OnInit {
   arrowState = 'arrowDown';
   currentFilterValue: fromSuggestions.FILTER;
   currentSortValue: fromSuggestions.SORT;
+
   constructor(private store: Store<fromApp.AppState>,
               private router: Router,
               private renderer: Renderer2) { }
@@ -78,11 +79,7 @@ export class SuggestionsFilterComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
-    this.renderer.removeClass(document.body, 'remove-scroll');
-  }
-
-  onToggleSort() {
+  onToggleSortModal() {
     if (!this.showSortByModal) {
       this.store.dispatch(new fromUiActions.FilterModalOpened())
     } else {
@@ -90,21 +87,6 @@ export class SuggestionsFilterComponent implements OnInit {
     }
     this.setArrowState();
     this.setBodyScrolling();
-  }
-
-  private setArrowState() {
-    switch (this.arrowState) {
-      case 'arrowDown':
-        this.arrowState = 'arrowUp';
-        break;
-      case 'arrowUp':
-        this.arrowState = 'arrowDown';
-        break;
-
-      default:
-        this.arrowState = 'arrowDown';
-        break;
-    }
   }
 
   closeMenu() {
@@ -124,27 +106,22 @@ export class SuggestionsFilterComponent implements OnInit {
       case fromSuggestions.SORT.MOST_UPVOTES:
         this.currentSortValue = fromSuggestions.SORT.MOST_UPVOTES;
         this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_UPVOTES }));
-        this.onToggleSort();
         break;
       case fromSuggestions.SORT.LEAST_UPVOTES:
         this.currentSortValue = fromSuggestions.SORT.LEAST_UPVOTES;
         this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.LEAST_UPVOTES }));
-        this.onToggleSort();
         break;
       case fromSuggestions.SORT.MOST_COMMENTS:
         this.currentSortValue = fromSuggestions.SORT.MOST_COMMENTS;
         this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_COMMENTS }));
-        this.onToggleSort();
         break;
       case fromSuggestions.SORT.LEAST_COMMENTS:
         this.currentSortValue = fromSuggestions.SORT.LEAST_COMMENTS;
         this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.LEAST_COMMENTS }));
-        this.onToggleSort();
         break;
       default:
         this.currentSortValue = fromSuggestions.SORT.MOST_COMMENTS;
         this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_COMMENTS }));
-        this.onToggleSort();
         break;
     }
   }
@@ -154,4 +131,22 @@ export class SuggestionsFilterComponent implements OnInit {
     this.router.navigate(['/feedbacks/new-feedback']);
   }
 
+  private setArrowState() {
+    switch (this.arrowState) {
+      case 'arrowDown':
+        this.arrowState = 'arrowUp';
+        break;
+      case 'arrowUp':
+        this.arrowState = 'arrowDown';
+        break;
+
+      default:
+        this.arrowState = 'arrowDown';
+        break;
+    }
+  }
+
+  ngOnDestroy() {
+    this.renderer.removeClass(document.body, 'remove-scroll');
+  }
 }

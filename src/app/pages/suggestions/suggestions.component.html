@@ -21,7 +21,8 @@
           <div [@fadeInOutX] class="suggestions-list">
             <app-suggestion-item
               *ngFor="let suggestion of suggestions"
-              [suggestion]="suggestion">
+              [suggestion]="suggestion"
+              [isUpvoted]="isUpvoted(suggestion.id)">
             </app-suggestion-item>
           </div>
         </ng-template>

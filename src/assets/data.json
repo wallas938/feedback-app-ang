@@ -9,7 +9,7 @@
       "id": 1,
       "title": "Add tags for solutions",
       "category": "enhancement",
-      "upvotes": 112,
+      "upvotes": 128,
       "status": "suggestion",
       "description": "Easier to search for solutions based on a specific stack.",
       "comments": [
@@ -37,7 +37,7 @@
       "id": 2,
       "title": "Add a dark theme option",
       "category": "feature",
-      "upvotes": 99,
+      "upvotes": 110,
       "status": "suggestion",
       "description": "It would help people with light sensitivities and who prefer dark mode.",
       "comments": [
@@ -85,7 +85,7 @@
       "id": 3,
       "title": "Q&A within the challenge hubs",
       "category": "feature",
-      "upvotes": 65,
+      "upvotes": 67,
       "status": "suggestion",
       "description": "Challenge-specific Q&A would make for easy reference.",
       "comments": [
@@ -179,7 +179,7 @@
       "id": 7,
       "title": "More comprehensive reports",
       "category": "feature",
-      "upvotes": 123,
+      "upvotes": 251,
       "status": "planned",
       "description": "It would be great to see a more detailed breakdown of solutions.",
       "comments": [
@@ -226,7 +226,7 @@
       "id": 9,
       "title": "One-click portfolio generation",
       "category": "feature",
-      "upvotes": 62,
+      "upvotes": 66,
       "status": "in-progress",
       "description": "Add ability to create professional looking portfolio from profile.",
       "comments": [
@@ -272,7 +272,7 @@
       "id": 12,
       "title": "Add micro-interactions",
       "category": "enhancement",
-      "upvotes": 71,
+      "upvotes": 79,
       "status": "live",
       "description": "Small animations at specific points can add delight.",
       "comments": [

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { HttpErrorResponse } from "@angular/common/http";
 import * as SuggestionActions from "store/actions/suggestions.action";
 
 export enum FORM_MODES {
@@ -28,13 +29,16 @@ export interface SuggestionsQuery {
   type?: SuggestionActions.SuggestionActionsTypes
 }
 
+
 export interface State {
   suggestions: Suggestion[];
   suggestion: Suggestion;
+  suggestionsUpvoted: number[];
   loadingState: boolean;
   formMode: FORM_MODES;
   sortBy: SORT,
-  filterBy: FILTER
+  filterBy: FILTER,
+  error: HttpErrorResponse
 }
 
 export interface Suggestion {
@@ -69,10 +73,12 @@ export interface User {
 const initialState: State = {
   suggestions: [],
   suggestion: null,
+  suggestionsUpvoted: [],
   loadingState: false,
   formMode: FORM_MODES.FORM_ADDING_MODE,
   filterBy: null,
-  sortBy: null
+  sortBy: null,
+  error: null
 }
 
 export function suggestionReducer(state: State = initialState, action: SuggestionActions.SuggestionActionsTypes) {
@@ -107,6 +113,30 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         ...state,
         loadingState: false,
         suggestion: action.payload
+      }
+    case SuggestionActions.FETCHING_ONE_SUGGESTION_FAILED:
+      console.log(action.error);
+      return {
+        ...state,
+        loadingState: false,
+      }
+    case SuggestionActions.INCREMENT_UPVOTES_START:
+      return {
+        ...state,
+        loadingState: true,
+        suggestionsUpvoted: [...state.suggestionsUpvoted, action.suggestion.id]
+      }
+    case SuggestionActions.INCREMENT_UPVOTES_SUCCEEDED:
+      return {
+        ...state,
+        loadingState: true,
+        suggestion: action.suggestionUpdated
+      }
+    case SuggestionActions.INCREMENT_UPVOTES_FAILED:
+      console.log(action.error);
+      return {
+        ...state,
+        loadingState: false,
       }
     case SuggestionActions.FORM_ADDING_MODE:
 

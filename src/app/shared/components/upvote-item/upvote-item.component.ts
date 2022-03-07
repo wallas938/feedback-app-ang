@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'app-upvote-item',
@@ -10,9 +12,18 @@ export class UpvoteItemComponent implements OnInit {
 
   @Input()
   upvotes!: number;
+
+  @Input()
+  isUpvoted!: boolean;
+
+  @Output()
+  increment = new EventEmitter<void>()
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  incrementUpvotes() {
+    !this.isUpvoted && this.increment.emit();
   }
 
 }

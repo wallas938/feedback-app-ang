@@ -1,13 +1,7 @@
 Feedback app
 
-    -> Filter
-        relier le status de la dropdown au store pour qu'aucune "modal" ne soit ouvert au meme moment
-
-    -> Upvotes
-        Implementer la feature
+    -> Roadmap mobile
+        Ne pas quitter la colonne afficher (live ou planned) a l'increment d'un Upvotes
 
     -> global
         Fermer toute les modals pour mobile (sidenav) si l'ecran est agrandi - ngOnInit select sur le store a l'apparition du large header ?
-
-
-
