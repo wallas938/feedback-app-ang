@@ -9,7 +9,7 @@
       "id": 1,
       "title": "Add tags for solutions",
       "category": "enhancement",
-      "upvotes": 128,
+      "upvotes": 129,
       "status": "suggestion",
       "description": "Easier to search for solutions based on a specific stack.",
       "comments": [
@@ -179,7 +179,7 @@
       "id": 7,
       "title": "More comprehensive reports",
       "category": "feature",
-      "upvotes": 251,
+      "upvotes": 255,
       "status": "planned",
       "description": "It would be great to see a more detailed breakdown of solutions.",
       "comments": [
@@ -207,7 +207,7 @@
       "id": 8,
       "title": "Learning paths",
       "category": "feature",
-      "upvotes": 28,
+      "upvotes": 29,
       "status": "planned",
       "description": "Sequenced projects for different goals to help people improve.",
       "comments": [
@@ -226,7 +226,7 @@
       "id": 9,
       "title": "One-click portfolio generation",
       "category": "feature",
-      "upvotes": 66,
+      "upvotes": 67,
       "status": "in-progress",
       "description": "Add ability to create professional looking portfolio from profile.",
       "comments": [
@@ -245,7 +245,7 @@
       "id": 10,
       "title": "Bookmark challenges",
       "category": "feature",
-      "upvotes": 31,
+      "upvotes": 32,
       "status": "in-progress",
       "description": "Be able to bookmark challenges to take later on.",
       "comments": [
@@ -272,7 +272,7 @@
       "id": 12,
       "title": "Add micro-interactions",
       "category": "enhancement",
-      "upvotes": 79,
+      "upvotes": 80,
       "status": "live",
       "description": "Small animations at specific points can add delight.",
       "comments": [
