@@ -17,17 +17,21 @@ import * as fadeAnimations from '@shared/animations/fade';
 export class SuggestionsComponent implements OnInit {
   suggestions: fromSuggestions.Suggestion[] = [];
   loadingState = false;
-
+  upvotedSuggestions: number[];
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
-
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
       this.suggestions = state.suggestions;
       this.loadingState = state.loadingState;
+      this.upvotedSuggestions = state.suggestionsUpvoted;
       if (!state.filterBy) {
         this.store.dispatch(new SuggestionActions.FetchSuggestionsStart({_filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES}))
       }
     });
+  }
+
+  isUpvoted(id: number): boolean {
+    return this.upvotedSuggestions.includes(id);
   }
 }

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { HttpErrorResponse } from "@angular/common/http";
 import { Action } from "@ngrx/store";
 import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
@@ -27,6 +28,12 @@ export const SORT_BY_LEAST_UPVOTES = '[Suggestions]  SORT_BY_LEAST_UPVOTES';
 export const SORT_BY_MOST_COMMENTS = '[Suggestions]  SORT_BY_MOST_COMMENTS';
 export const SORT_BY_LEAST_COMMENTS = '[Suggestions]  SORT_BY_LEAST_COMMENTS';
 
+/* INCREMENT UPVOTES IDENTIFIERS */
+
+export const INCREMENT_UPVOTES_START = '[Suggestions]  INCREMENT_UPVOTES_START';
+export const INCREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  INCREMENT_UPVOTES_SUCCEEDED';
+export const INCREMENT_UPVOTES_FAILED = '[Suggestions]  INCREMENT_UPVOTES_FAILED';
+
 
 /* SUGGESTIONS FILTERS IDENTIFIERS */
 
@@ -38,6 +45,23 @@ export const FILTER_BY_UX = '[Suggestions]  FILTER_BY_UX';
 export const FILTER_BY_ENHANCEMENT = '[Suggestions]  FILTER_BY_ENHANCEMENT';
 export const FILTER_BY_FEATURE = '[Suggestions]  FILTER_BY_FEATURE';
 export const FILTER_BY_BUG = '[Suggestions]  FILTER_BY_BUG'; */
+
+/* FETCH SUGGESTIONS ACTIONS */
+
+export class IncrementUpvotesStart implements Action {
+  readonly type = INCREMENT_UPVOTES_START;
+  constructor(public suggestion: fromSuggestions.Suggestion) { }
+}
+
+export class IncrementUpvotesSucceeded implements Action {
+  readonly type = INCREMENT_UPVOTES_SUCCEEDED;
+  constructor(public suggestionUpdated: fromSuggestions.Suggestion) { }
+}
+
+export class IncrementUpvotesFailed implements Action {
+  readonly type = INCREMENT_UPVOTES_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
 
 
 /* FETCH SUGGESTIONS ACTIONS */
@@ -57,7 +81,7 @@ export class FetchSuggestionsSucceeded implements Action {
 
 export class FetchSuggestionsFailed implements Action {
   readonly type = FETCHING_SUGGESTIONS_FAILED;
-  constructor(public payload: any) { }
+  constructor(public error: HttpErrorResponse) { }
 }
 
 /* FETCH ONE SUGGESTION ACTIONS */
@@ -76,6 +100,7 @@ export class FetchOneSuggestionSucceeded implements Action {
 
 export class FetchOneSuggestionFailed implements Action {
   readonly type = FETCHING_ONE_SUGGESTION_FAILED;
+  constructor(public error: HttpErrorResponse) { }
 }
 
 /* SUGGESTION FORM MODE ACTIONS*/
@@ -110,13 +135,6 @@ export type SuggestionActionsTypes =
   FetchSuggestionsStart | FetchSuggestionsSucceeded | FetchSuggestionsFailed |
   FetchOneSuggestionStart | FetchOneSuggestionSucceeded | FetchOneSuggestionFailed |
   FormAddingMode | FormEditingMode | SortByMostUpvotes | SortByLeastUpvotes |
-  SortByMostComments | SortByLeastComments;
-
-/* FetchSuggestionsStart | FetchSuggestionsSucceeded | FetchSuggestionsFailed |
-FetchOneSuggestionStart | FetchOneSuggestionSucceeded | FetchOneSuggestionFailed |
-FormAddingMode | FormEditingMode | SortByMostUpvotes | SortByLeastUpvotes |
-SortByMostComments | SortByLeastComments |
-FilterByAll | FilterByUi | FilterByUx | FilterByEnhancement |
-FilterByBug | FilterByFeature; */
+  SortByMostComments | SortByLeastComments | IncrementUpvotesStart | IncrementUpvotesSucceeded | IncrementUpvotesFailed;
 
 

@@ -7,7 +7,7 @@
     </span>
   </div>
   <div class="upvotes">
-    <app-upvote-item [upvotes]="suggestion?.upvotes"></app-upvote-item>
+    <app-upvote-item [upvotes]="suggestion?.upvotes" [isUpvoted]="isUpvoted" (increment)="onIncrement()"></app-upvote-item>
   </div>
   <div class="comments-count">
     <app-comments-count>

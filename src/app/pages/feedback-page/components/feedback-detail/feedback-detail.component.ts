@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromSuggestionsActions from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
+import { map, Observable, take } from 'rxjs';
 
 @Component({
   selector: 'app-feedback-detail',
@@ -17,6 +18,8 @@ import * as fadeAnimations from '@shared/animations/fade';
 export class FeedbackDetailComponent implements OnInit {
 
   feedback: fromSuggestions.Suggestion;
+  feedbackId: number;
+  public isUpvoted: boolean;
   comments: fromSuggestions.Comment[];
 
   constructor(private router: Router,
@@ -24,15 +27,16 @@ export class FeedbackDetailComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
-    this.route.data
-      .subscribe(
-        (resolverData: Data) => { this.feedback = resolverData['feedback'].payload;}
-      )
+    this.feedbackId = this.route.snapshot.params['id'];
+    this.store.dispatch(new fromSuggestionsActions.FetchOneSuggestionStart(this.feedbackId.toString()));
+    this.store.select('suggestions').subscribe(((state: fromSuggestions.State) => {
+      this.feedback = state.suggestion;
+      this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id);
+    }));
   }
 
   navigateToForm() {
     this.store.dispatch(new fromSuggestionsActions.FormEditingMode())
-    this.router.navigate(['/feedbacks/edit-feedback/', this.feedback.id])
+    this.router.navigate(['/feedbacks/edit-feedback/', this.feedbackId])
   }
 }

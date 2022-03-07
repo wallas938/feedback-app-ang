@@ -1,13 +1,13 @@
 <div class="root container">
-  <div class="wrapper">
+  <div *ngIf="feedback" class="wrapper">
     <div class="top">
       <a routerLink="/suggestions">Go Back</a>
       <a (click)="navigateToForm()" class="edit app-btn">
         Edit Feedback
       </a>
     </div>
-    <div [@fadeInOutY] class="suggestion">
-      <app-suggestion-item [suggestion]="feedback"></app-suggestion-item>
+    <div  [@fadeInOutY] class="suggestion">
+      <app-suggestion-item [suggestion]="feedback" [isUpvoted]="isUpvoted"></app-suggestion-item>
     </div>
     <div *ngIf="feedback.comments" [@fadeInOutX] class="comments">
       <app-comments [comments]="feedback.comments"></app-comments>

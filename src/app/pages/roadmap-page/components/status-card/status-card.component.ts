@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from 'store/reducers/index';
+import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import * as fromSuggestionActions from 'store/actions/suggestions.action';
 
 @Component({
   selector: 'app-status-card',
@@ -9,10 +14,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class StatusCardComponent implements OnInit {
 
   @Input() suggestion!: any;
-
-  constructor() { }
+  isUpvoted: boolean;
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
+      this.isUpvoted =  state.suggestionsUpvoted.includes(this.suggestion.id);
+    })
   }
 
   getMessagesCount(comments: any[]): number {
@@ -24,6 +32,10 @@ export class StatusCardComponent implements OnInit {
       return globalMessageNumber;
     }
     return 0;
+  }
+
+  onIncrement() {
+    this.store.dispatch(new fromSuggestionActions.IncrementUpvotesStart(this.suggestion))
   }
 
 }

@@ -5,6 +5,8 @@ import * as fromApp from 'store/reducers/index';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import * as fromUi from 'store/reducers/ui.reducers';
+import * as fromUiActions from 'store/actions/ui.action';
 @Component({
   selector: 'app-mobile-side-nav',
   templateUrl: './mobile-side-nav.component.html',
@@ -48,6 +50,11 @@ export class MobileSideNavComponent implements OnInit {
   }
   getLiveSuggestionsCount(): number {
     return this.suggestions.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
+  }
+
+  navigateTo() {
+    this.router.navigate(['/roadmap']);
+    this.store.dispatch(new fromUiActions.MobileMenuClosed)
   }
 
 }
