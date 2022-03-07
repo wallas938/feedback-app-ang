@@ -4,18 +4,8 @@
 .root {
   background-color: $interactive-item-def;
   border-radius: .666666rem;
-  padding: .4rem .866666rem .466666rem 0;
-  width: 4.6rem;
-  display: flex;
-  justify-content: flex-end;
   position: relative;
   cursor: pointer;
-
-  svg {
-    position: absolute;
-    left: 1.066666rem;
-    top: .95rem;
-  }
 
   span {
     font-weight: bold;
@@ -28,6 +18,19 @@
 
   &:hover {
     background-color: $interactive-item-hover;
+  }
+}
+
+.--horizontal,
+.--standard {
+  width: 4.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .4rem 0 .466666rem 0;
+
+  svg {
+    margin-right: .666666rem;
   }
 }
 
@@ -48,22 +51,25 @@
 }
 
 @media screen and (min-width: $tablet-min) {
-  .root {
+  .--horizontal {
+    height: 2.666666rem;
+
+    svg {
+      margin-right: .633333rem;
+    }
+  }
+
+  .--standard {
+    width: 2.666666rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: center;
-    position: relative;
-    height: 3.533333rem;
-    width: 2.666666rem;
+    justify-content: center;
     padding: .933333rem .6rem .533333rem .6rem;
 
-    &::before {
-      content: url("/assets/shared/icon-arrow-up.svg");
-      position: absolute;
-      left: unset;
-      bottom: unset;
-      top: 0.05rem;
+    svg {
+      margin-right: unset;
+      margin-bottom: .333333rem;
     }
   }
 }

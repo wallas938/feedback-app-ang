@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 
@@ -18,9 +19,13 @@ export class UpvoteItemComponent implements OnInit {
 
   @Output()
   increment = new EventEmitter<void>()
-  constructor() { }
 
-  ngOnInit(): void { }
+  url: string;
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    this.url = this.router.url;
+  }
 
   incrementUpvotes() {
     !this.isUpvoted && this.increment.emit();
