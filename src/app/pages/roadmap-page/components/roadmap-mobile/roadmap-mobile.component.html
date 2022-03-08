@@ -1,13 +1,13 @@
 <div class="root">
   <div class="wrapper">
     <div class="tabs">
-      <div (click)="displayPlanned('planned')" class="tab" [ngClass]="{'planned': currentTab === 'planned'}">
+      <div (click)="onSelectTab(planned)" class="tab" [ngClass]="{'planned': currentTab === planned}">
         <p>Planned ({{getPlannedCount()}})</p>
       </div>
-      <div (click)="displayInProgress('in-progress')" class="tab" [ngClass]="{'in-progress': currentTab === 'in-progress'}">
+      <div (click)="onSelectTab(inProgress)" class="tab" [ngClass]="{'in-progress': currentTab === inProgress}">
         <p>In-Progress ({{getInProgressCount()}})</p>
       </div>
-      <div (click)="displayLive('live')" class="tab" [ngClass]="{'live': currentTab === 'live'}">
+      <div (click)="onSelectTab(live)" class="tab" [ngClass]="{'live': currentTab === live}">
         <p>Live ({{getLiveCount()}})</p>
       </div>
     </div>
