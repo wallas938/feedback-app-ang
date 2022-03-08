@@ -33,6 +33,10 @@ export class SuggestionItemComponent implements OnInit {
     this.store.dispatch(new fromSuggestionActions.IncrementUpvotesStart(this.suggestion))
   }
 
+  onDecrement() {
+    this.store.dispatch(new fromSuggestionActions.DecrementUpvotesStart(this.suggestion))
+  }
+
   getMessagesCount(comments: fromSuggestions.Comment[]): number {
     let globalMessageNumber = comments ? comments.length : 0;
     comments.map(comment => {
