@@ -18,7 +18,10 @@ export class UpvoteItemComponent implements OnInit {
   isUpvoted!: boolean;
 
   @Output()
-  increment = new EventEmitter<void>()
+  increment = new EventEmitter<void>();
+
+  @Output()
+  decrement = new EventEmitter<void>();
 
   url: string;
   constructor(private router: Router) { }
@@ -27,8 +30,8 @@ export class UpvoteItemComponent implements OnInit {
     this.url = this.router.url;
   }
 
-  incrementUpvotes() {
-    !this.isUpvoted && this.increment.emit();
+  toggleUpvote() {
+    !this.isUpvoted ? this.increment.emit() : this.decrement.emit();
   }
 
 }

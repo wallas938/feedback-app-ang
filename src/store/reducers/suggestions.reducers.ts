@@ -145,6 +145,23 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         ...state,
         loadingState: false,
       }
+    case SuggestionActions.DECREMENT_UPVOTES_START:
+      return {
+        ...state,
+        loadingState: true,
+        suggestionsUpvoted: state.suggestionsUpvoted.filter((id: number) => action.suggestion.id !== id)
+      }
+    case SuggestionActions.DECREMENT_UPVOTES_SUCCEEDED:
+      return {
+        ...state,
+        loadingState: true,
+        suggestion: action.suggestionUpdated
+      }
+    case SuggestionActions.DECREMENT_UPVOTES_FAILED:
+      return {
+        ...state,
+        loadingState: false,
+      }
     case SuggestionActions.FORM_ADDING_MODE:
 
       return {

@@ -12,7 +12,7 @@
       </span>
     </div>
     <div class="upvote">
-      <app-upvote-item [upvotes]="suggestion.upvotes" [isUpvoted]="isUpvoted" (increment)="onIncrement()"></app-upvote-item>
+      <app-upvote-item [upvotes]="suggestion.upvotes" [isUpvoted]="isUpvoted" (increment)="onIncrement()" (decrement)="onDecrement()"></app-upvote-item>
     </div>
     <div class="comments-count">
       <app-comments-count> {{getMessagesCount(suggestion.comments)}} </app-comments-count>

@@ -31,6 +31,17 @@ export class SuggestionService {
       }
     })
   }
+  decrementSuggestionUpvotes(data: fromSuggestions.Suggestion): Observable<fromSuggestions.Suggestion> {
+    const update = {
+      ...data,
+      upvotes: data.upvotes - 1
+    }
+    return this.http.put<fromSuggestions.Suggestion>(`${this.suggestionsUrl}/${data.id}`, update, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
   private setRequestQueries({ _filter, _sort }: fromSuggestions.SuggestionsQuery): { _sort: string, _order: string, _filter: string } {
     let order;
     let filter;

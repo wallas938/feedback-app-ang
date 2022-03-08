@@ -62,4 +62,24 @@ export class SuggestionEffects {
             catchError((error: HttpErrorResponse) => of(new fromSuggestionActions.IncrementUpvotesFailed(error))))
       })
     ));
+
+  decrementUpvotesEffect$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(fromSuggestionActions.DECREMENT_UPVOTES_START),
+      tap(() => {
+        this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
+          this._filterBy = state.filterBy;
+          this._sortBy = state.sortBy;
+        })
+      }),
+      switchMap((data: any) => {
+        return this.suggestionService.decrementSuggestionUpvotes(data.suggestion)
+          .pipe(
+            map((update: fromSuggestions.Suggestion) => {
+              return this.store.dispatch(new fromSuggestionActions.DecrementUpvotesSucceeded(update))
+            }),
+            switchMap((data: any) => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
+            catchError((error: HttpErrorResponse) => of(new fromSuggestionActions.IncrementUpvotesFailed(error))))
+      })
+    ));
 }

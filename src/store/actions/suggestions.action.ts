@@ -35,6 +35,13 @@ export const INCREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  INCREMENT_UPVOTES_SUC
 export const INCREMENT_UPVOTES_FAILED = '[Suggestions]  INCREMENT_UPVOTES_FAILED';
 
 
+/* INCREMENT UPVOTES IDENTIFIERS */
+
+export const DECREMENT_UPVOTES_START = '[Suggestions]  DECREMENT_UPVOTES_START';
+export const DECREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  DECREMENT_UPVOTES_SUCCEEDED';
+export const DECREMENT_UPVOTES_FAILED = '[Suggestions]  DECREMENT_UPVOTES_FAILED';
+
+
 /* SUGGESTIONS FILTERS IDENTIFIERS */
 
 /* export const FILTER_BY = '[Suggestions]  FILTER_BY';
@@ -46,7 +53,24 @@ export const FILTER_BY_ENHANCEMENT = '[Suggestions]  FILTER_BY_ENHANCEMENT';
 export const FILTER_BY_FEATURE = '[Suggestions]  FILTER_BY_FEATURE';
 export const FILTER_BY_BUG = '[Suggestions]  FILTER_BY_BUG'; */
 
-/* FETCH SUGGESTIONS ACTIONS */
+/* INCREMENT UPVOTES ACTIONS */
+
+export class DecrementUpvotesStart implements Action {
+  readonly type = DECREMENT_UPVOTES_START;
+  constructor(public suggestion: fromSuggestions.Suggestion) { }
+}
+
+export class DecrementUpvotesSucceeded implements Action {
+  readonly type = DECREMENT_UPVOTES_SUCCEEDED;
+  constructor(public suggestionUpdated: fromSuggestions.Suggestion) { }
+}
+
+export class DecrementUpvotesFailed implements Action {
+  readonly type = DECREMENT_UPVOTES_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
+
+/* INCREMENT UPVOTES ACTIONS */
 
 export class IncrementUpvotesStart implements Action {
   readonly type = INCREMENT_UPVOTES_START;
@@ -135,6 +159,8 @@ export type SuggestionActionsTypes =
   FetchSuggestionsStart | FetchSuggestionsSucceeded | FetchSuggestionsFailed |
   FetchOneSuggestionStart | FetchOneSuggestionSucceeded | FetchOneSuggestionFailed |
   FormAddingMode | FormEditingMode | SortByMostUpvotes | SortByLeastUpvotes |
-  SortByMostComments | SortByLeastComments | IncrementUpvotesStart | IncrementUpvotesSucceeded | IncrementUpvotesFailed;
+  SortByMostComments | SortByLeastComments | IncrementUpvotesStart |
+  IncrementUpvotesSucceeded | IncrementUpvotesFailed | DecrementUpvotesStart |
+  DecrementUpvotesSucceeded | DecrementUpvotesFailed;
 
 

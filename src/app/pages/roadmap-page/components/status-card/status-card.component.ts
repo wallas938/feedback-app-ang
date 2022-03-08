@@ -38,4 +38,8 @@ export class StatusCardComponent implements OnInit {
     this.store.dispatch(new fromSuggestionActions.IncrementUpvotesStart(this.suggestion))
   }
 
+  onDecrement() {
+    this.store.dispatch(new fromSuggestionActions.DecrementUpvotesStart(this.suggestion))
+  }
+
 }
