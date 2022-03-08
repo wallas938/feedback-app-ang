@@ -4,8 +4,8 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromSuggestionsActions from 'store/actions/suggestions.action';
-import * as fromUi from 'store/reducers/ui.reducers';
-import * as fromUiActions from 'store/actions/ui.action';
+import * as fromLayout from 'store/reducers/layout.reducers';
+import * as fromLayoutActions from 'store/actions/layout.action';
 import * as fromApp from 'store/reducers/index';
 import { Router } from '@angular/router';
 
@@ -70,7 +70,7 @@ export class SuggestionsFilterComponent implements OnInit {
         this.currentFilterValue = state.filterBy;
       });
 
-    this.store.select('ui').subscribe((state: fromUi.State) => {
+    this.store.select('layout').subscribe((state: fromLayout.State) => {
       this.showSortByModal = state.sortModalOpened;
 
       if (state.mobileMenuOpened) {
@@ -81,16 +81,16 @@ export class SuggestionsFilterComponent implements OnInit {
 
   onToggleSortModal() {
     if (!this.showSortByModal) {
-      this.store.dispatch(new fromUiActions.FilterModalOpened())
+      this.store.dispatch(new fromLayoutActions.FilterModalOpened())
     } else {
-      this.store.dispatch(new fromUiActions.FilterModalClosed());
+      this.store.dispatch(new fromLayoutActions.FilterModalClosed());
     }
     this.setArrowState();
     this.setBodyScrolling();
   }
 
   closeMenu() {
-    this.store.dispatch(new fromUiActions.FilterModalClosed());
+    this.store.dispatch(new fromLayoutActions.FilterModalClosed());
     this.setArrowState();
     this.setBodyScrolling();
   }

@@ -3,8 +3,8 @@ import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from 'store/reducers/index';
-import * as fromUi from 'store/reducers/ui.reducers';
-import * as fromUiActions from 'store/actions/ui.action';
+import * as fromLayout from 'store/reducers/layout.reducers';
+import * as fromLayoutActions from 'store/actions/layout.action';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 
@@ -33,7 +33,7 @@ export class MobileHeaderComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromApp.AppState>, private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    this.store.select('ui').subscribe((state: fromUi.State) => {
+    this.store.select('layout').subscribe((state: fromLayout.State) => {
       this.menuOpened = state.mobileMenuOpened
     });
   }
@@ -44,15 +44,15 @@ export class MobileHeaderComponent implements OnInit, OnDestroy {
 
   toggleMenu() {
     if (!this.menuOpened) {
-      this.store.dispatch(new fromUiActions.MobileMenuOpened)
+      this.store.dispatch(new fromLayoutActions.MobileMenuOpened)
     } else {
-      this.store.dispatch(new fromUiActions.MobileMenuClosed)
+      this.store.dispatch(new fromLayoutActions.MobileMenuClosed)
     }
     this.setBodyScrolling();
   }
 
   closeMenu() {
-    this.store.dispatch(new fromUiActions.MobileMenuClosed);
+    this.store.dispatch(new fromLayoutActions.MobileMenuClosed);
     this.setBodyScrolling();
   }
 

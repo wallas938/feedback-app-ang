@@ -1,7 +1,7 @@
 Feedback app
 
-    -> Roadmap mobile
-        Ne pas quitter la colonne afficher (live ou planned) a l'increment d'un Upvotes
-
     -> global
         Fermer toute les modals pour mobile (sidenav) si l'ecran est agrandi - ngOnInit select sur le store a l'apparition du large header ?
+
+    -> Upvotes
+        Implementer l'annulation d'un upvote en recliquant dessus

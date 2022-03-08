@@ -1,15 +1,15 @@
 import { ActionReducerMap } from '@ngrx/store';
 import * as fromSuggestions from './suggestions.reducers';
-import * as fromUi from './ui.reducers';
+import * as fromLayout from './layout.reducers';
 
 export const rootReducer = {};
 
 export interface AppState {
   suggestions: fromSuggestions.State;
-  ui: fromUi.State
+  layout: fromLayout.State
 }
 
 export const reducers: ActionReducerMap<AppState, any> = {
     suggestions: fromSuggestions.suggestionReducer,
-    ui: fromUi.uiReducer
+    layout: fromLayout.uiReducer
 };

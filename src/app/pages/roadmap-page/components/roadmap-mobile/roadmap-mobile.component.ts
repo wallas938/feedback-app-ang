@@ -4,7 +4,9 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import * as fromLayout from 'store/reducers/layout.reducers';
 import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import * as fromLayoutActions from 'store/actions/layout.action';
 import * as fadeAnimations from '@/app/shared/animations/fade';
 
 @Component({
@@ -20,59 +22,98 @@ export class RoadmapMobileComponent implements OnInit {
 
   data: fromSuggestions.Suggestion[];
   toDisplay: fromSuggestions.Suggestion[] = [];
-  currentTab!: string;
+  currentTab!: fromSuggestions.STATUS;
   statusCount!: string;
   statusText!: string;
   plannedCount!: number;
   inProgressCount!: number;
   liveCount!: number;
+  live = fromSuggestions.STATUS.LIVE;
+  inProgress = fromSuggestions.STATUS.IN_PROGRESS;
+  planned = fromSuggestions.STATUS.PLANNED;
 
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
-      if (!state.sortBy) {
+      if (!state.suggestions) {
         this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES }))
         this.data = state.suggestions;
-        this.displayInProgress('in-progress');
       } else {
         this.data = state.suggestions;
-        this.displayInProgress('in-progress');
       }
     });
+
+    this.store.select('layout').subscribe((state: fromLayout.State) => {
+      this.currentTab = state.mobileRoadmapCurrentTab;
+      this.initData(this.currentTab);
+    })
   }
 
-  displayPlanned(currentTab: string) {
-    this.toDisplay = this.data.filter((request: fromSuggestions.Suggestion) => request.status === 'planned');
+  initData(tab: fromSuggestions.STATUS) {
+    switch (tab) {
+      case fromSuggestions.STATUS.IN_PROGRESS:
+        this.displayInProgress();
+        break;
+      case fromSuggestions.STATUS.LIVE:
+        this.displayLive();
+        break;
+      case fromSuggestions.STATUS.PLANNED:
+        this.displayPlanned();
+        break;
+
+      default:
+        this.displayInProgress();
+        break;
+    }
+  }
+  onSelectTab(tab: fromSuggestions.STATUS) {
+    switch (tab) {
+      case fromSuggestions.STATUS.PLANNED:
+        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.PLANNED));
+        this.displayPlanned();
+        break;
+      case fromSuggestions.STATUS.IN_PROGRESS:
+        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.IN_PROGRESS));
+        this.displayInProgress();
+        break;
+      case fromSuggestions.STATUS.LIVE:
+        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.LIVE));
+        this.displayLive();
+        break;
+
+      default:
+        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.IN_PROGRESS));
+        this.displayInProgress();
+        break;
+    }
+  }
+  displayPlanned() {
+    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned');
     this.statusCount = `Planned ${this.getPlannedCount()}`;
     this.statusText = 'Ideas prioritized for research';
-    this.currentTab = currentTab;
   }
-
-  displayInProgress(currentTab: string) {
-    this.toDisplay = this.data.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress');
+  displayInProgress() {
+    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress');
     this.statusCount = `In-Progress ${this.getInProgressCount()}`;
     this.statusText = 'Currently being developed';
-    this.currentTab = currentTab;
   }
-
-  displayLive(currentTab: string) {
-    this.toDisplay = this.data.filter((request: fromSuggestions.Suggestion) => request.status === 'live');
+  displayLive() {
+    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'live');
     this.statusCount = `Live ${this.getLiveCount()}`;
     this.statusText = 'Released features';
-    this.currentTab = currentTab;
   }
-
   getPlannedCount(): number {
-    return this.data.filter((request: fromSuggestions.Suggestion) => request.status === 'planned').length;
+    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned').length;
 
   }
   getInProgressCount(): number {
-    return this.data.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress').length;
+    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress').length;
 
   }
   getLiveCount(): number {
-    return this.data.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
+    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
   }
 
 }

@@ -1,13 +1,16 @@
-import * as UIActions from "store/actions/ui.action";
+import * as UIActions from "store/actions/layout.action";
+import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
 export interface State {
   mobileMenuOpened: boolean;
   sortModalOpened: boolean;
+  mobileRoadmapCurrentTab: fromSuggestions.STATUS;
 }
 
 const initialState: State = {
   mobileMenuOpened: false,
-  sortModalOpened: false
+  sortModalOpened: false,
+  mobileRoadmapCurrentTab: fromSuggestions.STATUS.IN_PROGRESS
 }
 
 export function uiReducer(state: State = initialState, action: UIActions.UiActionsTypes) {
@@ -39,6 +42,13 @@ export function uiReducer(state: State = initialState, action: UIActions.UiActio
         ...state,
         mobileMenuOpened: false,
         sortModalOpened: true
+      }
+
+    case UIActions.MOBILE_ROADMAP_CURRENT_TAB_CHANGED:
+
+      return {
+        ...state,
+        mobileRoadmapCurrentTab: action.currentTab
       }
 
     default:

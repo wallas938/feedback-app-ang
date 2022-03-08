@@ -23,6 +23,13 @@ export enum FILTER {
   BY_FEATURE = "BY_FEATURE",
 }
 
+export enum STATUS {
+  PLANNED = "PLANNED",
+  IN_PROGRESS = "IN_PROGRESS",
+  LIVE = "LIVE",
+  SUGGESTION = "SUGGESTION",
+}
+
 export interface SuggestionsQuery {
   _sort: SORT,
   _filter: FILTER,
