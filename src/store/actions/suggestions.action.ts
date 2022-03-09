@@ -53,17 +53,39 @@ export const POST_SUGGESTION_START = '[Suggestions]  POST_SUGGESTION_START';
 export const POST_SUGGESTION_SUCCEEDED = '[Suggestions]  POST_SUGGESTION_SUCCEEDED';
 export const POST_SUGGESTION_FAILED = '[Suggestions]  POST_SUGGESTION_FAILED';
 
-/* POST ONE SUGGESTION IDENTIFIERS */
+/* UPDATE ONE SUGGESTION IDENTIFIERS */
 
 export const UPDATE_SUGGESTION_START = '[Suggestions]  UPDATE_SUGGESTION_START';
 export const UPDATE_SUGGESTION_SUCCEEDED = '[Suggestions]  UPDATE_SUGGESTION_SUCCEEDED';
 export const UPDATE_SUGGESTION_FAILED = '[Suggestions]  UPDATE_SUGGESTION_FAILED';
+
+/* REMOVE ONE SUGGESTION IDENTIFIERS */
+
+export const REMOVE_SUGGESTION_START = '[Suggestions]  REMOVE_SUGGESTION_START';
+export const REMOVE_SUGGESTION_SUCCEEDED = '[Suggestions]  REMOVE_SUGGESTION_SUCCEEDED';
+export const REMOVE_SUGGESTION_FAILED = '[Suggestions]  REMOVE_SUGGESTION_FAILED';
 
 /*******
  *
  * ACTIONS
  *
  *******/
+
+/* POST SUGGESTION ACTIONS */
+
+export class RemoveOneSuggestionStart implements Action {
+  readonly type = REMOVE_SUGGESTION_START;
+  constructor(public suggestionId: number) { } /* ICI */
+}
+
+export class RemoveOneSuggestionSucceeded implements Action {
+  readonly type = REMOVE_SUGGESTION_SUCCEEDED;
+}
+
+export class RemoveOneSuggestionFailed implements Action {
+  readonly type = REMOVE_SUGGESTION_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
 
 /* POST SUGGESTION ACTIONS */
 
@@ -210,4 +232,5 @@ export type SuggestionActionsTypes =
   IncrementUpvotesSucceeded | IncrementUpvotesFailed | DecrementUpvotesStart |
   DecrementUpvotesSucceeded | DecrementUpvotesFailed | PostOneSuggestionStart |
   PostOneSuggestionSucceeded | PostOneSuggestionFailed | UpdateOneSuggestionStart |
-  UpdateOneSuggestionSucceeded | UpdateOneSuggestionFailed;
+  UpdateOneSuggestionSucceeded | UpdateOneSuggestionFailed |
+  RemoveOneSuggestionStart | RemoveOneSuggestionSucceeded | RemoveOneSuggestionFailed;

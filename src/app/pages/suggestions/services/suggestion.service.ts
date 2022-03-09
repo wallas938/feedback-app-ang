@@ -61,6 +61,10 @@ export class SuggestionService {
     )
   }
 
+  deleteOneSuggestion(suggestionId: number): Observable<void> {
+    return this.http.delete<void>(`${this.suggestionsUrl}/${suggestionId}`);
+  }
+
   private setRequestQueries({ _filter, _sort }: fromSuggestions.SuggestionsQuery): { _sort: string, _order: string, _filter: string } {
     let order;
     let filter;

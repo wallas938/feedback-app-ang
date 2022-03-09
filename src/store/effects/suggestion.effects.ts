@@ -39,8 +39,9 @@ export class SuggestionEffects {
       ofType(fromSuggestionActions.POST_SUGGESTION_START),
       switchMap(({ suggestion }: fromSuggestionActions.PostOneSuggestionStart) => this.suggestionService.postOneSuggestion(suggestion)
         .pipe(map((newSuggestion: fromSuggestions.Suggestion) => {
+          const redirectTo = `feedbacks/${newSuggestion.id}`
           this.store.dispatch(new fromSuggestionActions.PostOneSuggestionSucceeded(newSuggestion));
-          this.store.dispatch(new fromRouterActions.RedirectTo(true, 'feedbacks'));
+          this.store.dispatch(new fromRouterActions.RedirectTo(true, redirectTo));
         }),
           switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
           catchError((error) => of(new fromSuggestionActions.PostOneSuggestionFailed(error)))))));
@@ -50,13 +51,24 @@ export class SuggestionEffects {
       ofType(fromSuggestionActions.UPDATE_SUGGESTION_START),
       switchMap(({ updatedSuggestion, suggestionId }: fromSuggestionActions.UpdateOneSuggestionStart) => this.suggestionService.updateOneSuggestion(updatedSuggestion, suggestionId)
         .pipe(map((updatedSuggestion: fromSuggestions.Suggestion) => {
-          console.log(updatedSuggestion);
-
+          const redirectTo = `feedbacks/${updatedSuggestion.id}`;
           this.store.dispatch(new fromSuggestionActions.UpdateOneSuggestionSucceeded(updatedSuggestion));
-          this.store.dispatch(new fromRouterActions.RedirectTo(true, 'feedbacks'));
+          this.store.dispatch(new fromRouterActions.RedirectTo(true, redirectTo));
         }),
           switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
-          catchError((error) => of(new fromSuggestionActions.PostOneSuggestionFailed(error)))))));
+          catchError((error) => of(new fromSuggestionActions.UpdateOneSuggestionFailed(error)))))));
+
+  removeOneSuggestion$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(fromSuggestionActions.REMOVE_SUGGESTION_START),
+      switchMap(({ suggestionId }: fromSuggestionActions.RemoveOneSuggestionStart) => this.suggestionService.deleteOneSuggestion(suggestionId)
+        .pipe(map(() => {
+          const redirectTo = `suggestions`;
+          this.store.dispatch(new fromSuggestionActions.RemoveOneSuggestionSucceeded());
+          this.store.dispatch(new fromRouterActions.RedirectTo(true, redirectTo));
+        }),
+          switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
+          catchError((error) => of(new fromSuggestionActions.RemoveOneSuggestionFailed(error)))))));
 
   incrementUpvotesEffect$ = createEffect(
     () => this.actions$.pipe(
