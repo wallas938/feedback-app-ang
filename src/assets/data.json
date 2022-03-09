@@ -299,40 +299,13 @@
       ]
     },
     {
-      "title": "dzdzdzd",
+      "title": "post updated 3",
       "category": "Feature",
       "status": "Suggestion",
-      "upvotes": 0,
-      "description": "dzdzdzd",
+      "upvotes": 1,
+      "description": "post updated 3",
       "comments": [],
       "id": 13
-    },
-    {
-      "title": "sassa",
-      "category": "Feature",
-      "status": "Suggestion",
-      "upvotes": 0,
-      "description": "sasasas",
-      "comments": [],
-      "id": 14
-    },
-    {
-      "title": "asasa",
-      "category": "UX",
-      "status": "Suggestion",
-      "upvotes": 0,
-      "description": "zefezfezf",
-      "comments": [],
-      "id": 15
-    },
-    {
-      "title": "New One",
-      "category": "UX",
-      "status": "Suggestion",
-      "upvotes": 0,
-      "description": "Suggestion edited",
-      "comments": [],
-      "id": 16
     }
   ]
 }

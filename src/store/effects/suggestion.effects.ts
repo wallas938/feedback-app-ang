@@ -22,7 +22,7 @@ export class SuggestionEffects {
   fetchSuggestionsEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(fromSuggestionActions.FETCHING_SUGGESTIONS_START),
-      switchMap((data: any) => this.suggestionService.fetchSuggestions({ _filter: data.query._filter, _sort: data.query._sort }).pipe(
+      switchMap(({ query }: fromSuggestionActions.FetchSuggestionsStart) => this.suggestionService.fetchSuggestions({ _filter: query._filter, _sort: query._sort }).pipe(
         map((suggestions: fromSuggestions.Suggestion[]) => new fromSuggestionActions.FetchSuggestionsSucceeded(suggestions)),
         catchError((error) => of((new fromSuggestionActions.FetchSuggestionsFailed(error))))))));
 
@@ -40,9 +40,22 @@ export class SuggestionEffects {
       switchMap(({ suggestion }: fromSuggestionActions.PostOneSuggestionStart) => this.suggestionService.postOneSuggestion(suggestion)
         .pipe(map((newSuggestion: fromSuggestions.Suggestion) => {
           this.store.dispatch(new fromSuggestionActions.PostOneSuggestionSucceeded(newSuggestion));
-          this.store.dispatch(new fromRouterActions.RedirectTo(true, 'feebacks'));
+          this.store.dispatch(new fromRouterActions.RedirectTo(true, 'feedbacks'));
         }),
-          switchMap((data: any) => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
+          switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
+          catchError((error) => of(new fromSuggestionActions.PostOneSuggestionFailed(error)))))));
+
+  updateOneSuggestion$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(fromSuggestionActions.UPDATE_SUGGESTION_START),
+      switchMap(({ updatedSuggestion, suggestionId }: fromSuggestionActions.UpdateOneSuggestionStart) => this.suggestionService.updateOneSuggestion(updatedSuggestion, suggestionId)
+        .pipe(map((updatedSuggestion: fromSuggestions.Suggestion) => {
+          console.log(updatedSuggestion);
+
+          this.store.dispatch(new fromSuggestionActions.UpdateOneSuggestionSucceeded(updatedSuggestion));
+          this.store.dispatch(new fromRouterActions.RedirectTo(true, 'feedbacks'));
+        }),
+          switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
           catchError((error) => of(new fromSuggestionActions.PostOneSuggestionFailed(error)))))));
 
   incrementUpvotesEffect$ = createEffect(
@@ -54,13 +67,14 @@ export class SuggestionEffects {
           this._sortBy = state.sortBy;
         })
       }),
-      switchMap((data: any) =>
-        this.suggestionService.incrementSuggestionUpvotes(data.suggestion)
+      switchMap(({ suggestion }: fromSuggestionActions.IncrementUpvotesStart) =>
+        this.suggestionService.incrementSuggestionUpvotes(suggestion)
           .pipe(
-            map((update: fromSuggestions.Suggestion) =>
-              this.store.dispatch(new fromSuggestionActions.IncrementUpvotesSucceeded(update))
-            ),
-            switchMap((data: any) => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
+            map((update: fromSuggestions.Suggestion) => {
+              this.store.dispatch(new fromSuggestionActions.IncrementUpvotesSucceeded(update));
+              return update;
+            }),
+            switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
             catchError((error: HttpErrorResponse) => of(new fromSuggestionActions.IncrementUpvotesFailed(error))))
       )
     ));
@@ -74,13 +88,14 @@ export class SuggestionEffects {
           this._sortBy = state.sortBy;
         })
       }),
-      switchMap((data: any) =>
-        this.suggestionService.decrementSuggestionUpvotes(data.suggestion)
+      switchMap(({ suggestion }: fromSuggestionActions.DecrementUpvotesStart) =>
+        this.suggestionService.decrementSuggestionUpvotes(suggestion)
           .pipe(
-            map((update: fromSuggestions.Suggestion) =>
-              this.store.dispatch(new fromSuggestionActions.DecrementUpvotesSucceeded(update))
-            ),
-            switchMap((data: any) => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
+            map((update: fromSuggestions.Suggestion) => {
+              this.store.dispatch(new fromSuggestionActions.DecrementUpvotesSucceeded(update));
+              return update;
+            }),
+            switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
             catchError((error: HttpErrorResponse) => of(new fromSuggestionActions.IncrementUpvotesFailed(error))))
       )
     ));

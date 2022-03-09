@@ -9,7 +9,6 @@ import * as fromSuggestionActions from 'store/actions/suggestions.action';
 import * as fromRouterActions from 'store/actions/router.actions';
 import * as fromApp from 'store/reducers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-feedback-form',
@@ -44,10 +43,13 @@ export class FeedbackFormComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
       this.editMode = state.formMode;
-      this.isEditMode = this.setFormMode();
+      this.isEditMode = this.setFormMode(state.formMode);
       this.feedback = state.suggestion;
+
       if (this.isEditMode) {
         this.initFormValues(state.suggestion);
+      } else if (!this.isEditMode && this.router.url.includes('edit')) {
+        this.router.navigate(['suggestions'])
       }
     });
 
@@ -69,8 +71,8 @@ export class FeedbackFormComponent implements OnInit {
     this.upvotes = suggestion.upvotes;
   }
 
-  setFormMode(): boolean {
-    switch (this.editMode) {
+  setFormMode(formMode: fromSuggestions.FORM_MODES): boolean {
+    switch (formMode) {
       case fromSuggestions.FORM_MODES.FORM_ADDING_MODE:
         return false;
       case fromSuggestions.FORM_MODES.FORM_EDITING_MODE:
@@ -110,8 +112,12 @@ export class FeedbackFormComponent implements OnInit {
         description: this.form.get('detail').value,
         comments: []
       }
+
+      if (this.isEditMode) {
+        this.store.dispatch(new fromSuggestionActions.UpdateOneSuggestionStart(newSuggestions, this.feedback.id));
+        return;
+      }
       this.store.dispatch(new fromSuggestionActions.PostOneSuggestionStart(newSuggestions));
     }
   }
-
 }
