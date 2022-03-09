@@ -3,6 +3,12 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Action } from "@ngrx/store";
 import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
+/*******
+ *
+ * IDENTIFIERS
+ *
+ *******/
+
 /* FETCH SUGGESTIONS IDENTIFIERS */
 
 export const FETCHING_SUGGESTIONS_START = '[Suggestions]  FETCHING_SUGGESTIONS_START';
@@ -41,19 +47,37 @@ export const DECREMENT_UPVOTES_START = '[Suggestions]  DECREMENT_UPVOTES_START';
 export const DECREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  DECREMENT_UPVOTES_SUCCEEDED';
 export const DECREMENT_UPVOTES_FAILED = '[Suggestions]  DECREMENT_UPVOTES_FAILED';
 
+/* POST ONE SUGGESTION IDENTIFIERS */
 
-/* SUGGESTIONS FILTERS IDENTIFIERS */
+export const POST_SUGGESTION_START = '[Suggestions]  POST_SUGGESTION_START';
+export const POST_SUGGESTION_SUCCEEDED = '[Suggestions]  POST_SUGGESTION_SUCCEEDED';
+export const POST_SUGGESTION_FAILED = '[Suggestions]  POST_SUGGESTION_FAILED';
 
-/* export const FILTER_BY = '[Suggestions]  FILTER_BY';
+/*******
+ *
+ * ACTIONS
+ *
+ *******/
 
-export const FILTER_BY_ALL = '[Suggestions]  FILTER_BY_ALL';
-export const FILTER_BY_UI = '[Suggestions]  FILTER_BY_UI';
-export const FILTER_BY_UX = '[Suggestions]  FILTER_BY_UX';
-export const FILTER_BY_ENHANCEMENT = '[Suggestions]  FILTER_BY_ENHANCEMENT';
-export const FILTER_BY_FEATURE = '[Suggestions]  FILTER_BY_FEATURE';
-export const FILTER_BY_BUG = '[Suggestions]  FILTER_BY_BUG'; */
+/* POST SUGGESTION ACTIONS */
 
-/* INCREMENT UPVOTES ACTIONS */
+export class PostOneSuggestionStart implements Action {
+  readonly type = POST_SUGGESTION_START;
+  constructor(public suggestion: fromSuggestions.Suggestion) { }
+}
+
+export class PostOneSuggestionSucceeded implements Action {
+  readonly type = POST_SUGGESTION_SUCCEEDED;
+  constructor(public newSuggestion: fromSuggestions.Suggestion) { }
+}
+
+export class PostOneSuggestionFailed implements Action {
+  readonly type = POST_SUGGESTION_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
+
+
+/* DECREMENT UPVOTES ACTIONS */
 
 export class DecrementUpvotesStart implements Action {
   readonly type = DECREMENT_UPVOTES_START;
@@ -161,6 +185,7 @@ export type SuggestionActionsTypes =
   FormAddingMode | FormEditingMode | SortByMostUpvotes | SortByLeastUpvotes |
   SortByMostComments | SortByLeastComments | IncrementUpvotesStart |
   IncrementUpvotesSucceeded | IncrementUpvotesFailed | DecrementUpvotesStart |
-  DecrementUpvotesSucceeded | DecrementUpvotesFailed;
+  DecrementUpvotesSucceeded | DecrementUpvotesFailed | PostOneSuggestionStart |
+  PostOneSuggestionSucceeded | PostOneSuggestionFailed;
 
 
