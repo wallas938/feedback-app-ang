@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { UpvoteItemComponent } from './components/upvote-item/upvote-item.component';
 import { CommentsCountComponent } from './components/comments-count/comments-count.component';
 import { LoadingStripeComponent } from './components/loading-stripe/loading-stripe.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,8 +17,8 @@ import { LoadingStripeComponent } from './components/loading-stripe/loading-stri
     CommentsCountComponent,
     LoadingStripeComponent
   ],
-  imports: [CommonModule, HttpClientModule],
-  exports: [CommonModule, SuggestionItemComponent, CategoryChipsComponent, UpvoteItemComponent, CommentsCountComponent, LoadingStripeComponent],
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
+  exports: [CommonModule, ReactiveFormsModule, SuggestionItemComponent, CategoryChipsComponent, UpvoteItemComponent, CommentsCountComponent, LoadingStripeComponent],
   providers: []
 })
 export class SharedModule { }

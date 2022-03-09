@@ -49,7 +49,7 @@ export interface State {
 }
 
 export interface Suggestion {
-  id: number;
+  id?: number;
   title: string;
   category: string;
   upvotes: number;
@@ -107,10 +107,10 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
 
       return {
         ...state,
-        loadingState: false
+        loadingState: false,
+        error: action.error
       }
     case SuggestionActions.FETCHING_ONE_SUGGESTION_START:
-
       return {
         ...state,
         loadingState: true
@@ -122,10 +122,28 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         suggestion: action.payload
       }
     case SuggestionActions.FETCHING_ONE_SUGGESTION_FAILED:
-      console.log(action.error);
       return {
         ...state,
         loadingState: false,
+        error: action.error
+      }
+    case SuggestionActions.POST_SUGGESTION_START:
+
+      return {
+        ...state,
+        loadingState: true
+      }
+    case SuggestionActions.POST_SUGGESTION_SUCCEEDED:
+      return {
+        ...state,
+        loadingState: false,
+        suggestion: action.newSuggestion
+      }
+    case SuggestionActions.POST_SUGGESTION_FAILED:
+      return {
+        ...state,
+        loadingState: false,
+        error: action.error
       }
     case SuggestionActions.INCREMENT_UPVOTES_START:
       return {
@@ -140,10 +158,10 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         suggestion: action.suggestionUpdated
       }
     case SuggestionActions.INCREMENT_UPVOTES_FAILED:
-      console.log(action.error);
       return {
         ...state,
         loadingState: false,
+        error: action.error
       }
     case SuggestionActions.DECREMENT_UPVOTES_START:
       return {
@@ -161,6 +179,7 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
       return {
         ...state,
         loadingState: false,
+        error: action.error
       }
     case SuggestionActions.FORM_ADDING_MODE:
 
