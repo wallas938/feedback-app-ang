@@ -176,32 +176,13 @@
       "description": "Challenge preview images are missing when you apply a filter."
     },
     {
-      "id": 7,
       "title": "More comprehensive reports",
       "category": "feature",
-      "upvotes": 255,
       "status": "planned",
+      "upvotes": 255,
       "description": "It would be great to see a more detailed breakdown of solutions.",
-      "comments": [
-        {
-          "id": 10,
-          "content": "This would be awesome! It would be so helpful to see an overview of my code in a way that makes it easy to spot where things could be improved.",
-          "user": {
-            "image": "./assets/user-images/image-victoria.jpg",
-            "name": "Victoria Mejia",
-            "username": "arlen_the_marlin"
-          }
-        },
-        {
-          "id": 11,
-          "content": "Yeah, this would be really good. I'd love to see deeper insights into my code!",
-          "user": {
-            "image": "./assets/user-images/image-jackson.jpg",
-            "name": "Jackson Barker",
-            "username": "countryspirit"
-          }
-        }
-      ]
+      "comments": [],
+      "id": 7
     },
     {
       "id": 8,
@@ -297,15 +278,6 @@
           ]
         }
       ]
-    },
-    {
-      "title": "post updated 3",
-      "category": "Feature",
-      "status": "Suggestion",
-      "upvotes": 1,
-      "description": "post updated 3",
-      "comments": [],
-      "id": 13
     }
   ]
 }

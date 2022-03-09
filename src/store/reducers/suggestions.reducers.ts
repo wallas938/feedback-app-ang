@@ -163,6 +163,24 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         loadingState: false,
         error: action.error
       }
+    case SuggestionActions.REMOVE_SUGGESTION_START:
+
+      return {
+        ...state,
+        loadingState: true
+      }
+    case SuggestionActions.REMOVE_SUGGESTION_SUCCEEDED:
+      return {
+        ...state,
+        loadingState: false,
+        suggestion: null
+      }
+    case SuggestionActions.REMOVE_SUGGESTION_FAILED:
+      return {
+        ...state,
+        loadingState: false,
+        error: action.error
+      }
     case SuggestionActions.INCREMENT_UPVOTES_START:
       return {
         ...state,

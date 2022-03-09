@@ -49,13 +49,14 @@ export class FeedbackFormComponent implements OnInit {
       if (this.isEditMode) {
         this.initFormValues(state.suggestion);
       } else if (!this.isEditMode && this.router.url.includes('edit')) {
-        this.router.navigate(['suggestions'])
+        this.router.navigate(['suggestions']);
       }
     });
 
     this.store.select('router').subscribe((state: fromRouter.State) => {
       if (state.toRedirect) {
-        this.router.navigate([state.redirectTo, this.feedback.id]);
+        this.store.dispatch(new fromSuggestionActions.FormAddingMode())
+        this.router.navigate([state.redirectTo]);
         this.store.dispatch(new fromRouterActions.RedirectTo(false, null));
       }
     })
@@ -63,12 +64,12 @@ export class FeedbackFormComponent implements OnInit {
 
   initFormValues(suggestion: fromSuggestions.Suggestion) {
     this.form.patchValue({
-      title: suggestion.title,
-      detail: suggestion.description
+      title: suggestion?.title,
+      detail: suggestion?.description
     });
-    this.selectedStatus = suggestion.status;
-    this.selectedCategory = suggestion.category;
-    this.upvotes = suggestion.upvotes;
+    this.selectedStatus = suggestion?.status;
+    this.selectedCategory = suggestion?.category;
+    this.upvotes = suggestion?.upvotes;
   }
 
   setFormMode(formMode: fromSuggestions.FORM_MODES): boolean {
@@ -119,5 +120,9 @@ export class FeedbackFormComponent implements OnInit {
       }
       this.store.dispatch(new fromSuggestionActions.PostOneSuggestionStart(newSuggestions));
     }
+  }
+
+  remove(suggestionId: number) {
+    this.store.dispatch(new fromSuggestionActions.RemoveOneSuggestionStart(suggestionId));
   }
 }

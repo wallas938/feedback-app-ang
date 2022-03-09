@@ -7,7 +7,6 @@ import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromSuggestionActions from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
-import { map, Observable, take } from 'rxjs';
 
 @Component({
   selector: 'app-feedback-detail',

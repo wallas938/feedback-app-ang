@@ -3,7 +3,7 @@
     <div class="top">
       <a routerLink="/suggestions">Go Back</a>
     </div>
-    <form [@fadeInOutY] [formGroup]="form" (submit)="onSubmit()">
+    <form [@fadeInOutY] [formGroup]="form">
       <img [src]="isEditMode ?  '/assets/shared/icon-edit-feedback.svg' : '/assets/shared/icon-new-feedback.svg'"
         alt="plus icon">
       <h1>
@@ -70,13 +70,13 @@
 
       <div class="cta">
         <div class="delete">
-          <button *ngIf="true" class="app-btn">Delete</button>
+          <button type="button" (click)="remove(feedback.id)" *ngIf="isEditMode" class="app-btn">Delete</button>
         </div>
         <div class="cancel">
           <button class="app-btn">Cancel</button>
         </div>
         <div class="save">
-          <button type="submit" class="app-btn"
+          <button (click)="onSubmit()" type="button" class="app-btn"
             [disabled]="!form.valid">
             {{ false ? 'Add Feedback' : 'Save Changes'}}
           </button>
