@@ -53,11 +53,34 @@ export const POST_SUGGESTION_START = '[Suggestions]  POST_SUGGESTION_START';
 export const POST_SUGGESTION_SUCCEEDED = '[Suggestions]  POST_SUGGESTION_SUCCEEDED';
 export const POST_SUGGESTION_FAILED = '[Suggestions]  POST_SUGGESTION_FAILED';
 
+/* POST ONE SUGGESTION IDENTIFIERS */
+
+export const UPDATE_SUGGESTION_START = '[Suggestions]  UPDATE_SUGGESTION_START';
+export const UPDATE_SUGGESTION_SUCCEEDED = '[Suggestions]  UPDATE_SUGGESTION_SUCCEEDED';
+export const UPDATE_SUGGESTION_FAILED = '[Suggestions]  UPDATE_SUGGESTION_FAILED';
+
 /*******
  *
  * ACTIONS
  *
  *******/
+
+/* POST SUGGESTION ACTIONS */
+
+export class UpdateOneSuggestionStart implements Action {
+  readonly type = UPDATE_SUGGESTION_START;
+  constructor(public updatedSuggestion: fromSuggestions.Suggestion, public suggestionId: number) { } /* ICI */
+}
+
+export class UpdateOneSuggestionSucceeded implements Action {
+  readonly type = UPDATE_SUGGESTION_SUCCEEDED;
+  constructor(public updatedSuggestion: fromSuggestions.Suggestion) { }
+}
+
+export class UpdateOneSuggestionFailed implements Action {
+  readonly type = UPDATE_SUGGESTION_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
 
 /* POST SUGGESTION ACTIONS */
 
@@ -186,6 +209,5 @@ export type SuggestionActionsTypes =
   SortByMostComments | SortByLeastComments | IncrementUpvotesStart |
   IncrementUpvotesSucceeded | IncrementUpvotesFailed | DecrementUpvotesStart |
   DecrementUpvotesSucceeded | DecrementUpvotesFailed | PostOneSuggestionStart |
-  PostOneSuggestionSucceeded | PostOneSuggestionFailed;
-
-
+  PostOneSuggestionSucceeded | PostOneSuggestionFailed | UpdateOneSuggestionStart |
+  UpdateOneSuggestionSucceeded | UpdateOneSuggestionFailed;

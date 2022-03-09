@@ -145,6 +145,24 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         loadingState: false,
         error: action.error
       }
+    case SuggestionActions.UPDATE_SUGGESTION_START:
+
+      return {
+        ...state,
+        loadingState: true
+      }
+    case SuggestionActions.UPDATE_SUGGESTION_SUCCEEDED:
+      return {
+        ...state,
+        loadingState: false,
+        suggestion: action.updatedSuggestion
+      }
+    case SuggestionActions.UPDATE_SUGGESTION_FAILED:
+      return {
+        ...state,
+        loadingState: false,
+        error: action.error
+      }
     case SuggestionActions.INCREMENT_UPVOTES_START:
       return {
         ...state,

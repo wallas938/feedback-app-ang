@@ -3,7 +3,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromSuggestionsActions from 'store/actions/suggestions.action';
+import * as fromSuggestionActions from 'store/actions/suggestions.action';
 import * as fromLayout from 'store/reducers/layout.reducers';
 import * as fromLayoutActions from 'store/actions/layout.action';
 import * as fromApp from 'store/reducers/index';
@@ -105,29 +105,29 @@ export class SuggestionsFilterComponent implements OnInit {
     switch (sortValue) {
       case fromSuggestions.SORT.MOST_UPVOTES:
         this.currentSortValue = fromSuggestions.SORT.MOST_UPVOTES;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_UPVOTES }));
+        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_UPVOTES }));
         break;
       case fromSuggestions.SORT.LEAST_UPVOTES:
         this.currentSortValue = fromSuggestions.SORT.LEAST_UPVOTES;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.LEAST_UPVOTES }));
+        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.LEAST_UPVOTES }));
         break;
       case fromSuggestions.SORT.MOST_COMMENTS:
         this.currentSortValue = fromSuggestions.SORT.MOST_COMMENTS;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_COMMENTS }));
+        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_COMMENTS }));
         break;
       case fromSuggestions.SORT.LEAST_COMMENTS:
         this.currentSortValue = fromSuggestions.SORT.LEAST_COMMENTS;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.LEAST_COMMENTS }));
+        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.LEAST_COMMENTS }));
         break;
       default:
         this.currentSortValue = fromSuggestions.SORT.MOST_COMMENTS;
-        this.store.dispatch(new fromSuggestionsActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_COMMENTS }));
+        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this.currentFilterValue, _sort: fromSuggestions.SORT.MOST_COMMENTS }));
         break;
     }
   }
 
   navigateTo() {
-    this.store.dispatch(new fromSuggestionsActions.FormAddingMode());
+    this.store.dispatch(new fromSuggestionActions.FormAddingMode());
     this.router.navigate(['/feedbacks/new-feedback']);
   }
 

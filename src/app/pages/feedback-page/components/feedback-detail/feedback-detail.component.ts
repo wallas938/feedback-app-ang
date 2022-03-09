@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromSuggestionsActions from 'store/actions/suggestions.action';
+import * as fromSuggestionActions from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
 import { map, Observable, take } from 'rxjs';
@@ -28,7 +28,7 @@ export class FeedbackDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.feedbackId = this.route.snapshot.params['id'];
-    this.store.dispatch(new fromSuggestionsActions.FetchOneSuggestionStart(this.feedbackId.toString()));
+    this.store.dispatch(new fromSuggestionActions.FetchOneSuggestionStart(this.feedbackId.toString()));
     this.store.select('suggestions').subscribe(((state: fromSuggestions.State) => {
       this.feedback = state.suggestion;
       this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id);
@@ -36,7 +36,7 @@ export class FeedbackDetailComponent implements OnInit {
   }
 
   navigateToForm() {
-    this.store.dispatch(new fromSuggestionsActions.FormEditingMode())
+    this.store.dispatch(new fromSuggestionActions.FormEditingMode())
     this.router.navigate(['/feedbacks/edit-feedback/', this.feedbackId])
   }
 }
