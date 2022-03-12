@@ -53,6 +53,14 @@
       border-radius: .666666rem;
       padding: 1.6rem;
 
+      .--alert {
+        color: $orange !important;
+      }
+
+      .--error {
+        color: $red !important;
+      }
+
       >p {
         font-weight: bold;
         font-style: normal;

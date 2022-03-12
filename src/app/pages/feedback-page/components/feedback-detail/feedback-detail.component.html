@@ -6,18 +6,19 @@
         Edit Feedback
       </a>
     </div>
-    <div  [@fadeInOutY] class="suggestion">
-      <app-suggestion-item [suggestion]="feedback" [isUpvoted]="isUpvoted"></app-suggestion-item>
+    <div [@fadeInOutY] class="suggestion">
+      <app-suggestion-item [suggestion]="feedback" [comments]="comments" [isUpvoted]="isUpvoted"></app-suggestion-item>
     </div>
-    <div *ngIf="feedback.comments" [@fadeInOutX] class="comments">
-      <app-comments [comments]="feedback.comments"></app-comments>
+    <div *ngIf="comments" [@fadeInOutX] class="comments">
+      <app-comments [comments]="comments"></app-comments>
     </div>
-    <form class="comment-form">
+    <form [formGroup]="form" (submit)="onSubmit()" class="comment-form">
       <p>Add Comment</p>
-      <textarea class="message app-form-field" placeholder="Type your comment here"></textarea>
+      <textarea class="message app-form-field" placeholder="Type your comment here"
+        formControlName="comment" #commentField></textarea>
       <div class="cta">
-        <p class="input-left">250 Characters left</p>
-        <button class="app-btn">Post Comment</button>
+        <p class="input-left" [ngClass]="{'--alert': charactersLeft < 50 && charactersLeft > 0, '--error': charactersLeft <= 0}">{{ charactersLeft }} Characters left</p>
+        <button type="submit" class="app-btn" [disabled]="form.controls['comment'].invalid">Post Comment</button>
       </div>
     </form>
   </div>

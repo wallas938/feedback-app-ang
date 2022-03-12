@@ -4,8 +4,10 @@ import { Store } from '@ngrx/store';
 
 import * as fadeAnimations from '@/app/shared/animations/fade';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import * as fromUser from 'store/reducers/user.reducers';
 import * as fromRouter from 'store/reducers/router.reducers';
 import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import * as fromUserActions from "store/actions/user.actions";
 import * as fromRouterActions from 'store/actions/router.actions';
 import * as fromApp from 'store/reducers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,6 +19,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   animations: fadeAnimations.fadeInOutY
 })
 export class FeedbackFormComponent implements OnInit {
+  currentUser: fromUser.User;
   feedback: fromSuggestions.Suggestion;
   editMode: fromSuggestions.FORM_MODES = fromSuggestions.FORM_MODES.FORM_ADDING_MODE;
   isEditMode = false;
@@ -41,6 +44,13 @@ export class FeedbackFormComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    this.store.select('user').subscribe((state: fromUser.State) => {
+      this.currentUser = state.currentUser;
+      if (!this.currentUser) {
+        this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
+      }
+    });
+
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
       this.editMode = state.formMode;
       this.isEditMode = this.setFormMode(state.formMode);
@@ -100,7 +110,7 @@ export class FeedbackFormComponent implements OnInit {
   }
 
   getTitle(): string {
-    return `Editing '${this.feedback.title}'`
+    return `Editing '${this.feedback.title}'`;
   }
 
   onSubmit() {
@@ -108,7 +118,7 @@ export class FeedbackFormComponent implements OnInit {
       const newSuggestions: fromSuggestions.Suggestion = {
         title: this.form.get('title').value,
         category: this.selectedCategory,
-        status: this.selectedStatus ? this.selectedStatus : 'Suggestion',
+        status: this.selectedStatus ? this.selectedStatus.toLocaleLowerCase() : 'suggestion',
         upvotes: this.upvotes ? this.upvotes : 0,
         description: this.form.get('detail').value,
         comments: []
