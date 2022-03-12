@@ -3,9 +3,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromUser from 'store/reducers/user.reducers';
 import * as fromComment from 'store/reducers/comment.reducers';
+import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import * as fromCommentActions from 'store/actions/comment.action';
 import * as fromSuggestionActions from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
@@ -23,7 +24,7 @@ export class FeedbackDetailComponent implements OnInit {
   feedbackId: number;
   isUpvoted: boolean;
   comments: fromComment.Comment[];
-  user: fromUser.User;
+  currentUser: fromUser.User;
   charactersLeft = 250;
   maxCharacters = 250;
 
@@ -42,15 +43,9 @@ export class FeedbackDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.feedbackId = this.route.snapshot.params['id'];
+    this.store.dispatch(new fromSuggestionActions.FetchOneSuggestionStart(this.feedbackId));
+    this.store.dispatch(new fromCommentActions.FetchCommentsStart(this.feedbackId));
 
-    this.store.dispatch(new fromSuggestionActions.FetchOneSuggestionStart(this.feedbackId.toString()));
-
-    this.form.get('comment').valueChanges.subscribe((value) => {
-      this.charactersLeft = this.maxCharacters - value.length;
-      if (this.charactersLeft <= 0) {
-        this.charactersLeft = 0;
-      }
-    });
 
     this.store.select('comments').subscribe(((state: fromComment.State) => {
       this.comments = state.comments;
@@ -58,7 +53,7 @@ export class FeedbackDetailComponent implements OnInit {
     }));
 
     this.store.select('user').subscribe(((state: fromUser.State) => {
-      this.user = state.currentUser;
+      this.currentUser = state.currentUser;
       /* this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id); */
     }));
 
@@ -66,6 +61,14 @@ export class FeedbackDetailComponent implements OnInit {
       this.feedback = state.suggestion;
       this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id);
     }));
+
+
+    this.form.get('comment').valueChanges.subscribe((value) => {
+      this.charactersLeft = this.maxCharacters - value.length;
+      if (this.charactersLeft <= 0) {
+        this.charactersLeft = 0;
+      }
+    });
   }
 
   navigateToForm() {
@@ -76,8 +79,9 @@ export class FeedbackDetailComponent implements OnInit {
   onSubmit() {
     const comment: fromComment.Comment = {
       content: this.form.get('comment').value,
-      from: this.user.id,
-      suggestionId: this.feedbackId
+      from: this.currentUser.id,
+      suggestionId: this.feedbackId,
+      user: this.currentUser
     };
 
     this.store.dispatch(new fromSuggestionActions.PostOneCommentStart(this.feedback.id, comment))

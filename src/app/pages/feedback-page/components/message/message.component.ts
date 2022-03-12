@@ -26,14 +26,16 @@ import * as fadeAnimations from '@/app/shared/animations/fade';
 })
 export class MessageComponent implements OnInit {
 
-  @Input() message: any;
+  @Input() comment: any;
   @Input() isMain = false;
   state = "in";
   reply = false;
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log(this.comment);
+  }
 
   onReply() {
     this.reply = !this.reply;

@@ -3,8 +3,8 @@
     <p class="comments-count"> {{getMessagesCount(comments)}} Comments</p>
     <div *ngIf="comments" class="comments">
       <app-message
-        *ngFor="let message of comments"
-        [message]="message"
+        *ngFor="let comment of comments"
+        [comment]="comment"
         [isMain]="true"></app-message>
     </div>
   </div>

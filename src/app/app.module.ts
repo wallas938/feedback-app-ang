@@ -12,10 +12,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from 'store/reducers/index';
 import { EffectsModule } from '@ngrx/effects';
-import { SuggestionEffects } from 'store/effects/suggestion.effects';
 import { MobileSideNavComponent } from './pages/suggestions/components/mobile-side-nav/mobile-side-nav.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { AppEffects } from 'store/effects';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    EffectsModule.forRoot([SuggestionEffects]),
+    EffectsModule.forRoot(AppEffects),
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
