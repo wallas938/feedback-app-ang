@@ -48,7 +48,7 @@ export class FetchOneCommentFailed implements Action {
 
 export class FetchCommentsStart implements Action {
   readonly type = FETCH_COMMENTS_START;
-  constructor(public userId: number) { }
+  constructor(public suggestionId: number) { }
 }
 
 export class FetchCommentsSucceeded implements Action {

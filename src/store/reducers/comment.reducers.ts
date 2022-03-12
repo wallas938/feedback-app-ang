@@ -7,6 +7,7 @@ export interface Comment {
   content: string;
   from: number;
   suggestionId: number;
+  user: User;
 }
 
 export interface State {
@@ -30,6 +31,8 @@ export function commentReducer(state: State = initialState, action: fromCommentA
         loading: true
       }
     case fromCommentActions.FETCH_COMMENTS_SUCCEEDED:
+      console.log(action.comments);
+
       return {
         ...state,
         loading: false,

@@ -13,7 +13,7 @@ export class FeedbackResolver implements Resolve<fromSuggestions.Suggestion> {
   constructor(private store: Store<fromApp.AppState>, private action$: Actions) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<fromSuggestions.Suggestion> {
-    this.store.dispatch(new SuggestionActions.FetchOneSuggestionStart(route.paramMap.get('id')));
+    this.store.dispatch(new SuggestionActions.FetchOneSuggestionStart(+route.paramMap.get('id')));
     return this.action$.pipe(
       ofType(SuggestionActions.FETCHING_ONE_SUGGESTION_SUCCEEDED),
       take(1)

@@ -1,14 +1,14 @@
 <div class="root">
   <div class="wrapper" [ngClass]="{
-      'main-message-btm-line': isMain && !message.replies,
-      'main-message-left-line': isMain && message.replies
+      'main-message-btm-line': isMain && !comment?.replies,
+      'main-message-left-line': isMain && comment?.replies
     }">
     <div class="message">
       <div class="header">
-        <img [src]="message?.user.image" alt="user image">
+        <img [src]="comment?.user?.image" alt="user image">
         <div class="identity">
-          <p class="name">{{message.user.name}}</p>
-          <p class="username">@{{message.user.username}}</p>
+          <p class="name">{{comment?.user?.name}}</p>
+          <p class="username">@{{comment?.user?.username}}</p>
         </div>
         <div class="reply">
           <button (click)="onReply()" class="app-btn">Reply</button>
@@ -16,8 +16,8 @@
       </div>
       <div class="body">
         <p>
-          <span class="replyingTo" *ngIf="message.replyingTo">@{{message.replyingTo}}</span>
-          {{message.content}}
+          <span class="replyingTo" *ngIf="comment?.replyingTo">@{{comment?.replyingTo}}</span>
+          {{comment?.content}}
         </p>
           <form [@reply-form-animation] *ngIf="reply" class="form-reply">
             <textarea placeholder="Reply here"></textarea>
@@ -25,8 +25,8 @@
           </form>
       </div>
     </div>
-    <div *ngIf="message.replies" class="replies">
-      <app-message *ngFor="let reply of message.replies" [message]="reply" [isMain]="false"></app-message>
+    <div *ngIf="comment?.replies" class="replies">
+      <app-message *ngFor="let reply of comment?.replies" [comment]="reply" [isMain]="false"></app-message>
     </div>
   </div>
 </div>

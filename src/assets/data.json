@@ -91,23 +91,37 @@
       "id": 1,
       "from": 2,
       "suggestionId": 1,
-      "content": "Awesome idea! Trying to find framework-specific projects within the hubs can be tedious"
+      "content": "Awesome idea! Trying to find framework-specific projects within the hubs can be tedious",
+      "user": {
+        "image": "./assets/user-images/image-suzanne.jpg",
+        "name": "Suzanne Chang",
+        "username": "upbeat1811"
+      }
     },
     {
       "content": "new comment",
       "from": 4,
-      "suggestionId": "1",
-      "id": 2
+      "suggestionId": 2,
+      "id": 2,
+      "user": {
+        "image": "./assets/user-images/image-elijah.jpg",
+        "name": "Elijah Moss",
+        "username": "hexagon.bestagon"
+      }
     }
   ],
   "replies": [
     {
-      "id": 1,
-      "content": "Bumping this. It would be good to have a tab with a feed of people I follow so it's easy to see what challenges they’ve done lately. I learn a lot by reading good developers' code.",
-      "replyingTo": "upbeat1811",
-      "from": 3,
-      "to": 2,
-      "suggestionId": 1
+    "id": 1,
+    "content": "Bumping this. It would be good to have a tab with a feed of people I follow so it's easy to see what challenges they’ve done lately. I learn a lot by reading good developers' code.",
+    "replyingTo": "upbeat1811",
+    "from": 3,
+    "to": 2,
+    "suggestionId": 1,
+    "user": {
+      "image": "./assets/user-images/image-thomas.jpg",
+      "name": "Thomas Hood",
+      "username": "brawnybrave"
     }
-  ]
+  }]
 }

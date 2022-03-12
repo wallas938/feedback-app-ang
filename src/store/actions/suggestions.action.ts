@@ -205,7 +205,7 @@ export class FetchSuggestionsFailed implements Action {
 
 export class FetchOneSuggestionStart implements Action {
   readonly type = FETCHING_ONE_SUGGESTION_START;
-  constructor(public payload: string | null) {
+  constructor(public payload: number | null) {
     this.payload = payload
   }
 }

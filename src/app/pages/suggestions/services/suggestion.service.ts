@@ -14,6 +14,7 @@ export class SuggestionService {
 
   constructor(private http: HttpClient, private store: Store<fromApp.AppState>) { }
 
+
   fetchSuggestions(query: fromSuggestions.SuggestionsQuery): Observable<fromSuggestions.Suggestion[]> {
     /*
 
@@ -22,7 +23,7 @@ export class SuggestionService {
     */
     return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}`);
   }
-  fetchSuggestion(id: string): Observable<fromSuggestions.Suggestion> {
+  fetchSuggestion(id: number): Observable<fromSuggestions.Suggestion> {
     return this.http.get<fromSuggestions.Suggestion>(`${this.suggestionsUrl}/${id}`)
   }
   incrementSuggestionUpvotes(data: fromSuggestions.Suggestion): Observable<fromSuggestions.Suggestion> {
