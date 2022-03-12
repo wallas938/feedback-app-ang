@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpErrorResponse } from "@angular/common/http";
 import * as SuggestionActions from "store/actions/suggestions.action";
+import * as fromUser from "store/reducers/user.reducers";
 
 export enum FORM_MODES {
   FORM_ADDING_MODE = "FORM_ADDING_MODE",
@@ -58,24 +59,15 @@ export interface Suggestion {
   comments?: Comment[];
 }
 
-export interface Comment {
-  id: number;
-  content: string;
-  user: User;
-  replies?: Reply[]
-}
+
 
 export interface Reply {
   content: string;
   replyingTo: string;
-  user: User;
+  user: fromUser.User;
 }
 
-export interface User {
-  image: string;
-  name: string;
-  username: string;
-}
+
 
 const initialState: State = {
   suggestions: [],
@@ -212,6 +204,24 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         suggestion: action.suggestionUpdated
       }
     case SuggestionActions.DECREMENT_UPVOTES_FAILED:
+      return {
+        ...state,
+        loadingState: false,
+        error: action.error
+      }
+    case SuggestionActions.POST_COMMENT_START:
+
+      return {
+        ...state,
+        loadingState: true
+      }
+    case SuggestionActions.POST_COMMENT_SUCCEEDED:
+      return {
+        ...state,
+        loadingState: false,
+        suggestion: action.suggestionUpdated
+      }
+    case SuggestionActions.POST_COMMENT_FAILED:
       return {
         ...state,
         loadingState: false,

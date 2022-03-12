@@ -46,6 +46,19 @@ export class SuggestionEffects {
           switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
           catchError((error) => of(new fromSuggestionActions.PostOneSuggestionFailed(error)))))));
 
+  postOneComment$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(fromSuggestionActions.POST_COMMENT_START),
+      switchMap(({ suggestionId, comment }: fromSuggestionActions.PostOneCommentStart) => this.suggestionService.postOneComment(suggestionId, comment)
+        .pipe(map((suggestionUpdated: fromSuggestions.Suggestion) => {
+          const redirectTo = `feedbacks/${suggestionUpdated.id}`
+          this.store.dispatch(new fromSuggestionActions.PostOneCommentSucceeded(suggestionUpdated));
+          this.store.dispatch(new fromRouterActions.RedirectTo(true, redirectTo));
+        }),
+          switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
+          catchError((error) => of(new fromSuggestionActions.PostOneCommentFailed(error)))))));
+
+
   updateOneSuggestion$ = createEffect(
     () => this.actions$.pipe(
       ofType(fromSuggestionActions.UPDATE_SUGGESTION_START),

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import * as fromComments from 'store/reducers/comment.reducers';
 import * as fromApp from 'store/reducers/index';
 
 @Injectable({
@@ -14,8 +15,12 @@ export class SuggestionService {
   constructor(private http: HttpClient, private store: Store<fromApp.AppState>) { }
 
   fetchSuggestions(query: fromSuggestions.SuggestionsQuery): Observable<fromSuggestions.Suggestion[]> {
+    /*
+
     this.setRequestQueries(query);
-    return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}?${this.setRequestQueries(query)._filter}_sort=${this.setRequestQueries(query)._sort}&_order=${this.setRequestQueries(query)._order}`);
+    Faire manuellement le filtrage
+    */
+    return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}`);
   }
   fetchSuggestion(id: string): Observable<fromSuggestions.Suggestion> {
     return this.http.get<fromSuggestions.Suggestion>(`${this.suggestionsUrl}/${id}`)
@@ -46,6 +51,15 @@ export class SuggestionService {
   postOneSuggestion(data: fromSuggestions.Suggestion): Observable<fromSuggestions.Suggestion> {
     return this.http.post<fromSuggestions.Suggestion>(`${this.suggestionsUrl}`,
       data,
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+  }
+
+  postOneComment(suggestionId: number, comment: fromComments.Comment): Observable<fromSuggestions.Suggestion> {
+    return this.http.post<fromSuggestions.Suggestion>(`${this.suggestionsUrl}/${suggestionId}/comments`,
+      comment,
       {
         headers: { 'Content-Type': 'application/json' }
       }

@@ -38,8 +38,7 @@ export class RoadmapMobileComponent implements OnInit {
 
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
       if (!state.suggestions) {
-        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES }))
-        this.data = state.suggestions;
+        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES }));
       } else {
         this.data = state.suggestions;
       }

@@ -2,6 +2,7 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Action } from "@ngrx/store";
 import * as fromSuggestions from "store/reducers/suggestions.reducers";
+import * as fromComments from "store/reducers/comment.reducers";
 
 /*******
  *
@@ -65,13 +66,36 @@ export const REMOVE_SUGGESTION_START = '[Suggestions]  REMOVE_SUGGESTION_START';
 export const REMOVE_SUGGESTION_SUCCEEDED = '[Suggestions]  REMOVE_SUGGESTION_SUCCEEDED';
 export const REMOVE_SUGGESTION_FAILED = '[Suggestions]  REMOVE_SUGGESTION_FAILED';
 
+/* POST ONE COMMENT IDENTIFIERS */
+
+export const POST_COMMENT_START = '[Suggestions]  POST_COMMENT_START';
+export const POST_COMMENT_SUCCEEDED = '[Suggestions]  POST_COMMENT_SUCCEEDED';
+export const POST_COMMENT_FAILED = '[Suggestions]  POST_COMMENT_FAILED';
+
 /*******
  *
  * ACTIONS
  *
  *******/
 
-/* POST SUGGESTION ACTIONS */
+/* REMOVE SUGGESTION ACTIONS */
+
+export class PostOneCommentStart implements Action {
+  readonly type = POST_COMMENT_START;
+  constructor(public suggestionId: number, public comment: fromComments.Comment) { } /* ICI */
+}
+
+export class PostOneCommentSucceeded implements Action {
+  readonly type = POST_COMMENT_SUCCEEDED;
+  constructor(public suggestionUpdated: fromSuggestions.Suggestion) { }
+}
+
+export class PostOneCommentFailed implements Action {
+  readonly type = POST_COMMENT_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
+
+/* REMOVE SUGGESTION ACTIONS */
 
 export class RemoveOneSuggestionStart implements Action {
   readonly type = REMOVE_SUGGESTION_START;
@@ -233,4 +257,5 @@ export type SuggestionActionsTypes =
   DecrementUpvotesSucceeded | DecrementUpvotesFailed | PostOneSuggestionStart |
   PostOneSuggestionSucceeded | PostOneSuggestionFailed | UpdateOneSuggestionStart |
   UpdateOneSuggestionSucceeded | UpdateOneSuggestionFailed |
-  RemoveOneSuggestionStart | RemoveOneSuggestionSucceeded | RemoveOneSuggestionFailed;
+  RemoveOneSuggestionStart | RemoveOneSuggestionSucceeded | RemoveOneSuggestionFailed |
+  PostOneCommentStart | PostOneCommentSucceeded | PostOneCommentFailed;
