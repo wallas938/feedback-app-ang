@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import * as fromSuggestion from 'store/reducers/suggestions.reducers';
+import { concatMap, map, mergeAll, Observable,switchMap, toArray } from 'rxjs';
 import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromApp from 'store/reducers/index';
+import { ReplyService } from './reply.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,36 @@ import * as fromApp from 'store/reducers/index';
 export class CommentService {
 
   private commentsUrl = 'http://localhost:3000/comments';
+  comments: fromComment.AppMessage[] = [];
+  replies: fromComment.AppMessage[] = [];
+  result: fromComment.AppMessage[] = [];
+  count = 0
+  /*
+    comment: {
+      message: ,
+      replies: []
+    }
+  */
 
-  constructor(private http: HttpClient, private store: Store<fromApp.AppState>) { }
+  constructor(private http: HttpClient, private store: Store<fromApp.AppState>, private replyService: ReplyService) { }
 
-  fetchOneSuggestionComments(suggestionId: number): Observable<fromComment.Comment[]> {
-    console.log(suggestionId);
-    return this.http.get<fromComment.Comment[]>(`${this.commentsUrl}?suggestionId=${suggestionId}`)
+  fetchOneSuggestionComments(suggestionId: number): Observable<fromComment.AppMessage[]> {
+    return this.http.get<fromComment.AppMessage[]>(`${this.commentsUrl}?suggestionId=${suggestionId}`)
+      .pipe(switchMap((comments: fromComment.AppMessage[]) => {
+        this.comments = comments;
+        return comments.map((comment: fromComment.AppMessage) => comment.id)
+      }),
+        concatMap((commentId: number) => {
+          return this.replyService.fetchOneSuggestionReplies(commentId)
+        }),
+        mergeAll(),
+        toArray(),
+        map((replies: fromComment.AppMessage[]) => {
+          return this.comments.map((comment: fromComment.AppMessage) => ({
+            ...comment,
+            replies: replies.filter((reply: fromComment.AppMessage) => reply.commentId === comment.id)
+          }))
+        }
+        ))
   }
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromApp from 'store/reducers/index';
 
 @Injectable({
@@ -10,7 +10,12 @@ import * as fromApp from 'store/reducers/index';
 })
 export class ReplyService {
 
-  private commentsUrl = 'http://localhost:3000/replies';
+  private replyUrl = 'http://localhost:3000/replies';
 
-  constructor(private http: HttpClient, private store: Store<fromApp.AppState>) { }
+  constructor(private http: HttpClient,
+    private store: Store<fromApp.AppState>) { }
+
+    fetchOneSuggestionReplies(commentId: number): Observable<fromComment.AppMessage[]> {
+      return this.http.get<fromComment.AppMessage[]>(`${this.replyUrl}?commentId=${commentId}`)
+    }
 }

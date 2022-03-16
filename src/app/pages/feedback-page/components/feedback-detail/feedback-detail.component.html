@@ -14,10 +14,12 @@
     </div>
     <form [formGroup]="form" (submit)="onSubmit()" class="comment-form">
       <p>Add Comment</p>
-      <textarea class="message app-form-field" placeholder="Type your comment here"
-        formControlName="comment" #commentField></textarea>
+      <textarea class="message app-form-field" placeholder="Type your comment here" formControlName="comment"
+        #commentField></textarea>
       <div class="cta">
-        <p class="input-left" [ngClass]="{'--alert': charactersLeft < 50 && charactersLeft > 0, '--error': charactersLeft <= 0}">{{ charactersLeft }} Characters left</p>
+        <p class="input-left"
+          [ngClass]="{'--alert': charactersLeft < 50 && charactersLeft > 0, '--error': charactersLeft <= 0}">
+          {{ charactersLeft }} Characters left</p>
         <button type="submit" class="app-btn" [disabled]="form.controls['comment'].invalid">Post Comment</button>
       </div>
     </form>

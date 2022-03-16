@@ -56,18 +56,7 @@ export interface Suggestion {
   upvotes: number;
   status: string;
   description: string;
-  comments?: Comment[];
 }
-
-
-
-export interface Reply {
-  content: string;
-  replyingTo: string;
-  user: fromUser.User;
-}
-
-
 
 const initialState: State = {
   suggestions: [],

@@ -2,7 +2,7 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Action } from "@ngrx/store";
 import * as fromSuggestions from "store/reducers/suggestions.reducers";
-import * as fromComments from "store/reducers/comment.reducers";
+import * as fromComment from "store/reducers/comment.reducers";
 
 /*******
  *
@@ -82,7 +82,7 @@ export const POST_COMMENT_FAILED = '[Suggestions]  POST_COMMENT_FAILED';
 
 export class PostOneCommentStart implements Action {
   readonly type = POST_COMMENT_START;
-  constructor(public suggestionId: number, public comment: fromComments.Comment) { } /* ICI */
+  constructor(public suggestionId: number, public comment: fromComment.AppMessage) { } /* ICI */
 }
 
 export class PostOneCommentSucceeded implements Action {

@@ -58,7 +58,7 @@ export class SuggestionService {
     )
   }
 
-  postOneComment(suggestionId: number, comment: fromComments.Comment): Observable<fromSuggestions.Suggestion> {
+  postOneComment(suggestionId: number, comment: fromComments.AppMessage): Observable<fromSuggestions.Suggestion> {
     return this.http.post<fromSuggestions.Suggestion>(`${this.suggestionsUrl}/${suggestionId}/comments`,
       comment,
       {
