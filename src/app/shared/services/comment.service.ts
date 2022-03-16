@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { concatMap, map, mergeAll, Observable,switchMap, toArray } from 'rxjs';
+import { concatMap, map, mergeAll, Observable, switchMap, toArray } from 'rxjs';
 import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromApp from 'store/reducers/index';
 import { ReplyService } from './reply.service';
@@ -14,8 +14,6 @@ export class CommentService {
   private commentsUrl = 'http://localhost:3000/comments';
   comments: fromComment.AppMessage[] = [];
   replies: fromComment.AppMessage[] = [];
-  result: fromComment.AppMessage[] = [];
-  count = 0
   /*
     comment: {
       message: ,
@@ -43,5 +41,15 @@ export class CommentService {
           }))
         }
         ))
+  }
+
+  postOneComment(comment: fromComment.AppMessage): Observable<fromComment.AppMessage[]> {
+    const header = { headers: { 'Content-Type': 'application/json' } };
+    return this.http.post<fromComment.AppMessage>(`${this.commentsUrl}`, comment, header)
+      .pipe(
+        (map((comment: fromComment.AppMessage) => comment)),
+        switchMap((comment: fromComment.AppMessage) => this.fetchOneSuggestionComments(comment.suggestionId)),
+        map((comments: fromComment.AppMessage[]) => comments)
+      )
   }
 }

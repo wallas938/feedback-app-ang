@@ -90,7 +90,11 @@ export class FeedbackDetailComponent implements OnInit {
       replies: [],
       main: true
     };
+    this.store.dispatch(new fromCommentActions.PostCommentStart(comment));
+    this.resetForm();
+  }
 
-    this.store.dispatch(new fromSuggestionActions.PostOneCommentStart(this.feedback.id, comment))
+  resetForm() {
+    this.form.reset();
   }
 }

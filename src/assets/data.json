@@ -77,12 +77,11 @@
       "description": "Easier to search for solutions based on a specific stack."
     },
     {
-      "title": "new suggestion",
-      "category": "Feature",
-      "status": "live",
+      "title": "My new comment",
+      "category": "UX",
+      "status": "suggestion",
       "upvotes": 0,
-      "description": "a new detailed sggestion",
-      "comments": [],
+      "description": "My description",
       "id": 2
     }
   ],
@@ -110,6 +109,34 @@
         "name": "James Skinner",
         "username": "hummingbird1"
       }
+    },
+    {
+      "content": "My new comment",
+      "from": 3,
+      "suggestionId": "2",
+      "user": {
+        "id": 3,
+        "image": "./assets/user-images/image-thomas.jpg",
+        "name": "Thomas Hood",
+        "username": "brawnybrave"
+      },
+      "replies": [],
+      "main": true,
+      "id": 3
+    },
+    {
+      "content": "Another comment",
+      "from": 7,
+      "suggestionId": "2",
+      "user": {
+        "id": 7,
+        "image": "./assets/user-images/image-ryan.jpg",
+        "name": "Ryan Welles",
+        "username": "voyager.344"
+      },
+      "replies": [],
+      "main": true,
+      "id": 4
     }
   ],
   "replies": [
