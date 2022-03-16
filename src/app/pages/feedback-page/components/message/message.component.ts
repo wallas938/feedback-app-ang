@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import * as fadeAnimations from '@/app/shared/animations/fade';
+import * as fromComment from 'store/reducers/comment.reducers';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -26,15 +26,14 @@ import * as fadeAnimations from '@/app/shared/animations/fade';
 })
 export class MessageComponent implements OnInit {
 
-  @Input() comment: any;
-  @Input() isMain = false;
+  @Input() message: fromComment.AppMessage;
+  @Input() isMain: boolean;
   state = "in";
   reply = false;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.comment);
   }
 
   onReply() {

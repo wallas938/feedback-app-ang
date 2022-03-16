@@ -7,6 +7,7 @@ import * as fromUser from 'store/reducers/user.reducers';
 import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromCommentActions from 'store/actions/comment.action';
+import * as fromUserActions from "store/actions/user.actions";
 import * as fromSuggestionActions from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
@@ -23,7 +24,8 @@ export class FeedbackDetailComponent implements OnInit {
   feedback: fromSuggestions.Suggestion;
   feedbackId: number;
   isUpvoted: boolean;
-  comments: fromComment.Comment[];
+  comments: fromComment.AppMessage[];
+  replies: fromComment.AppMessage[];
   currentUser: fromUser.User;
   charactersLeft = 250;
   maxCharacters = 250;
@@ -47,13 +49,16 @@ export class FeedbackDetailComponent implements OnInit {
     this.store.dispatch(new fromCommentActions.FetchCommentsStart(this.feedbackId));
 
 
-    this.store.select('comments').subscribe(((state: fromComment.State) => {
+    this.store.select('comment').subscribe(((state: fromComment.State) => {
       this.comments = state.comments;
       /* this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id); */
     }));
 
     this.store.select('user').subscribe(((state: fromUser.State) => {
       this.currentUser = state.currentUser;
+      if (!this.currentUser) {
+        this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
+      }
       /* this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id); */
     }));
 
@@ -77,11 +82,13 @@ export class FeedbackDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    const comment: fromComment.Comment = {
+    const comment: fromComment.AppMessage = {
       content: this.form.get('comment').value,
       from: this.currentUser.id,
       suggestionId: this.feedbackId,
-      user: this.currentUser
+      user: this.currentUser,
+      replies: [],
+      main: true
     };
 
     this.store.dispatch(new fromSuggestionActions.PostOneCommentStart(this.feedback.id, comment))

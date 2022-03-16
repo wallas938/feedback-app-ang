@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
-import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromComments from 'store/reducers/comment.reducers';
+import * as fromComment from 'store/reducers/comment.reducers';
 
 @Component({
   selector: 'app-comments',
@@ -11,18 +10,14 @@ import * as fromComments from 'store/reducers/comment.reducers';
 export class CommentsComponent implements OnInit {
 
   @Input()
-  comments: fromComments.Comment[];
+  comments: fromComment.AppMessage[];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  getMessagesCount(comments: fromComments.Comment[]): number {
-    /* let globalMessageNumber = comments ? comments.length : 0;
-    comments.map(comment => {
-      globalMessageNumber += comment.replies ? comment.replies.length : 0;
-    }) */
-    return 0;
+  getMessagesCount(): number {
+    return 0 /* this.comments.length + this.replies.length */;
   }
 }

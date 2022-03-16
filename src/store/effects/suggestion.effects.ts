@@ -29,10 +29,14 @@ export class SuggestionEffects {
   fetchOneSuggestionEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(fromSuggestionActions.FETCHING_ONE_SUGGESTION_START),
-      switchMap(({ payload: index }: fromSuggestionActions.FetchOneSuggestionStart) =>
-        this.suggestionService.fetchSuggestion(index).pipe(
-          map((suggestion: fromSuggestions.Suggestion) => new fromSuggestionActions.FetchOneSuggestionSucceeded(suggestion)),
-          catchError((error) => of(new fromSuggestionActions.FetchOneSuggestionFailed(error)))))));
+      switchMap(({ payload: index }: fromSuggestionActions.FetchOneSuggestionStart) => {
+        return this.suggestionService.fetchSuggestion(index).pipe(
+          map((suggestion: fromSuggestions.Suggestion) => {
+            return new fromSuggestionActions.FetchOneSuggestionSucceeded(suggestion)
+          }),
+          catchError((error) => of(new fromSuggestionActions.FetchOneSuggestionFailed(error))))
+      }
+      )));
 
   postOneSuggestion$ = createEffect(
     () => this.actions$.pipe(

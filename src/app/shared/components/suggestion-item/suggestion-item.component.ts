@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromComments from 'store/reducers/comment.reducers';
+import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromSuggestionActions from 'store/actions/suggestions.action';
 import { Store } from '@ngrx/store';
 
@@ -16,7 +16,7 @@ import { Store } from '@ngrx/store';
 export class SuggestionItemComponent implements OnInit {
 
   @Input() public suggestion: fromSuggestions.Suggestion;
-  @Input() public comments: fromComments.Comment[];
+  @Input() public comments: fromComment.AppMessage[];
   @Input() public isUpvoted: boolean;
 
   constructor(private router: Router,
@@ -39,7 +39,7 @@ export class SuggestionItemComponent implements OnInit {
     this.store.dispatch(new fromSuggestionActions.DecrementUpvotesStart(this.suggestion))
   }
 
-  getMessagesCount(comments: fromComments.Comment[]): number {
+  getMessagesCount(comments: fromComment.AppMessage[]): number {
     comments
     /* let globalMessageNumber = comments ? comments.length : 0;
     comments.map(comment => {

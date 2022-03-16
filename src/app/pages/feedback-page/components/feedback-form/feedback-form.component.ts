@@ -121,7 +121,6 @@ export class FeedbackFormComponent implements OnInit {
         status: this.selectedStatus ? this.selectedStatus.toLocaleLowerCase() : 'suggestion',
         upvotes: this.upvotes ? this.upvotes : 0,
         description: this.form.get('detail').value,
-        comments: []
       }
 
       if (this.isEditMode) {

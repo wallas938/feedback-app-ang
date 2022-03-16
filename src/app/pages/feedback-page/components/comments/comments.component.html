@@ -1,11 +1,11 @@
 <div class="root container">
   <div class="wrapper">
-    <p class="comments-count"> {{getMessagesCount(comments)}} Comments</p>
+    <p class="comments-count"> {{getMessagesCount()}} Comments</p>
     <div *ngIf="comments" class="comments">
       <app-message
         *ngFor="let comment of comments"
-        [comment]="comment"
-        [isMain]="true"></app-message>
+        [message]="comment"
+        [isMain]="comment.main"></app-message>
     </div>
   </div>
 </div>

@@ -2,17 +2,21 @@ import { HttpErrorResponse } from "@angular/common/http";
 import * as fromCommentActions from "store/actions/comment.action";
 import { User } from "./user.reducers";
 
-export interface Comment {
-  id?: number;
-  content: string;
-  from: number;
-  suggestionId: number;
-  user: User;
+export interface AppMessage {
+    id?: number;
+    content: string;
+    from: number;
+    commentId?: number;
+    main: boolean;
+    replyingTo?: string;
+    suggestionId: number;
+    replies?: AppMessage[];
+    user: User;
 }
 
 export interface State {
   loading: boolean;
-  comments: Comment[];
+  comments: AppMessage[];
   error: HttpErrorResponse,
 }
 
@@ -31,8 +35,6 @@ export function commentReducer(state: State = initialState, action: fromCommentA
         loading: true
       }
     case fromCommentActions.FETCH_COMMENTS_SUCCEEDED:
-      console.log(action.comments);
-
       return {
         ...state,
         loading: false,

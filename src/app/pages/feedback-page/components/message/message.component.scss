@@ -131,6 +131,12 @@
     >.message>.body {
       border-bottom: 1px solid rgba($color: $line-color, $alpha: .25);
     }
+
+    @media screen and (min-width: $tablet-min) {
+      >.message>.body {
+        border-bottom: unset;
+      }
+    }
   }
 }
 
