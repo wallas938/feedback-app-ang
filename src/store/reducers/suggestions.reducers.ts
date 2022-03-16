@@ -198,24 +198,6 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.POST_COMMENT_START:
-
-      return {
-        ...state,
-        loadingState: true
-      }
-    case SuggestionActions.POST_COMMENT_SUCCEEDED:
-      return {
-        ...state,
-        loadingState: false,
-        suggestion: action.suggestionUpdated
-      }
-    case SuggestionActions.POST_COMMENT_FAILED:
-      return {
-        ...state,
-        loadingState: false,
-        error: action.error
-      }
     case SuggestionActions.FORM_ADDING_MODE:
 
       return {

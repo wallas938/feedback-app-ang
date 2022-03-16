@@ -2,7 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, of, switchMap } from "rxjs";
+import { catchError, EMPTY, of, switchMap } from "rxjs";
 
 import * as fromCommentActions from "store/actions/comment.action";
 import * as fromRouterActions from "store/actions/router.actions";
@@ -32,6 +32,18 @@ export class CommentEffects {
           return of()
         }),
           catchError((error: HttpErrorResponse) => of(new fromCommentActions.FetchCommentsFailed(error))))
+    })
+  ));
+
+  postComment$ = createEffect(() => this.actions$.pipe(
+    ofType(fromCommentActions.POST_COMMENT_START),
+    switchMap(({ comment }: fromCommentActions.PostCommentStart) => {
+      return this.commentService.postOneComment(comment)
+        .pipe(switchMap((comments: fromComment.AppMessage[]) => {
+          this.store.dispatch(new fromCommentActions.PostCommentSucceeded(comments))
+          return EMPTY
+        }),
+          catchError((error: HttpErrorResponse) => of(new fromCommentActions.PostCommentFailed(error))))
     })
   ));
 }

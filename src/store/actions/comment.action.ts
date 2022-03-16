@@ -1,5 +1,4 @@
 import { Action } from "@ngrx/store";
-import * as fromUser from "store/reducers/user.reducers";
 import * as fromComment from "store/reducers/comment.reducers";
 import { HttpErrorResponse } from "@angular/common/http";
 
@@ -21,11 +20,15 @@ export const FETCH_ONE_COMMENT_START = '[COMMENTS]  FETCH_ONE_COMMENT_START';
 export const FETCH_ONE_COMMENT_SUCCEEDED = '[COMMENTS]  FETCH_ONE_COMMENT_SUCCEEDED';
 export const FETCH_ONE_COMMENT_FAILED = '[COMMENTS]  FETCH_ONE_COMMENT_FAILED';
 
+export const POST_COMMENT_START = '[COMMENTS]  POST_COMMENT_START';
+export const POST_COMMENT_SUCCEEDED = '[COMMENTS]  POST_COMMENT_SUCCEEDED';
+export const POST_COMMENT_FAILED = '[COMMENTS]  POST_COMMENT_FAILED';
+
 /* FETCH REPLIES IDENTIFIERS */
 
-export const FETCH_REPLIES_START = '[REPLIES]  FETCH_REPLIES_START';
-export const FETCH_REPLIES_SUCCEEDED = '[REPLIES]  FETCH_REPLIES_SUCCEEDED';
-export const FETCH_REPLIES_FAILED = '[REPLIES]  FETCH_REPLIES_FAILED';
+export const FETCH_REPLIES_START = '[COMMENTS]  FETCH_REPLIES_START';
+export const FETCH_REPLIES_SUCCEEDED = '[COMMENTS]  FETCH_REPLIES_SUCCEEDED';
+export const FETCH_REPLIES_FAILED = '[COMMENTS]  FETCH_REPLIES_FAILED';
 
 
 /*******
@@ -53,6 +56,22 @@ export class FetchRepliesFailed implements Action {
 
 
 /* COMMENTS ACTIONS */
+
+export class PostCommentStart implements Action {
+  readonly type = POST_COMMENT_START;
+  constructor(public comment: fromComment.AppMessage) { }
+}
+
+export class PostCommentSucceeded implements Action {
+  readonly type = POST_COMMENT_SUCCEEDED;
+  constructor(public comments: fromComment.AppMessage[]) { }
+}
+
+export class PostCommentFailed implements Action {
+  readonly type = POST_COMMENT_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
+
 
 export class FetchOneCommentStart implements Action {
   readonly type = FETCH_ONE_COMMENT_START;
@@ -89,4 +108,5 @@ export type CommentActionsTypes =
   FetchCommentsStart | FetchCommentsSucceeded |
   FetchCommentsFailed | FetchOneCommentStart |
   FetchOneCommentSucceeded | FetchOneCommentFailed |
-  FetchRepliesStart | FetchRepliesSucceeded | FetchRepliesFailed;
+  FetchRepliesStart | FetchRepliesSucceeded | FetchRepliesFailed |
+    PostCommentStart | PostCommentSucceeded | PostCommentFailed;
