@@ -79,6 +79,8 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         sortBy: action.query._sort,
       }
     case SuggestionActions.FETCHING_SUGGESTIONS_SUCCEEDED:
+      console.log(action.payload);
+
       return {
         ...state,
         loadingState: false,
