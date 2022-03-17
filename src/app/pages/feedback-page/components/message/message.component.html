@@ -1,14 +1,14 @@
 <div class="root">
   <div class="wrapper" [ngClass]="{
-      'main-message-btm-line': isMain && comment.replies.length <= 0,
-      'main-message-left-line': isMain && comment.replies.length >= 1
+      'main-message-btm-line': isMain && comment.replies?.length <= 0,
+      'main-message-left-line': isMain && comment.replies?.length >= 1
     }">
     <div class="message">
       <div class="header">
-        <img [src]="comment?.user?.image" alt="user image">
+        <img [src]="comment?.user?.image" alt="user image" />
         <div class="identity">
-          <p class="name">{{comment?.user?.name}}</p>
-          <p class="username">@{{comment?.user?.username}}</p>
+          <p class="name">{{ comment?.user?.name }}</p>
+          <p class="username">@{{ comment?.user?.username }}</p>
         </div>
         <div class="reply">
           <button (click)="showForm()" class="app-btn">Reply</button>
@@ -16,18 +16,23 @@
       </div>
       <div class="body">
         <p>
-          <span class="replyingTo" *ngIf="comment?.replyingTo">@{{comment.replyingTo}}</span>
-          {{comment?.content}}
+          <span class="replyingTo" *ngIf="comment?.replyingTo">@{{ comment.replyingTo }}</span>
+          {{ comment?.content }}
         </p>
-          <form [formGroup]="form" [@reply-form-animation] *ngIf="isFormDisplayed" class="form-reply">
-            <textarea placeholder="Reply here" formControlName="message"></textarea>
-            <button (click)="sendReply(comment?.user?.username)" type="button" class="app-btn" [disabled]="form.controls['message'].invalid">Post Reply</button>
-            <small *ngIf="form.controls['message'].invalid && form.controls['message'].touched">(3 < mesasge < 250 characters)</small>
-          </form>
+        <form [@reply-form-animation] *ngIf="isFormDisplayed" class="form-reply">
+          <textarea placeholder="Reply here" [formControl]="message"></textarea>
+          <button (click)="sendReply(comment?.user?.username)" type="button" class="app-btn"
+            [disabled]="message.invalid">
+            Post Reply
+          </button>
+          <small *ngIf="message.invalid && message.touched">
+            (3 < mesasge < 250 characters)
+          </small>
+        </form>
       </div>
     </div>
-    <div *ngIf="comment.main" class="replies">
-      <app-message *ngFor="let reply of comment.replies" [comment]="reply"></app-message>
+    <div *ngIf="comment?.replies?.length > 0" class="replies">
+      <app-message *ngFor="let message of comment.replies" [comment]="message"></app-message>
+    </div>
     </div>
   </div>
-</div>

@@ -79,28 +79,28 @@
   ],
   "comments": [
     {
-      "content": "Hello",
-      "from": 5,
+      "content": "Yo !",
+      "from": 8,
       "suggestionId": "1",
       "user": {
-        "id": 5,
-        "image": "./assets/user-images/image-james.jpg",
-        "name": "James Skinner",
-        "username": "hummingbird1"
+        "id": 8,
+        "image": "./assets/user-images/image-george.jpg",
+        "name": "George Partridge",
+        "username": "soccerviewer8"
       },
       "replies": [],
       "main": true,
       "id": 1
     },
     {
-      "content": "How are you ?",
-      "from": 5,
+      "content": "Comment \n",
+      "from": 3,
       "suggestionId": "1",
       "user": {
-        "id": 5,
-        "image": "./assets/user-images/image-james.jpg",
-        "name": "James Skinner",
-        "username": "hummingbird1"
+        "id": 3,
+        "image": "./assets/user-images/image-thomas.jpg",
+        "name": "Thomas Hood",
+        "username": "brawnybrave"
       },
       "replies": [],
       "main": true,
@@ -109,49 +109,94 @@
   ],
   "replies": [
     {
-      "content": "I am fine today and you how are you ?",
-      "from": 8,
       "main": false,
-      "suggestionId": "1",
+      "mainId": 1,
+      "content": "First Reply",
       "user": {
         "id": 8,
         "image": "./assets/user-images/image-george.jpg",
         "name": "George Partridge",
         "username": "soccerviewer8"
       },
-      "mainId": 1,
-      "replyingTo": "hummingbird1",
+      "from": 8,
+      "replyingTo": "soccerviewer8",
+      "suggestionId": "1",
       "id": 1
     },
     {
-      "content": "Is somebody else is there",
-      "from": 8,
       "main": false,
-      "suggestionId": "1",
-      "user": {
-        "id": 8,
-        "image": "./assets/user-images/image-george.jpg",
-        "name": "George Partridge",
-        "username": "soccerviewer8"
-      },
       "mainId": 1,
-      "replyingTo": "hummingbird1",
+      "content": "A new One",
+      "user": {
+        "id": 10,
+        "image": "./assets/user-images/image-victoria.jpg",
+        "name": "Victoria Mejia",
+        "username": "arlen_the_marlin"
+      },
+      "from": 10,
+      "replyingTo": "soccerviewer8",
+      "suggestionId": "1",
       "id": 2
     },
     {
-      "content": "A new reply",
-      "from": 7,
       "main": false,
-      "suggestionId": "1",
-      "user": {
-        "id": 7,
-        "image": "./assets/user-images/image-ryan.jpg",
-        "name": "Ryan Welles",
-        "username": "voyager.344"
-      },
       "mainId": 1,
-      "replyingTo": "hummingbird1",
+      "content": "A second one",
+      "user": {
+        "id": 3,
+        "image": "./assets/user-images/image-thomas.jpg",
+        "name": "Thomas Hood",
+        "username": "brawnybrave"
+      },
+      "from": 3,
+      "replyingTo": "soccerviewer8",
+      "suggestionId": "1",
       "id": 3
+    },
+    {
+      "main": false,
+      "mainId": 1,
+      "content": "Test",
+      "user": {
+        "id": 3,
+        "image": "./assets/user-images/image-thomas.jpg",
+        "name": "Thomas Hood",
+        "username": "brawnybrave"
+      },
+      "from": 3,
+      "replyingTo": "soccerviewer8",
+      "suggestionId": "1",
+      "id": 4
+    },
+    {
+      "main": false,
+      "mainId": 2,
+      "content": "Cacao",
+      "user": {
+        "id": 6,
+        "image": "./assets/user-images/image-anne.jpg",
+        "name": "Anne Valentine",
+        "username": "annev1990"
+      },
+      "from": 6,
+      "replyingTo": "brawnybrave",
+      "suggestionId": "1",
+      "id": 5
+    },
+    {
+      "main": false,
+      "mainId": 2,
+      "content": "Chocolata",
+      "user": {
+        "id": 11,
+        "image": "./assets/user-images/image-jackson.jpg",
+        "name": "Jackson Barker",
+        "username": "countryspirit"
+      },
+      "from": 11,
+      "replyingTo": "annev1990",
+      "suggestionId": "1",
+      "id": 6
     }
   ]
 }

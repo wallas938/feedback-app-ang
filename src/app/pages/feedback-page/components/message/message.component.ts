@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component,Input, OnInit} from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import * as fromComment from 'store/reducers/comment.reducers';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ReplyData } from '../../models/reply-data';
-
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import * as fromUser from 'store/reducers/user.reducers';
+import * as fromApp from 'store/reducers/index';
+import * as fromCommentActions from 'store/actions/comment.action';
+import * as fromUserActions from 'store/actions/user.actions';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -31,33 +34,45 @@ export class MessageComponent implements OnInit {
 
   @Input() comment: fromComment.AppMessage;
   @Input() isMain: boolean;
-  @Output() reply: EventEmitter<ReplyData> = new EventEmitter<ReplyData>();
+  currentUser: fromUser.User;
+
+  /* @Output() reply: EventEmitter<ReplyData> = new EventEmitter<ReplyData>(); */
   state = "in";
   isFormDisplayed = false;
+  message = new FormControl('', [
+    Validators.minLength(3),
+    Validators.maxLength(250)
+  ]);
 
-  form = this.fb.group({
-    message: ['', [
-      Validators.minLength(3),
-      Validators.maxLength(250)
-    ]]
-  })
-
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    this.store.select('user').subscribe((state: fromUser.State) => {
+      this.currentUser = state.currentUser;
+      if (!this.currentUser) {
+        this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
+      }
+    })
   }
 
   showForm() {
+    /* console.log("This Comment ID: ", this.comment.id);
+    console.log("Main Comment ID: ", this.comment.main ? this.comment.id : this.comment.mainId);
+ */
     this.isFormDisplayed = !this.isFormDisplayed;
   }
 
   sendReply(replyingTo: string) {
-    this.reply.emit({
+    const reply: fromComment.AppMessage = {
+      main: false,
       mainId: this.comment.main ? this.comment.id : this.comment.mainId,
-      message: this.form.get('message').value,
-      suggestionId: this.comment.suggestionId,
-      replyingTo: replyingTo
-    })
+      content: this.message.value,
+      user: this.currentUser,
+      from: this.currentUser.id,
+      replyingTo: replyingTo,
+      suggestionId: this.comment.suggestionId
+    };
+    this.store.dispatch(new fromCommentActions.PostReplyStart(reply));
   }
 
 }
