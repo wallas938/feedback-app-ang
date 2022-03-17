@@ -95,6 +95,14 @@
             padding: 1.066666rem 1.066666rem 0 1.066666rem;
           }
 
+          small {
+            font-style: normal;
+            font-weight: 700;
+            color: $red;
+            margin-top: 1px;
+            text-align: end;
+          }
+
           textarea:focus {
             border: 1px solid $strong-blue;
           }

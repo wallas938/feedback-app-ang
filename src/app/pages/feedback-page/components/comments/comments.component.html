@@ -4,7 +4,8 @@
     <div *ngIf="comments" class="comments">
       <app-message
         *ngFor="let comment of comments"
-        [message]="comment"
+        [comment]="comment"
+        (reply)="onReply($event)"
         [isMain]="comment.main"></app-message>
     </div>
   </div>
