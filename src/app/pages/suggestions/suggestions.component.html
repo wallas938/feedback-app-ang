@@ -5,23 +5,27 @@
       <app-large-screen-header></app-large-screen-header>
     </div>
     <main class="main">
+
+      <!-- FILTER -->
       <div class="filter">
-        <app-suggestions-filter *ngIf="true"></app-suggestions-filter>
+        <app-suggestions-filter></app-suggestions-filter>
       </div>
+
       <div class="suggestions container">
 
+        <!-- LOADING STRIPE -->
         <div class="loading-container" *ngIf="loadingState">
           <app-loading-stripe></app-loading-stripe>
         </div>
 
-        <app-suggestions-empty *ngIf="!suggestions && !loadingState;else suggestionList">
+         <!-- NO SUGGESTIONS VIEW -->
+        <app-suggestions-empty *ngIf="suggestions.length === 0 && !loadingState;else suggestionList">
         </app-suggestions-empty>
 
+        <!-- SUGGESTIONS LIST VIEW -->
         <ng-template #suggestionList>
           <div [@fadeInOutX] class="suggestions-list">
-            <app-suggestion-item
-              *ngFor="let suggestion of suggestions"
-              [suggestion]="suggestion"
+            <app-suggestion-item *ngFor="let suggestion of suggestions" [suggestion]="suggestion"
               [isUpvoted]="isUpvoted(suggestion.id)">
             </app-suggestion-item>
           </div>

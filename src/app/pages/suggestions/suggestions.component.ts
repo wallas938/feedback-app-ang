@@ -23,6 +23,19 @@ export class SuggestionsComponent implements OnInit {
   upvotedSuggestions: number[];
   constructor(private store: Store<fromApp.AppState>) { }
 
+  /*
+
+    {
+      "id": 1,
+      "title": "Add tags for solutions",
+      "category": "nhancement",
+      "upvotes": 131,
+      "status": "suggestion",
+      "description": "Easier to search for solutions based on a specific stack."
+    },
+
+  */
+
   ngOnInit(): void {
     this.store.select('user').subscribe((state: fromUser.State) => {
       this.currentUser = state.currentUser;

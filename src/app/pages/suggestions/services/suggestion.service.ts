@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromComments from 'store/reducers/comment.reducers';
 import * as fromApp from 'store/reducers/index';
@@ -16,16 +16,18 @@ export class SuggestionService {
 
 
   fetchSuggestions(query: fromSuggestions.SuggestionsQuery): Observable<fromSuggestions.Suggestion[]> {
-    /*
-
-    this.setRequestQueries(query);
-    Faire manuellement le filtrage
-    */
-    return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}`);
+    return this.filterByCategory(query._filter)
+      .pipe(
+        map((filteredSuggestions: fromSuggestions.Suggestion[]) => {
+          return filteredSuggestions /* CRÉER UNE FONTCION DE RANGEMENT PAR  */
+        })
+      );
   }
+
   fetchSuggestion(id: number): Observable<fromSuggestions.Suggestion> {
     return this.http.get<fromSuggestions.Suggestion>(`${this.suggestionsUrl}/${id}`)
   }
+
   incrementSuggestionUpvotes(data: fromSuggestions.Suggestion): Observable<fromSuggestions.Suggestion> {
     const update = {
       ...data,
@@ -78,6 +80,36 @@ export class SuggestionService {
 
   deleteOneSuggestion(suggestionId: number): Observable<void> {
     return this.http.delete<void>(`${this.suggestionsUrl}/${suggestionId}`);
+  }
+
+  private filterByCategory(filter: fromSuggestions.FILTER): Observable<fromSuggestions.Suggestion[]> {
+    let filterBy = '?category=';
+    switch (filter) {
+      case fromSuggestions.FILTER.BY_ALL:
+        filterBy = ''
+        break;
+      case fromSuggestions.FILTER.BY_BUG:
+        filterBy = filterBy + 'Bug'
+        break;
+      case fromSuggestions.FILTER.BY_ENHANCEMENT:
+        filterBy = filterBy + 'Enhancement'
+        break;
+      case fromSuggestions.FILTER.BY_FEATURE:
+        filterBy = filterBy + 'Feature'
+        break;
+      case fromSuggestions.FILTER.BY_UI:
+        filterBy = filterBy + 'UI'
+        break;
+      case fromSuggestions.FILTER.BY_UX:
+        filterBy = filterBy + 'UX'
+        break;
+      default:
+        filterBy = filterBy + ''
+        break;
+    }
+    console.log(`${this.suggestionsUrl}?${filterBy}`);
+
+    return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}${filterBy}`)
   }
 
   private setRequestQueries({ _filter, _sort }: fromSuggestions.SuggestionsQuery): { _sort: string, _order: string, _filter: string } {
@@ -135,5 +167,9 @@ export class SuggestionService {
       _order: order,
       _filter: filter
     }
+
+
+
+
   }
 }
