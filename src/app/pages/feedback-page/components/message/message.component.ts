@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import * as fromComment from 'store/reducers/comment.reducers';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ReplyData } from '../../models/reply-data';
+
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -26,18 +29,35 @@ import * as fromComment from 'store/reducers/comment.reducers';
 })
 export class MessageComponent implements OnInit {
 
-  @Input() message: fromComment.AppMessage;
+  @Input() comment: fromComment.AppMessage;
   @Input() isMain: boolean;
+  @Output() reply: EventEmitter<ReplyData> = new EventEmitter<ReplyData>();
   state = "in";
-  reply = false;
+  isFormDisplayed = false;
 
-  constructor() { }
+  form = this.fb.group({
+    message: ['', [
+      Validators.minLength(3),
+      Validators.maxLength(250)
+    ]]
+  })
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
-  onReply() {
-    this.reply = !this.reply;
+  showForm() {
+    this.isFormDisplayed = !this.isFormDisplayed;
+  }
+
+  sendReply(replyingTo: string) {
+    this.reply.emit({
+      mainId: this.comment.main ? this.comment.id : this.comment.mainId,
+      message: this.form.get('message').value,
+      suggestionId: this.comment.suggestionId,
+      replyingTo: replyingTo
+    })
   }
 
 }

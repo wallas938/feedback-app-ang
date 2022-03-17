@@ -1,6 +1,7 @@
 import { Action } from "@ngrx/store";
 import * as fromComment from "store/reducers/comment.reducers";
 import { HttpErrorResponse } from "@angular/common/http";
+import { ReplyData } from "@/app/pages/feedback-page/models/reply-data";
 
 /*******
  *
@@ -30,6 +31,10 @@ export const FETCH_REPLIES_START = '[COMMENTS]  FETCH_REPLIES_START';
 export const FETCH_REPLIES_SUCCEEDED = '[COMMENTS]  FETCH_REPLIES_SUCCEEDED';
 export const FETCH_REPLIES_FAILED = '[COMMENTS]  FETCH_REPLIES_FAILED';
 
+export const POST_REPLY_START = '[COMMENTS]  POST_REPLY_START';
+export const POST_REPLY_SUCCEEDED = '[COMMENTS]  POST_REPLY_SUCCEEDED';
+export const POST_REPLY_FAILED = '[COMMENTS]  POST_REPLY_FAILED';
+
 
 /*******
  *
@@ -51,6 +56,21 @@ export class FetchRepliesSucceeded implements Action {
 
 export class FetchRepliesFailed implements Action {
   readonly type = FETCH_REPLIES_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
+
+export class PostReplyStart implements Action {
+  readonly type = POST_REPLY_START;
+  constructor(public reply: fromComment.AppMessage) { }
+}
+
+export class PostReplySucceeded implements Action {
+  readonly type = POST_REPLY_SUCCEEDED;
+  constructor(public comments: fromComment.AppMessage[]) { }
+}
+
+export class PostReplyFailed implements Action {
+  readonly type = POST_REPLY_FAILED;
   constructor(public error: HttpErrorResponse) { }
 }
 
@@ -109,4 +129,5 @@ export type CommentActionsTypes =
   FetchCommentsFailed | FetchOneCommentStart |
   FetchOneCommentSucceeded | FetchOneCommentFailed |
   FetchRepliesStart | FetchRepliesSucceeded | FetchRepliesFailed |
-    PostCommentStart | PostCommentSucceeded | PostCommentFailed;
+  PostCommentStart | PostCommentSucceeded | PostCommentFailed |
+  PostReplyStart | PostReplySucceeded | PostReplyFailed;

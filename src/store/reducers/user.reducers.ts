@@ -106,10 +106,6 @@ export function userReducer(state: State = initialState, action: fromUserActions
       }
     }
 
-    return {
-      ...state,
-    }
-
     default:
       return {
         ...state

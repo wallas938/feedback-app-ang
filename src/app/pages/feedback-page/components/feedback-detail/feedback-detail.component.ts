@@ -69,9 +69,11 @@ export class FeedbackDetailComponent implements OnInit {
 
 
     this.form.get('comment').valueChanges.subscribe((value) => {
-      this.charactersLeft = this.maxCharacters - value.length;
-      if (this.charactersLeft <= 0) {
-        this.charactersLeft = 0;
+      if (value) {
+        this.charactersLeft = this.maxCharacters - value.length;
+        if (this.charactersLeft <= 0) {
+          this.charactersLeft = 0;
+        }
       }
     });
   }

@@ -1,32 +1,33 @@
 <div class="root">
   <div class="wrapper" [ngClass]="{
-      'main-message-btm-line': isMain && message.replies.length <= 0,
-      'main-message-left-line': isMain && message.replies.length >= 1
+      'main-message-btm-line': isMain && comment.replies.length <= 0,
+      'main-message-left-line': isMain && comment.replies.length >= 1
     }">
     <div class="message">
       <div class="header">
-        <img [src]="message?.user?.image" alt="user image">
+        <img [src]="comment?.user?.image" alt="user image">
         <div class="identity">
-          <p class="name">{{message?.user?.name}}</p>
-          <p class="username">@{{message?.user?.username}}</p>
+          <p class="name">{{comment?.user?.name}}</p>
+          <p class="username">@{{comment?.user?.username}}</p>
         </div>
         <div class="reply">
-          <button (click)="onReply()" class="app-btn">Reply</button>
+          <button (click)="showForm()" class="app-btn">Reply</button>
         </div>
       </div>
       <div class="body">
         <p>
-          <span class="replyingTo" *ngIf="message?.replyingTo">@{{message.replyingTo}}</span>
-          {{message?.content}}
+          <span class="replyingTo" *ngIf="comment?.replyingTo">@{{comment.replyingTo}}</span>
+          {{comment?.content}}
         </p>
-          <form [@reply-form-animation] *ngIf="reply" class="form-reply">
-            <textarea placeholder="Reply here"></textarea>
-            <button class="app-btn">Post Reply</button>
+          <form [formGroup]="form" [@reply-form-animation] *ngIf="isFormDisplayed" class="form-reply">
+            <textarea placeholder="Reply here" formControlName="message"></textarea>
+            <button (click)="sendReply(comment?.user?.username)" type="button" class="app-btn" [disabled]="form.controls['message'].invalid">Post Reply</button>
+            <small *ngIf="form.controls['message'].invalid && form.controls['message'].touched">(3 < mesasge < 250 characters)</small>
           </form>
       </div>
     </div>
-    <div *ngIf="message.main" class="replies">
-      <app-message *ngFor="let reply of message.replies" [message]="reply"></app-message>
+    <div *ngIf="comment.main" class="replies">
+      <app-message *ngFor="let reply of comment.replies" [comment]="reply"></app-message>
     </div>
   </div>
 </div>

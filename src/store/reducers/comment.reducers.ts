@@ -6,7 +6,7 @@ export interface AppMessage {
   id?: number;
   content: string;
   from: number;
-  commentId?: number;
+  mainId?: number;
   main: boolean;
   replyingTo?: string;
   suggestionId: number;
@@ -58,6 +58,23 @@ export function commentReducer(state: State = initialState, action: fromCommentA
         comments: action.comments
       }
     case fromCommentActions.POST_COMMENT_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+    case fromCommentActions.POST_REPLY_START:
+      return {
+        ...state,
+        loading: true
+      }
+    case fromCommentActions.POST_REPLY_SUCCEEDED:
+      return {
+        ...state,
+        loading: false,
+        comments: action.comments
+      }
+    case fromCommentActions.POST_REPLY_FAILED:
       return {
         ...state,
         loading: false,
