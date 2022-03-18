@@ -69,17 +69,27 @@
   ],
   "suggestions": [
     {
-      "title": "New one one !",
-      "category": "UI",
+      "title": "New Feedback",
+      "category": "Feature",
       "status": "suggestion",
       "upvotes": 1,
-      "description": "new one detail !!!",
+      "description": "A new Feedback",
+      "numberOfComments": 6,
       "id": 1
+    },
+    {
+      "title": "A second Feed",
+      "category": "Bug",
+      "status": "suggestion",
+      "upvotes": 3,
+      "description": "A bug ",
+      "numberOfComments": 5,
+      "id": 2
     }
   ],
   "comments": [
     {
-      "content": "Yo !",
+      "content": "A comment",
       "from": 8,
       "suggestionId": "1",
       "user": {
@@ -93,25 +103,126 @@
       "id": 1
     },
     {
-      "content": "Comment \n",
-      "from": 3,
+      "content": "Another One",
+      "from": 8,
       "suggestionId": "1",
       "user": {
-        "id": 3,
-        "image": "./assets/user-images/image-thomas.jpg",
-        "name": "Thomas Hood",
-        "username": "brawnybrave"
+        "id": 8,
+        "image": "./assets/user-images/image-george.jpg",
+        "name": "George Partridge",
+        "username": "soccerviewer8"
       },
       "replies": [],
       "main": true,
       "id": 2
+    },
+    {
+      "content": "A third One",
+      "from": 8,
+      "suggestionId": "1",
+      "user": {
+        "id": 8,
+        "image": "./assets/user-images/image-george.jpg",
+        "name": "George Partridge",
+        "username": "soccerviewer8"
+      },
+      "replies": [],
+      "main": true,
+      "id": 3
+    },
+    {
+      "content": "A new comment related to that Bug",
+      "from": 8,
+      "suggestionId": "2",
+      "user": {
+        "id": 8,
+        "image": "./assets/user-images/image-george.jpg",
+        "name": "George Partridge",
+        "username": "soccerviewer8"
+      },
+      "replies": [],
+      "main": true,
+      "id": 4
+    },
+    {
+      "content": "A Second Message",
+      "from": 2,
+      "suggestionId": "2",
+      "user": {
+        "id": 2,
+        "image": "./assets/user-images/image-suzanne.jpg",
+        "name": "Suzanne Chang",
+        "username": "upbeat1811"
+      },
+      "replies": [],
+      "main": true,
+      "id": 5
+    },
+    {
+      "content": "A Last Comment",
+      "from": 9,
+      "suggestionId": "1",
+      "user": {
+        "id": 9,
+        "image": "./assets/user-images/image-roxanne.jpg",
+        "name": "Roxanne Travis",
+        "username": "peppersprime32"
+      },
+      "replies": [],
+      "main": true,
+      "id": 6
     }
   ],
   "replies": [
     {
       "main": false,
-      "mainId": 1,
-      "content": "First Reply",
+      "mainId": 4,
+      "content": "A reply",
+      "user": {
+        "id": 7,
+        "image": "./assets/user-images/image-ryan.jpg",
+        "name": "Ryan Welles",
+        "username": "voyager.344"
+      },
+      "from": 7,
+      "replyingTo": "soccerviewer8",
+      "suggestionId": "2",
+      "id": 1
+    },
+    {
+      "main": false,
+      "mainId": 4,
+      "content": "Yo !",
+      "user": {
+        "id": 2,
+        "image": "./assets/user-images/image-suzanne.jpg",
+        "name": "Suzanne Chang",
+        "username": "upbeat1811"
+      },
+      "from": 2,
+      "replyingTo": "voyager.344",
+      "suggestionId": "2",
+      "id": 2
+    },
+    {
+      "main": false,
+      "mainId": 5,
+      "content": "Tatatata",
+      "user": {
+        "id": 2,
+        "image": "./assets/user-images/image-suzanne.jpg",
+        "name": "Suzanne Chang",
+        "username": "upbeat1811"
+      },
+      "from": 2,
+      "replyingTo": "upbeat1811",
+      "suggestionId": "2",
+      "id": 3
+    },
+    {
+      "main": false,
+      "mainId": 2,
+      "content": "Hello !",
       "user": {
         "id": 8,
         "image": "./assets/user-images/image-george.jpg",
@@ -119,84 +230,24 @@
         "username": "soccerviewer8"
       },
       "from": 8,
-      "replyingTo": "soccerviewer8",
-      "suggestionId": "1",
-      "id": 1
-    },
-    {
-      "main": false,
-      "mainId": 1,
-      "content": "A new One",
-      "user": {
-        "id": 10,
-        "image": "./assets/user-images/image-victoria.jpg",
-        "name": "Victoria Mejia",
-        "username": "arlen_the_marlin"
-      },
-      "from": 10,
-      "replyingTo": "soccerviewer8",
-      "suggestionId": "1",
-      "id": 2
-    },
-    {
-      "main": false,
-      "mainId": 1,
-      "content": "A second one",
-      "user": {
-        "id": 3,
-        "image": "./assets/user-images/image-thomas.jpg",
-        "name": "Thomas Hood",
-        "username": "brawnybrave"
-      },
-      "from": 3,
-      "replyingTo": "soccerviewer8",
-      "suggestionId": "1",
-      "id": 3
-    },
-    {
-      "main": false,
-      "mainId": 1,
-      "content": "Test",
-      "user": {
-        "id": 3,
-        "image": "./assets/user-images/image-thomas.jpg",
-        "name": "Thomas Hood",
-        "username": "brawnybrave"
-      },
-      "from": 3,
       "replyingTo": "soccerviewer8",
       "suggestionId": "1",
       "id": 4
     },
     {
       "main": false,
-      "mainId": 2,
-      "content": "Cacao",
+      "mainId": 1,
+      "content": "Chocolat",
       "user": {
-        "id": 6,
-        "image": "./assets/user-images/image-anne.jpg",
-        "name": "Anne Valentine",
-        "username": "annev1990"
+        "id": 9,
+        "image": "./assets/user-images/image-roxanne.jpg",
+        "name": "Roxanne Travis",
+        "username": "peppersprime32"
       },
-      "from": 6,
-      "replyingTo": "brawnybrave",
+      "from": 9,
+      "replyingTo": "soccerviewer8",
       "suggestionId": "1",
       "id": 5
-    },
-    {
-      "main": false,
-      "mainId": 2,
-      "content": "Chocolata",
-      "user": {
-        "id": 11,
-        "image": "./assets/user-images/image-jackson.jpg",
-        "name": "Jackson Barker",
-        "username": "countryspirit"
-      },
-      "from": 11,
-      "replyingTo": "annev1990",
-      "suggestionId": "1",
-      "id": 6
     }
   ]
 }

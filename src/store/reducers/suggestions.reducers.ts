@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpErrorResponse } from "@angular/common/http";
 import * as SuggestionActions from "store/actions/suggestions.action";
-import * as fromUser from "store/reducers/user.reducers";
 
 export enum FORM_MODES {
   FORM_ADDING_MODE = "FORM_ADDING_MODE",
@@ -56,6 +55,7 @@ export interface Suggestion {
   upvotes: number;
   status: string;
   description: string;
+  numberOfComments: number;
 }
 
 const initialState: State = {
@@ -79,8 +79,6 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         sortBy: action.query._sort,
       }
     case SuggestionActions.FETCHING_SUGGESTIONS_SUCCEEDED:
-      console.log(action.payload);
-
       return {
         ...state,
         loadingState: false,
@@ -177,6 +175,23 @@ export function suggestionReducer(state: State = initialState, action: Suggestio
         suggestion: action.suggestionUpdated
       }
     case SuggestionActions.INCREMENT_UPVOTES_FAILED:
+      return {
+        ...state,
+        loadingState: false,
+        error: action.error
+      }
+    case SuggestionActions.INCREMENT_NUMBER_OF_COMMENTS_START:
+      return {
+        ...state,
+        loadingState: true,
+      }
+    case SuggestionActions.INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED:
+      return {
+        ...state,
+        loadingState: true,
+        suggestion: action.suggestionUpdated
+      }
+    case SuggestionActions.INCREMENT_NUMBER_OF_COMMENTS_FAILED:
       return {
         ...state,
         loadingState: false,

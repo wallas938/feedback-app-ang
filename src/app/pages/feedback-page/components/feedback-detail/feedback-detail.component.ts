@@ -67,7 +67,6 @@ export class FeedbackDetailComponent implements OnInit {
       this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id);
     }));
 
-
     this.form.get('comment').valueChanges.subscribe((value) => {
       if (value) {
         this.charactersLeft = this.maxCharacters - value.length;

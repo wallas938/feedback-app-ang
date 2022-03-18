@@ -10,6 +10,7 @@ import * as fromApp from 'store/reducers/index';
   providedIn: 'root'
 })
 export class SuggestionService {
+
   private suggestionsUrl = 'http://localhost:3000/suggestions';
 
   constructor(private http: HttpClient, private store: Store<fromApp.AppState>) { }
@@ -19,7 +20,7 @@ export class SuggestionService {
     return this.filterByCategory(query._filter)
       .pipe(
         map((filteredSuggestions: fromSuggestions.Suggestion[]) => {
-          return filteredSuggestions /* CRÉER UNE FONTCION DE RANGEMENT PAR  */
+          return this.sortBy(filteredSuggestions, query._sort) /* CRÉER UNE FONTCION DE RANGEMENT PAR  */
         })
       );
   }
@@ -39,6 +40,7 @@ export class SuggestionService {
       }
     })
   }
+
   decrementSuggestionUpvotes(data: fromSuggestions.Suggestion): Observable<fromSuggestions.Suggestion> {
     const update = {
       ...data,
@@ -82,6 +84,15 @@ export class SuggestionService {
     return this.http.delete<void>(`${this.suggestionsUrl}/${suggestionId}`);
   }
 
+  incrementSuggestionNumberOfComments(data: fromSuggestions.Suggestion): Observable<fromSuggestions.Suggestion> {
+    return this.http.put<fromSuggestions.Suggestion>(`${this.suggestionsUrl}/${data.id}`,
+      data,
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+  }
+
   private filterByCategory(filter: fromSuggestions.FILTER): Observable<fromSuggestions.Suggestion[]> {
     let filterBy = '?category=';
     switch (filter) {
@@ -110,6 +121,12 @@ export class SuggestionService {
     console.log(`${this.suggestionsUrl}?${filterBy}`);
 
     return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}${filterBy}`)
+  }
+
+  private sortBy(suggestions: fromSuggestions.Suggestion[], sort: fromSuggestions.SORT): fromSuggestions.Suggestion[] {
+    console.log(suggestions);
+    console.log(sort);
+    return suggestions
   }
 
   private setRequestQueries({ _filter, _sort }: fromSuggestions.SuggestionsQuery): { _sort: string, _order: string, _filter: string } {

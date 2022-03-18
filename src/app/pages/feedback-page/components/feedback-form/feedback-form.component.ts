@@ -115,21 +115,21 @@ export class FeedbackFormComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
+
       const newSuggestions: fromSuggestions.Suggestion = {
         title: this.form.get('title').value,
         category: this.selectedCategory,
         status: this.selectedStatus ? this.selectedStatus.toLowerCase() : 'suggestion',
         upvotes: this.upvotes ? this.upvotes : 0,
         description: this.form.get('detail').value,
-      }
-
-      console.log(newSuggestions);
-
+        numberOfComments: 0
+      };
 
       if (this.isEditMode) {
         this.store.dispatch(new fromSuggestionActions.UpdateOneSuggestionStart(newSuggestions, this.feedback.id));
         return;
       }
+
       this.store.dispatch(new fromSuggestionActions.PostOneSuggestionStart(newSuggestions));
     }
   }

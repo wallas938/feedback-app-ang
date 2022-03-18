@@ -3,10 +3,12 @@ import { Component,Input, OnInit} from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import * as fromComment from 'store/reducers/comment.reducers';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import * as fromUser from 'store/reducers/user.reducers';
 import * as fromApp from 'store/reducers/index';
+import * as fromUser from 'store/reducers/user.reducers';
+import * as fromSuggestion from 'store/reducers/suggestions.reducers';
 import * as fromCommentActions from 'store/actions/comment.action';
 import * as fromUserActions from 'store/actions/user.actions';
+import * as fromSuggestionActions from 'store/actions/suggestions.action';
 import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-message',
@@ -32,6 +34,7 @@ import { Store } from '@ngrx/store';
 })
 export class MessageComponent implements OnInit {
 
+  @Input() feedback: fromSuggestion.Suggestion;
   @Input() comment: fromComment.AppMessage;
   @Input() isMain: boolean;
   currentUser: fromUser.User;
@@ -52,7 +55,7 @@ export class MessageComponent implements OnInit {
       if (!this.currentUser) {
         this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
       }
-    })
+    });
   }
 
   showForm() {
@@ -73,6 +76,7 @@ export class MessageComponent implements OnInit {
       suggestionId: this.comment.suggestionId
     };
     this.store.dispatch(new fromCommentActions.PostReplyStart(reply));
+    this.store.dispatch(new fromSuggestionActions.IncrementNumberOfCommentsStart({...this.feedback, numberOfComments: this.feedback.numberOfComments + 1}))
   }
 
 }

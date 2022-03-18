@@ -10,7 +10,7 @@
       <app-suggestion-item [suggestion]="feedback" [comments]="comments" [isUpvoted]="isUpvoted"></app-suggestion-item>
     </div>
     <div *ngIf="comments" [@fadeInOutX] class="comments">
-      <app-comments [comments]="comments"></app-comments>
+      <app-comments [feedback]="feedback" [comments]="comments"></app-comments>
     </div>
     <form [formGroup]="form" (submit)="onSubmit()" class="comment-form">
       <p>Add Comment</p>
