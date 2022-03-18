@@ -4,7 +4,6 @@ import { AppRoutingModule } from '@/app/app-routing.module';
 import { AppComponent } from '@/app/app.component';
 import { SharedModule } from '@/app/shared/shared.module';
 import { SuggestionsComponent } from '@/app/pages/suggestions/suggestions.component';
-import { SuggestionsFilterComponent } from '@/app/pages/suggestions/components/suggestions-filter/suggestions-filter.component';
 import { SuggestionsEmptyComponent } from '@/app/pages/suggestions/components/suggestions-empty/suggestions-empty.component';
 import { MobileHeaderComponent } from './pages/suggestions/components/mobile-header/mobile-header.component';
 import { LargeScreenHeaderComponent } from './pages/suggestions/components/large-screen-header/large-screen-header.component';
@@ -16,12 +15,13 @@ import { MobileSideNavComponent } from './pages/suggestions/components/mobile-si
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppEffects } from 'store/effects';
+import { SuggestionsSortComponent } from './pages/suggestions/components/suggestions-sort/suggestions-sort.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SuggestionsComponent,
-    SuggestionsFilterComponent,
+    SuggestionsSortComponent,
     SuggestionsEmptyComponent,
     MobileHeaderComponent,
     LargeScreenHeaderComponent,

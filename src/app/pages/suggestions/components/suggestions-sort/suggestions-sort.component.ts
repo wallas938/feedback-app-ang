@@ -10,9 +10,9 @@ import * as fromApp from 'store/reducers/index';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-suggestions-filter',
-  templateUrl: './suggestions-filter.component.html',
-  styleUrls: ['./suggestions-filter.component.scss'],
+  selector: 'app-suggestions-sort',
+  templateUrl: './suggestions-sort.component.html',
+  styleUrls: ['./suggestions-sort.component.scss'],
   animations: [
     trigger('dropdown', [
       transition('void => *', [
@@ -51,7 +51,7 @@ import { Router } from '@angular/router';
     ])
   ]
 })
-export class SuggestionsFilterComponent implements OnInit {
+export class SuggestionsSortComponent implements OnInit {
   suggestionsCount: number;
   showSortByModal: boolean;
   arrowState = 'arrowDown';
