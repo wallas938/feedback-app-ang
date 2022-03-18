@@ -40,8 +40,14 @@ export const INCREMENT_UPVOTES_START = '[Suggestions]  INCREMENT_UPVOTES_START';
 export const INCREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  INCREMENT_UPVOTES_SUCCEEDED';
 export const INCREMENT_UPVOTES_FAILED = '[Suggestions]  INCREMENT_UPVOTES_FAILED';
 
+/* INCREMENT NUMBER_OF_COMMENTS IDENTIFIERS */
 
-/* INCREMENT UPVOTES IDENTIFIERS */
+export const INCREMENT_NUMBER_OF_COMMENTS_START = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_START';
+export const INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED';
+export const INCREMENT_NUMBER_OF_COMMENTS_FAILED = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_FAILED';
+
+
+/* DECREMENT UPVOTES IDENTIFIERS */
 
 export const DECREMENT_UPVOTES_START = '[Suggestions]  DECREMENT_UPVOTES_START';
 export const DECREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  DECREMENT_UPVOTES_SUCCEEDED';
@@ -156,6 +162,23 @@ export class IncrementUpvotesFailed implements Action {
   constructor(public error: HttpErrorResponse) { }
 }
 
+/* INCREMENT NUMBER OF COMMENTS ACTIONS */
+
+export class IncrementNumberOfCommentsStart implements Action {
+  readonly type = INCREMENT_NUMBER_OF_COMMENTS_START;
+  constructor(public suggestion: fromSuggestions.Suggestion) { } /* HERE !!!!! */
+}
+
+export class IncrementNumberOfCommentsSucceeded implements Action {
+  readonly type = INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED;
+  constructor(public suggestionUpdated: fromSuggestions.Suggestion) { }
+}
+
+export class IncrementNumberOfCommentsFailed implements Action {
+  readonly type = INCREMENT_NUMBER_OF_COMMENTS_FAILED;
+  constructor(public error: HttpErrorResponse) { }
+}
+
 
 /* FETCH SUGGESTIONS ACTIONS */
 
@@ -233,4 +256,5 @@ export type SuggestionActionsTypes =
   DecrementUpvotesSucceeded | DecrementUpvotesFailed | PostOneSuggestionStart |
   PostOneSuggestionSucceeded | PostOneSuggestionFailed | UpdateOneSuggestionStart |
   UpdateOneSuggestionSucceeded | UpdateOneSuggestionFailed |
-  RemoveOneSuggestionStart | RemoveOneSuggestionSucceeded | RemoveOneSuggestionFailed;
+  RemoveOneSuggestionStart | RemoveOneSuggestionSucceeded | RemoveOneSuggestionFailed |
+  IncrementNumberOfCommentsStart | IncrementNumberOfCommentsSucceeded | IncrementNumberOfCommentsFailed;
