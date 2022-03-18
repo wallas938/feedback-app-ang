@@ -72,7 +72,7 @@
       "title": "New Feedback",
       "category": "Feature",
       "status": "suggestion",
-      "upvotes": 1,
+      "upvotes": 4,
       "description": "A new Feedback",
       "numberOfComments": 6,
       "id": 1
@@ -81,7 +81,7 @@
       "title": "A second Feed",
       "category": "Bug",
       "status": "suggestion",
-      "upvotes": 3,
+      "upvotes": 5,
       "description": "A bug ",
       "numberOfComments": 5,
       "id": 2

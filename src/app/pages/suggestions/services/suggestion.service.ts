@@ -20,7 +20,7 @@ export class SuggestionService {
     return this.filterByCategory(query._filter)
       .pipe(
         map((filteredSuggestions: fromSuggestions.Suggestion[]) => {
-          return this.sortBy(filteredSuggestions, query._sort) /* CRÉER UNE FONTCION DE RANGEMENT PAR  */
+          return this.sortBy(filteredSuggestions, query._sort)
         })
       );
   }
@@ -124,9 +124,19 @@ export class SuggestionService {
   }
 
   private sortBy(suggestions: fromSuggestions.Suggestion[], sort: fromSuggestions.SORT): fromSuggestions.Suggestion[] {
-    console.log(suggestions);
-    console.log(sort);
-    return suggestions
+    switch (sort) {
+      case fromSuggestions.SORT.MOST_UPVOTES:
+        return suggestions.sort((a: fromSuggestions.Suggestion, b: fromSuggestions.Suggestion) => b.upvotes - a.upvotes);
+        case fromSuggestions.SORT.LEAST_UPVOTES:
+        return suggestions.sort((a: fromSuggestions.Suggestion, b: fromSuggestions.Suggestion) => a.upvotes - b.upvotes);
+      case fromSuggestions.SORT.MOST_COMMENTS:
+        return suggestions.sort((a: fromSuggestions.Suggestion, b: fromSuggestions.Suggestion) => b.numberOfComments - a.numberOfComments);
+        case fromSuggestions.SORT.LEAST_COMMENTS:
+        return suggestions.sort((a: fromSuggestions.Suggestion, b: fromSuggestions.Suggestion) => a.numberOfComments - b.numberOfComments);
+      default:
+        return suggestions.sort((a: fromSuggestions.Suggestion, b: fromSuggestions.Suggestion) => b.upvotes - a.upvotes);
+    }
+
   }
 
   private setRequestQueries({ _filter, _sort }: fromSuggestions.SuggestionsQuery): { _sort: string, _order: string, _filter: string } {
