@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component,Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import * as fromComment from 'store/reducers/comment.reducers';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -66,17 +66,18 @@ export class MessageComponent implements OnInit {
   }
 
   sendReply(replyingTo: string) {
-    const reply: fromComment.AppMessage = {
-      main: false,
-      mainId: this.comment.main ? this.comment.id : this.comment.mainId,
-      content: this.message.value,
-      user: this.currentUser,
-      from: this.currentUser.id,
-      replyingTo: replyingTo,
-      suggestionId: this.comment.suggestionId
-    };
-    this.store.dispatch(new fromCommentActions.PostReplyStart(reply));
-    this.store.dispatch(new fromSuggestionActions.IncrementNumberOfCommentsStart({...this.feedback, numberOfComments: this.feedback.numberOfComments + 1}))
+    if (this.message.value.trim() !== '' && this.message.valid && this.message.touched) {
+      const reply: fromComment.AppMessage = {
+        main: false,
+        mainId: this.comment.main ? this.comment.id : this.comment.mainId,
+        content: this.message.value,
+        user: this.currentUser,
+        from: this.currentUser.id,
+        replyingTo: replyingTo,
+        suggestionId: this.comment.suggestionId
+      };
+      this.store.dispatch(new fromCommentActions.PostReplyStart(reply));
+    }
   }
 
 }

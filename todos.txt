@@ -3,5 +3,6 @@ Feedback app
     -> global
         Fermer toute les modals pour mobile (sidenav) si l'ecran est agrandi - ngOnInit select sur le store a l'apparition du large header ?
 
-    -> Upvotes
-        Implementer l'annulation d'un upvote en recliquant dessus
+    -> Edit Feedback
+        Au premier click l'utilisateur est renvoyé vers
+        la liste des suggestions au lieu du formulaire de modification

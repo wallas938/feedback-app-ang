@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+ /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as fromUser from 'store/reducers/user.reducers';
 import * as fromComment from 'store/reducers/comment.reducers';
-import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import * as fromSuggestion from 'store/reducers/suggestions.reducers';
 import * as fromCommentActions from 'store/actions/comment.action';
 import * as fromUserActions from "store/actions/user.actions";
 import * as fromSuggestionActions from 'store/actions/suggestions.action';
@@ -21,7 +21,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FeedbackDetailComponent implements OnInit {
 
-  feedback: fromSuggestions.Suggestion;
+  feedback: fromSuggestion.Suggestion;
   feedbackId: number;
   isUpvoted: boolean;
   comments: fromComment.AppMessage[];
@@ -29,9 +29,13 @@ export class FeedbackDetailComponent implements OnInit {
   currentUser: fromUser.User;
   charactersLeft = 250;
   maxCharacters = 250;
+  minCharacters = 3;
 
   form: FormGroup = this.fb.group({
-    comment: ['', Validators.maxLength(250)]
+    comment: ['', [
+      Validators.minLength(3),
+      Validators.maxLength(250)
+    ]]
   })
 
   @ViewChild('commentField') commentField: ElementRef;
@@ -44,6 +48,8 @@ export class FeedbackDetailComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    console.log(this.form.valid);
+
     this.feedbackId = this.route.snapshot.params['id'];
     this.store.dispatch(new fromSuggestionActions.FetchOneSuggestionStart(this.feedbackId));
     this.store.dispatch(new fromCommentActions.FetchCommentsStart(this.feedbackId));
@@ -51,7 +57,6 @@ export class FeedbackDetailComponent implements OnInit {
 
     this.store.select('comment').subscribe(((state: fromComment.State) => {
       this.comments = state.comments;
-      /* this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id); */
     }));
 
     this.store.select('user').subscribe(((state: fromUser.State) => {
@@ -62,7 +67,7 @@ export class FeedbackDetailComponent implements OnInit {
       /* this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id); */
     }));
 
-    this.store.select('suggestions').subscribe(((state: fromSuggestions.State) => {
+    this.store.select('suggestions').subscribe(((state: fromSuggestion.State) => {
       this.feedback = state.suggestion;
       this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id);
     }));
@@ -83,16 +88,18 @@ export class FeedbackDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    const comment: fromComment.AppMessage = {
-      content: this.form.get('comment').value,
-      from: this.currentUser.id,
-      suggestionId: this.feedbackId,
-      user: this.currentUser,
-      replies: [],
-      main: true
-    };
-    this.store.dispatch(new fromCommentActions.PostCommentStart(comment));
-    this.resetForm();
+    if(this.form.get('comment').value.trim() !== '' && this.form.touched && this.form.valid) {
+      const comment: fromComment.AppMessage = {
+        content: this.form.get('comment').value,
+        from: this.currentUser.id,
+        suggestionId: this.feedbackId,
+        user: this.currentUser,
+        replies: [],
+        main: true
+      };
+      this.store.dispatch(new fromCommentActions.PostCommentStart(comment));
+      this.resetForm();
+    }
   }
 
   resetForm() {
