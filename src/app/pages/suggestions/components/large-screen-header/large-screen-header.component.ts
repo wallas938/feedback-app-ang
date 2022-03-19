@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LargeScreenHeaderComponent implements OnInit {
 
   currentFilterValue: fromSuggestions.FILTER;
+  suggestions: fromSuggestions.Suggestion[];
   public categories: string[] = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
 
   constructor(private store: Store<fromApp.AppState>, private router: Router) { }
@@ -19,8 +20,19 @@ export class LargeScreenHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('suggestions').subscribe(
       (state: fromSuggestions.State) => {
+        this.suggestions = state.suggestions
         this.currentFilterValue = state.filterBy;
       })
+  }
+
+  getPlannedSuggestionsCount(): number {
+    return this.suggestions.filter((request: fromSuggestions.Suggestion) => request.status === 'planned').length;
+  }
+  getInProgressSuggestionsCount(): number {
+    return this.suggestions.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress').length;
+  }
+  getLiveSuggestionsCount(): number {
+    return this.suggestions.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
   }
 
 }

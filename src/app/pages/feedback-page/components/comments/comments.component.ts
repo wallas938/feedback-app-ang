@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
-
+import * as fromApp from 'store/reducers';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
@@ -16,12 +17,13 @@ export class CommentsComponent implements OnInit {
   @Input()
   feedback: fromSuggestion.Suggestion;
 
-  constructor() { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  getMessagesCount(): number {
-    return this.feedback.numberOfComments; /* this.comments.length + this.replies.length */
+  getMessagesCount(): number | void {
+    if(this.feedback) {
+      return this.feedback?.numberOfComments;
+    }
   }
 }
