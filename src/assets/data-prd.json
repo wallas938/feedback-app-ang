@@ -1,0 +1,173 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "image": "./assets/user-images/image-zena.jpg",
+      "name": "Zena Kelley",
+      "username": "velvetround"
+    },
+    {
+      "id": 2,
+      "image": "./assets/user-images/image-suzanne.jpg",
+      "name": "Suzanne Chang",
+      "username": "upbeat1811"
+    },
+    {
+      "id": 3,
+      "image": "./assets/user-images/image-thomas.jpg",
+      "name": "Thomas Hood",
+      "username": "brawnybrave"
+    },
+    {
+      "id": 4,
+      "image": "./assets/user-images/image-elijah.jpg",
+      "name": "Elijah Moss",
+      "username": "hexagon.bestagon"
+    },
+    {
+      "id": 5,
+      "image": "./assets/user-images/image-james.jpg",
+      "name": "James Skinner",
+      "username": "hummingbird1"
+    },
+    {
+      "id": 6,
+      "image": "./assets/user-images/image-anne.jpg",
+      "name": "Anne Valentine",
+      "username": "annev1990"
+    },
+    {
+      "id": 7,
+      "image": "./assets/user-images/image-ryan.jpg",
+      "name": "Ryan Welles",
+      "username": "voyager.344"
+    },
+    {
+      "id": 8,
+      "image": "./assets/user-images/image-george.jpg",
+      "name": "George Partridge",
+      "username": "soccerviewer8"
+    },
+    {
+      "id": 9,
+      "image": "./assets/user-images/image-roxanne.jpg",
+      "name": "Roxanne Travis",
+      "username": "peppersprime32"
+    },
+    {
+      "id": 10,
+      "image": "./assets/user-images/image-victoria.jpg",
+      "name": "Victoria Mejia",
+      "username": "arlen_the_marlin"
+    },
+    {
+      "id": 11,
+      "image": "./assets/user-images/image-jackson.jpg",
+      "name": "Jackson Barker",
+      "username": "countryspirit"
+    }
+  ],
+  "suggestions": [
+    {
+      "title": "Add tags for solutions",
+      "category": "Enhancement",
+      "status": "suggestion",
+      "upvotes": 4,
+      "description": "Easier to search for solutions based on a specific stack.",
+      "numberOfComments": 0,
+      "id": 1
+    },
+    {
+      "title": "Q&A within the challenge hubs",
+      "category": "Feature",
+      "upvotes": 65,
+      "status": "suggestion",
+      "description": "Challenge-specific Q&A would make for easy reference.",
+      "numberOfComments": 0,
+      "id": 2
+    },
+    {
+      "title": "Add image/video upload to feedback",
+      "category": "Enhancement",
+      "upvotes": 51,
+      "status": "suggestion",
+      "description": "Images and screencasts can enhance comments on solutions.",
+      "numberOfComments": 0,
+      "id": 3
+    },
+    {
+      "title": "Ability to follow others",
+      "category": "Feature",
+      "upvotes": 42,
+      "status": "suggestion",
+      "description": "Stay updated on comments and solutions other people post.",
+      "numberOfComments": 0,
+      "id": 4
+    },
+    {
+      "title": "Preview images not loading",
+      "category": "Bug",
+      "upvotes": 3,
+      "status": "suggestion",
+      "description": "Challenge preview images are missing when you apply a filter.",
+      "numberOfComments": 0,
+      "id": 5
+    },
+    {
+      "title": "More comprehensive reports",
+      "category": "Feature",
+      "upvotes": 123,
+      "status": "planned",
+      "description": "It would be great to see a more detailed breakdown of solutions.",
+      "numberOfComments": 0,
+      "id": 6
+    },
+    {
+      "title": "Learning paths",
+      "category": "Feature",
+      "upvotes": 28,
+      "status": "planned",
+      "description": "Sequenced projects for different goals to help people improve.",
+      "numberOfComments": 0,
+      "id": 7
+    },
+    {
+      "title": "One-click portfolio generation",
+      "category": "Feature",
+      "upvotes": 62,
+      "status": "in-progress",
+      "description": "Add ability to create professional looking portfolio from profile.",
+      "numberOfComments": 0,
+      "id": 8
+    },
+    {
+      "title": "Bookmark challenges",
+      "category": "Feature",
+      "upvotes": 31,
+      "status": "in-progress",
+      "description": "Be able to bookmark challenges to take later on.",
+      "numberOfComments": 0,
+      "id": 9
+    },
+    {
+      "title": "Animated solution screenshots",
+      "category": "Bug",
+      "upvotes": 9,
+      "status": "in-progress",
+      "description": "Screenshots of solutions with animations don’t display correctly.",
+      "numberOfComments": 0,
+      "id": 9
+    },
+    {
+      "title": "Add micro-interactions",
+      "category": "Enhancement",
+      "upvotes": 71,
+      "status": "live",
+      "description": "Small animations at specific points can add delight.",
+      "numberOfComments": 0,
+      "id": 9
+    }
+  ],
+  "comments": [],
+  "replies": []
+}
