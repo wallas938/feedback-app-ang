@@ -12,16 +12,13 @@ const routes: Routes = [
         path: 'new-feedback', component: FeedbackFormComponent
       },
       {
-        path: 'edit-feedback/:id',
-        component: FeedbackFormComponent,
-      },
-      {
         path: ':id',
         component: FeedbackDetailComponent,
-        /* runGuardsAndResolvers: 'always',
-        resolve: {
-          feedback: FeedbackResolver
-        } */
+      },
+
+      {
+        path: ':id/edit-feedback',
+        component: FeedbackFormComponent,
       },
     ]
   }

@@ -40,16 +40,12 @@ export class FeedbackDetailComponent implements OnInit {
 
   @ViewChild('commentField') commentField: ElementRef;
 
-
-
   constructor(private router: Router,
     private store: Store<fromApp.AppState>,
     private route: ActivatedRoute,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    console.log(this.form.valid);
-
     this.feedbackId = this.route.snapshot.params['id'];
     this.store.dispatch(new fromSuggestionActions.FetchOneSuggestionStart(this.feedbackId));
     this.store.dispatch(new fromCommentActions.FetchCommentsStart(this.feedbackId));
@@ -84,7 +80,7 @@ export class FeedbackDetailComponent implements OnInit {
 
   navigateToForm() {
     this.store.dispatch(new fromSuggestionActions.FormEditingMode())
-    this.router.navigate(['/feedbacks/edit-feedback/', this.feedbackId])
+    this.router.navigate(['edit-feedback'], { relativeTo: this.route })
   }
 
   onSubmit() {

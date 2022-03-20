@@ -116,18 +116,18 @@ export class SuggestionEffects {
       )
     ));
 
-    incrementNumberOfCommentsEffect$ = createEffect(
-      () => this.actions$.pipe(
-        ofType(fromSuggestionActions.INCREMENT_NUMBER_OF_COMMENTS_START),
-        switchMap(({ suggestion }: fromSuggestionActions.IncrementNumberOfCommentsStart) =>
-          this.suggestionService.incrementSuggestionNumberOfComments(suggestion)
-            .pipe(
-              map((update: fromSuggestions.Suggestion) => {
-                this.store.dispatch(new fromSuggestionActions.PostOneSuggestionSucceeded(update));
-                return update;
-              }),
-              switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
-              catchError((error: HttpErrorResponse) => of(new fromSuggestionActions.IncrementNumberOfCommentsFailed(error))))
-        )
-      ));
+  incrementNumberOfCommentsEffect$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(fromSuggestionActions.INCREMENT_NUMBER_OF_COMMENTS_START),
+      switchMap(({ suggestion }: fromSuggestionActions.IncrementNumberOfCommentsStart) =>
+        this.suggestionService.incrementSuggestionNumberOfComments(suggestion)
+          .pipe(
+            map((update: fromSuggestions.Suggestion) => {
+              this.store.dispatch(new fromSuggestionActions.PostOneSuggestionSucceeded(update));
+              return update;
+            }),
+            switchMap(() => of(new fromSuggestionActions.FetchSuggestionsStart({ _filter: this._filterBy, _sort: this._sortBy }))),
+            catchError((error: HttpErrorResponse) => of(new fromSuggestionActions.IncrementNumberOfCommentsFailed(error))))
+      )
+    ));
 }
