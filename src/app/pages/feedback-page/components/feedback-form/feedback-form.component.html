@@ -78,7 +78,7 @@
         <div class="save">
           <button (click)="onSubmit()" type="button" class="app-btn"
             [disabled]="!form.valid">
-            {{ false ? 'Add Feedback' : 'Save Changes'}}
+            {{ !isEditMode ? 'Add Feedback' : 'Save Changes'}}
           </button>
         </div>
       </div>

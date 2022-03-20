@@ -2,7 +2,11 @@
   <div class="wrapper">
     <p class="comments-count"> {{getMessagesCount()}} Comments</p>
     <div *ngIf="comments" class="comments">
-      <app-message *ngFor="let comment of comments" [feedback]="feedback" [comment]="comment" [isMain]="comment.main">
+      <app-message
+      *ngFor="let comment of comments; let i = index"
+        [feedback]="feedback" [comment]="comment"
+        [isLastComment]="i === comments.length - 1"
+        [isMain]="comment.main">
       </app-message>
     </div>
   </div>

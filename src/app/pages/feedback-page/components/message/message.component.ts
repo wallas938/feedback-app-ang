@@ -35,6 +35,7 @@ import { Store } from '@ngrx/store';
 export class MessageComponent implements OnInit {
 
   @Input() feedback: fromSuggestion.Suggestion;
+  @Input() isLastComment: boolean;
   @Input() comment: fromComment.AppMessage;
   @Input() isMain: boolean;
   currentUser: fromUser.User;
@@ -59,9 +60,6 @@ export class MessageComponent implements OnInit {
   }
 
   showForm() {
-    /* console.log("This Comment ID: ", this.comment.id);
-    console.log("Main Comment ID: ", this.comment.main ? this.comment.id : this.comment.mainId);
- */
     this.isFormDisplayed = !this.isFormDisplayed;
   }
 
@@ -79,5 +77,4 @@ export class MessageComponent implements OnInit {
       this.store.dispatch(new fromCommentActions.PostReplyStart(reply));
     }
   }
-
 }

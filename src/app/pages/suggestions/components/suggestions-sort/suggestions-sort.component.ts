@@ -128,6 +128,7 @@ export class SuggestionsSortComponent implements OnInit {
 
   navigateTo() {
     this.store.dispatch(new fromSuggestionActions.FormAddingMode());
+    this.store.dispatch(new fromLayoutActions.FilterModalClosed());
     this.router.navigate(['/feedbacks/new-feedback']);
   }
 

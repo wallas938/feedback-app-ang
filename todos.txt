@@ -1,4 +1,1 @@
 Feedback app
-
-    -> loading-spinner
-        revoir le conditionnement de l'affichage du spinner

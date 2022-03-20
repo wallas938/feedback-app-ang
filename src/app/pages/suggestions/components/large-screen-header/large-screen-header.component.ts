@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import * as fromLayoutActions from 'store/actions/layout.action';
 import * as fromApp from 'store/reducers/index';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -33,6 +34,11 @@ export class LargeScreenHeaderComponent implements OnInit {
   }
   getLiveSuggestionsCount(): number {
     return this.suggestions.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
+  }
+
+  navigateToRoadmap() {
+    this.router.navigate(['/roadmap']);
+    this.store.dispatch(new fromLayoutActions.FilterModalClosed());
   }
 
 }
