@@ -3,7 +3,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, map, of, switchMap, tap } from "rxjs";
+import { catchError, delay, map, of, switchMap, tap } from "rxjs";
 
 import * as fromSuggestionActions from "store/actions/suggestions.action";
 import * as fromRouterActions from "store/actions/router.actions";

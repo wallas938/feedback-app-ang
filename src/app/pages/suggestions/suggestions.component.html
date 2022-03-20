@@ -18,18 +18,16 @@
           <app-loading-stripe></app-loading-stripe>
         </div>
 
-         <!-- NO SUGGESTIONS VIEW -->
-        <app-suggestions-empty *ngIf="suggestions.length === 0 && !loadingState;else suggestionList">
+        <!-- NO SUGGESTIONS VIEW -->
+        <app-suggestions-empty *ngIf="suggestions.length <= 0 && !loadingState;">
         </app-suggestions-empty>
 
         <!-- SUGGESTIONS LIST VIEW -->
-        <ng-template #suggestionList>
-          <div [@fadeInOutX] class="suggestions-list">
-            <app-suggestion-item *ngFor="let suggestion of suggestions" [suggestion]="suggestion"
-              [isUpvoted]="isUpvoted(suggestion.id)">
-            </app-suggestion-item>
-          </div>
-        </ng-template>
+        <div [@fadeInOutX] class="suggestions-list" *ngIf="suggestions.length > 0 && !loadingState;">
+          <app-suggestion-item *ngFor="let suggestion of suggestions" [suggestion]="suggestion"
+            [isUpvoted]="isUpvoted(suggestion.id)">
+          </app-suggestion-item>
+        </div>
       </div>
     </main>
   </div>

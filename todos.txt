@@ -1,8 +1,4 @@
 Feedback app
 
-    -> global
-        Fermer toute les modals pour mobile (sidenav) si l'ecran est agrandi - ngOnInit select sur le store a l'apparition du large header ?
-
-    -> Edit Feedback
-        Au premier click l'utilisateur est renvoyé vers
-        la liste des suggestions au lieu du formulaire de modification
+    -> loading-spinner
+        revoir le conditionnement de l'affichage du spinner
