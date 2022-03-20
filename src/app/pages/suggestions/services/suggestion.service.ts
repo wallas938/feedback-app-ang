@@ -118,8 +118,6 @@ export class SuggestionService {
         filterBy = filterBy + ''
         break;
     }
-    console.log(`${this.suggestionsUrl}?${filterBy}`);
-
     return this.http.get<fromSuggestions.Suggestion[]>(`${this.suggestionsUrl}${filterBy}`)
   }
 

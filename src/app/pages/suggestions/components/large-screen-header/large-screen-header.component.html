@@ -9,7 +9,7 @@
       </app-category-chips>
     </div>
     <div class="roadmap card">
-      <p class="card__head"><span>Roadmap</span> <a routerLink="/roadmap"><u>View</u></a></p>
+      <p class="card__head"><span>Roadmap</span> <a (click)="navigateToRoadmap()"><u>View</u></a></p>
       <ul class="actions-states">
         <li class="state planned"><span>Planned</span> <span class="count">{{getPlannedSuggestionsCount()}}</span></li>
         <li class="state in-progress"><span>In-Progress</span> <span

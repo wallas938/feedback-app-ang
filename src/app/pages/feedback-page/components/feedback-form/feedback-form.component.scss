@@ -391,7 +391,7 @@
 
         .cta {
           display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-columns: 1fr 1fr auto;
           grid-template-rows: 1fr;
           grid-template-areas: "delete cancel save";
           align-items: flex-start;

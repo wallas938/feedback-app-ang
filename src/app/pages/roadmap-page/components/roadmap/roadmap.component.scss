@@ -110,6 +110,10 @@
           justify-content: center;
           column-gap: .666666rem;
 
+          .col {
+            flex: 1;
+          }
+
           .content .col__header {
             margin-bottom: 1.6rem;
           }
@@ -125,10 +129,8 @@
           }
 
           .content>.col__header>p {
-            font-weight: 400;
-            font-style: normal;
-            font-size: .866666rem;
-            line-height: 18.79px;
+            font-size: .933333rem;
+            line-height: 20.23px;
             color: $grey-blue;
             margin-bottom: 1.6rem;
           }
