@@ -28,9 +28,7 @@ export class CommentEffects {
       this.suggestionId = suggestionId;
       return this.commentService.fetchOneSuggestionComments(suggestionId)
         .pipe(switchMap((comments: fromComment.AppMessage[]) => {
-          const redirectTo = `feedbacks/${this.suggestionId}`
           this.store.dispatch(new fromCommentActions.FetchCommentsSucceeded(comments));
-          this.store.dispatch(new fromRouterActions.RedirectTo(true, redirectTo));
           return of()
         }),
           catchError((error: HttpErrorResponse) => of(new fromCommentActions.FetchCommentsFailed(error))))
