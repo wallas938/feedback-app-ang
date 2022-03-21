@@ -1,21 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { concatMap, distinct, map, mergeAll, Observable, switchMap, toArray } from 'rxjs';
+import { environment } from 'environments/environment';
+import { concatMap, map, mergeAll, Observable, switchMap, toArray } from 'rxjs';
 import * as fromComment from 'store/reducers/comment.reducers';
-import * as fromApp from 'store/reducers/index';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
 
-  private commentsUrl = 'http://localhost:3000/comments';
-  private replyUrl = 'http://localhost:3000/replies';
+  private commentsUrl = environment.apiURL + '/comments';
+  private replyUrl = environment.apiURL + '/replies';
   comments: fromComment.AppMessage[] = [];
   replies: fromComment.AppMessage[] = [];
 
-  constructor(private http: HttpClient, private store: Store<fromApp.AppState>) { }
+  constructor(private http: HttpClient) { }
 
   fetchOneSuggestionComments(suggestionId: number): Observable<fromComment.AppMessage[]> {
     return this.http.get<fromComment.AppMessage[]>(`${this.commentsUrl}?suggestionId=${suggestionId}`)
