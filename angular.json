@@ -57,6 +57,27 @@
               ],
               "outputHashing": "all"
             },
+            "dev-mode": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-mode.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -74,11 +95,11 @@
             "production": {
               "browserTarget": "feedback-app-ang:build:production"
             },
-            "development": {
-              "browserTarget": "feedback-app-ang:build:development"
+            "dev-mode": {
+              "browserTarget": "feedback-app-ang:build:dev-mode"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "dev-mode"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

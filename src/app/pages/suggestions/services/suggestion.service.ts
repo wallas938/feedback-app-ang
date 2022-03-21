@@ -5,13 +5,14 @@ import { map, Observable } from 'rxjs';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromComments from 'store/reducers/comment.reducers';
 import * as fromApp from 'store/reducers/index';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SuggestionService {
 
-  private suggestionsUrl = 'http://localhost:3000/suggestions';
+  private suggestionsUrl = environment.apiURL+'/suggestions';
 
   constructor(private http: HttpClient, private store: Store<fromApp.AppState>) { }
 
