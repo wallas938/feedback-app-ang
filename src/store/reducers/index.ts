@@ -17,7 +17,7 @@ export interface AppState {
 
 export const reducers: ActionReducerMap<AppState, any> = {
   suggestionFeature: fromSuggestions.suggestionReducer,
-  layout: fromLayout.uiReducer,
+  layout: fromLayout.layoutReducer,
   router: fromRouter.routerReducer,
   comment: fromComment.commentReducer,
   user: fromUser.userReducer

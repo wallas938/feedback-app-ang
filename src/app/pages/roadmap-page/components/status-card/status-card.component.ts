@@ -17,14 +17,14 @@ export class StatusCardComponent implements OnInit, OnDestroy {
 
   @Input() suggestion!: fromSuggestions.Suggestion;
   isUpvoted: boolean;
-  suggestionUpvoted: Subscription;
+  suggestionUpvotedSubscription: Subscription;
   constructor(private store: Store<fromApp.AppState>) { }
   ngOnDestroy(): void {
-    this.suggestionUpvoted.unsubscribe()
+    this.suggestionUpvotedSubscription.unsubscribe()
   }
 
   ngOnInit(): void {
-    this.store.select(suggestionSelectors.getSuggestionsUpvoted).subscribe((ids: number[]) => {
+    this.suggestionUpvotedSubscription = this.store.select(suggestionSelectors.getSuggestionsUpvoted).subscribe((ids: number[]) => {
       this.isUpvoted = ids.includes(this.suggestion.id);
     })
   }

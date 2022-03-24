@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromLayout from 'store/reducers/layout.reducers';
 import { SuggestionActions } from 'store/actions/suggestions.action';
+import { LayoutActions } from 'store/actions/layout.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
-import * as fromLayoutActions from 'store/actions/layout.action';
+import { layoutSelectors } from "store/selectors/layout.selectors";
 import * as fadeAnimations from '@/app/shared/animations/fade';
 import { Subscription } from 'rxjs';
 
@@ -47,8 +47,8 @@ export class RoadmapMobileComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.store.select('layout').subscribe((state: fromLayout.State) => {
-      this.currentTab = state.mobileRoadmapCurrentTab;
+    this.store.select(layoutSelectors.getMobileRoadmapCurrentTab).subscribe((mobileRoadmapCurrentTab: fromSuggestions.STATUS) => {
+      this.currentTab = mobileRoadmapCurrentTab;
       this.initData(this.currentTab);
     })
   }
@@ -74,20 +74,20 @@ export class RoadmapMobileComponent implements OnInit, OnDestroy {
   onSelectTab(tab: fromSuggestions.STATUS) {
     switch (tab) {
       case fromSuggestions.STATUS.PLANNED:
-        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.PLANNED));
+        this.store.dispatch(LayoutActions.MobileRoadMapTabChanged({ currentTab: fromSuggestions.STATUS.PLANNED }));
         this.displayPlanned();
         break;
       case fromSuggestions.STATUS.IN_PROGRESS:
-        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.IN_PROGRESS));
+        this.store.dispatch(LayoutActions.MobileRoadMapTabChanged({ currentTab: fromSuggestions.STATUS.IN_PROGRESS }));
         this.displayInProgress();
         break;
       case fromSuggestions.STATUS.LIVE:
-        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.LIVE));
+        this.store.dispatch(LayoutActions.MobileRoadMapTabChanged({ currentTab: fromSuggestions.STATUS.LIVE }));
         this.displayLive();
         break;
 
       default:
-        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.IN_PROGRESS));
+        this.store.dispatch(LayoutActions.MobileRoadMapTabChanged({ currentTab: fromSuggestions.STATUS.IN_PROGRESS }));
         this.displayInProgress();
         break;
     }

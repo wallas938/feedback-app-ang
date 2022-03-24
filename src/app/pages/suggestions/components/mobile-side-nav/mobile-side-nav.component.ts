@@ -5,7 +5,7 @@ import * as fromApp from 'store/reducers/index';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-import * as fromLayoutActions from 'store/actions/layout.action';
+import { LayoutActions } from 'store/actions/layout.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import { Subscription } from 'rxjs';
 
@@ -55,7 +55,7 @@ export class MobileSideNavComponent implements OnInit, OnDestroy {
 
   navigateTo() {
     this.router.navigate(['/roadmap']);
-    this.store.dispatch(new fromLayoutActions.MobileMenuClosed)
+    this.store.dispatch(LayoutActions.MobileMenuClosed())
   }
 
   ngOnDestroy(): void {
