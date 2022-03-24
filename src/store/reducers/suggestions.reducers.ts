@@ -59,7 +59,7 @@ export interface Suggestion {
   numberOfComments: number;
 }
 
-const initialState: State = {
+export const initialState: State = {
   suggestions: [],
   suggestion: null,
   suggestionsUpvoted: [],

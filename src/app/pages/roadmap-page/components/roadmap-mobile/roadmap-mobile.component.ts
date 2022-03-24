@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromLayout from 'store/reducers/layout.reducers';
 import { SuggestionActions } from 'store/actions/suggestions.action';
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import * as fromLayoutActions from 'store/actions/layout.action';
 import * as fadeAnimations from '@/app/shared/animations/fade';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-roadmap-mobile',
@@ -18,9 +20,10 @@ import * as fadeAnimations from '@/app/shared/animations/fade';
     fadeAnimations.fadeInOutX
   ]
 })
-export class RoadmapMobileComponent implements OnInit {
+export class RoadmapMobileComponent implements OnInit, OnDestroy {
 
-  data: fromSuggestions.Suggestion[];
+  suggestions: fromSuggestions.Suggestion[];
+  suggestionsSubscription: Subscription;
   toDisplay: fromSuggestions.Suggestion[] = [];
   currentTab!: fromSuggestions.STATUS;
   statusCount!: string;
@@ -36,11 +39,11 @@ export class RoadmapMobileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
-      if (!state.suggestions) {
+    this.suggestionsSubscription = this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+      if (!suggestions || suggestions.length <= 0) {
         this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }));
       } else {
-        this.data = state.suggestions;
+        this.suggestions = suggestions;
       }
     });
 
@@ -67,6 +70,7 @@ export class RoadmapMobileComponent implements OnInit {
         break;
     }
   }
+
   onSelectTab(tab: fromSuggestions.STATUS) {
     switch (tab) {
       case fromSuggestions.STATUS.PLANNED:
@@ -88,31 +92,35 @@ export class RoadmapMobileComponent implements OnInit {
         break;
     }
   }
+
   displayPlanned() {
-    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned');
+    this.toDisplay = this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned');
     this.statusCount = `Planned ${this.getPlannedCount()}`;
     this.statusText = 'Ideas prioritized for research';
   }
   displayInProgress() {
-    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress');
+    this.toDisplay = this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress');
     this.statusCount = `In-Progress ${this.getInProgressCount()}`;
     this.statusText = 'Currently being developed';
   }
   displayLive() {
-    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'live');
+    this.toDisplay = this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'live');
     this.statusCount = `Live ${this.getLiveCount()}`;
     this.statusText = 'Released features';
   }
   getPlannedCount(): number {
-    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned').length;
+    return this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned').length;
 
   }
   getInProgressCount(): number {
-    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress').length;
+    return this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress').length;
 
   }
   getLiveCount(): number {
-    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
+    return this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
   }
 
+  ngOnDestroy(): void {
+    this.suggestionsSubscription.unsubscribe();
+  }
 }

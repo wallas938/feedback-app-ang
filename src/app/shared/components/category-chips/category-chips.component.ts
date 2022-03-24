@@ -2,6 +2,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import { SuggestionActions } from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers';
 
@@ -19,11 +20,14 @@ export class CategoryChipsComponent implements OnInit {
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
-      this.sortBy = state.sortBy;
-      this.selected = (!state.filterBy && this.categoryValue?.toLowerCase() === "all") && true;
-      this.selected = state.filterBy?.toLowerCase().includes(this.categoryValue?.toLowerCase()) && true;
-    })
+    this.store.select(suggestionSelectors.getSortByValue).subscribe((sortByValue: fromSuggestions.SORT) => {
+      this.sortBy = sortByValue;
+    });
+
+    this.store.select(suggestionSelectors.getFilterByValue).subscribe((filterByValue: fromSuggestions.FILTER) => {
+      this.selected = (!filterByValue && this.categoryValue?.toLowerCase() === "all") && true;
+      this.selected = filterByValue?.toLowerCase().includes(this.categoryValue?.toLowerCase()) && true;
+    });
   }
 
   onSetFilter() {

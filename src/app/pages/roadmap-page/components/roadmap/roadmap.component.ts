@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import { SuggestionActions } from 'store/actions/suggestions.action';
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
+
 
 @Component({
   selector: 'app-roadmap',
@@ -22,15 +24,16 @@ export class RoadmapComponent implements OnInit {
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
-    this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
-      if (!state.sortBy) {
+
+    this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+      this.data = suggestions;
+      if (!suggestions || suggestions.length <= 0) {
         this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
-        this.data = state.suggestions;
-      } else {
-        this.data = state.suggestions;
       }
     });
   }
+
+
   getPlannedSuggestions(): fromSuggestions.Suggestion[] {
     return this.data.filter((request: fromSuggestions.Suggestion) => request.status === 'planned');
   }

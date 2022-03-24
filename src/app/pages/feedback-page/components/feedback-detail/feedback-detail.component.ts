@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -9,9 +9,11 @@ import * as fromSuggestion from 'store/reducers/suggestions.reducers';
 import * as fromCommentActions from 'store/actions/comment.action';
 import * as fromUserActions from "store/actions/user.actions";
 import { SuggestionActions } from 'store/actions/suggestions.action';
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-feedback-detail',
@@ -19,11 +21,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./feedback-detail.component.scss'],
   animations: [fadeAnimations.fadeInOutY, fadeAnimations.fadeInOutX]
 })
-export class FeedbackDetailComponent implements OnInit {
+export class FeedbackDetailComponent implements OnInit, OnDestroy {
 
-  feedback: fromSuggestion.Suggestion;
+  feedback: Observable<fromSuggestion.Suggestion>;
   feedbackId: number;
   isUpvoted: boolean;
+  isUpvotedSubscription: Subscription;
   comments: fromComment.AppMessage[];
   replies: fromComment.AppMessage[];
   currentUser: fromUser.User;
@@ -38,8 +41,6 @@ export class FeedbackDetailComponent implements OnInit {
     ]]
   })
 
-  @ViewChild('commentField') commentField: ElementRef;
-
   constructor(private router: Router,
     private store: Store<fromApp.AppState>,
     private route: ActivatedRoute,
@@ -50,6 +51,11 @@ export class FeedbackDetailComponent implements OnInit {
     this.store.dispatch(SuggestionActions.FetchOneSuggestionStart({ suggestionId: this.feedbackId }));
     this.store.dispatch(new fromCommentActions.FetchCommentsStart(this.feedbackId));
 
+    this.feedback = this.store.select(suggestionSelectors.getSuggestion);
+
+    this.store.select(suggestionSelectors.getSuggestionsUpvoted).subscribe((ids: number[]) => {
+      this.isUpvoted = ids.includes(this.feedbackId);
+    });
 
     this.store.select('comment').subscribe(((state: fromComment.State) => {
       this.comments = state.comments;
@@ -60,12 +66,6 @@ export class FeedbackDetailComponent implements OnInit {
       if (!this.currentUser) {
         this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
       }
-      /* this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id); */
-    }));
-
-    this.store.select('suggestions').subscribe(((state: fromSuggestion.State) => {
-      this.feedback = state.suggestion;
-      this.isUpvoted = state.suggestionsUpvoted.includes(state.suggestion?.id);
     }));
 
     this.form.get('comment').valueChanges.subscribe((value) => {
@@ -100,5 +100,8 @@ export class FeedbackDetailComponent implements OnInit {
 
   resetForm() {
     this.form.reset();
+  }
+
+  ngOnDestroy(): void {
   }
 }
