@@ -6,8 +6,8 @@ import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import { SuggestionActions } from 'store/actions/suggestions.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 
-import * as fromLayout from 'store/reducers/layout.reducers';
-import * as fromLayoutActions from 'store/actions/layout.action';
+import { LayoutActions } from 'store/actions/layout.action';
+import { layoutSelectors } from "store/selectors/layout.selectors";
 import * as fromApp from 'store/reducers/index';
 import { Router } from '@angular/router';
 
@@ -77,10 +77,12 @@ export class SuggestionsSortComponent implements OnInit {
       this.currentFilterValue = currentFilterValue;
     });
 
-    this.store.select('layout').subscribe((state: fromLayout.State) => {
-      this.showSortByModal = state.sortModalOpened;
+    this.store.select(layoutSelectors.getSortModalOpened).subscribe((sortModalOpened: boolean) => {
+      this.showSortByModal = sortModalOpened;
+    });
 
-      if (state.mobileMenuOpened) {
+    this.store.select(layoutSelectors.getmobileMenuOpened).subscribe((mobileMenuOpened: boolean) => {
+      if (mobileMenuOpened) {
         this.arrowState = 'arrowDown';
       }
     });
@@ -88,16 +90,16 @@ export class SuggestionsSortComponent implements OnInit {
 
   onToggleSortModal() {
     if (!this.showSortByModal) {
-      this.store.dispatch(new fromLayoutActions.FilterModalOpened())
+      this.store.dispatch(LayoutActions.FilterModalOpened())
     } else {
-      this.store.dispatch(new fromLayoutActions.FilterModalClosed());
+      this.store.dispatch(LayoutActions.FilterModalClosed());
     }
     this.setArrowState();
     this.setBodyScrolling();
   }
 
   closeMenu() {
-    this.store.dispatch(new fromLayoutActions.FilterModalClosed());
+    this.store.dispatch(LayoutActions.FilterModalClosed());
     this.setArrowState();
     this.setBodyScrolling();
   }
@@ -134,7 +136,7 @@ export class SuggestionsSortComponent implements OnInit {
 
   navigateTo() {
     this.store.dispatch(SuggestionActions.FormAddingMode());
-    this.store.dispatch(new fromLayoutActions.FilterModalClosed());
+    this.store.dispatch(LayoutActions.FilterModalClosed());
     this.router.navigate(['/feedbacks/new-feedback']);
   }
 

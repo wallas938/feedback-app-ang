@@ -1,47 +1,36 @@
-import { Action } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
 import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
 /* MOBILE MENU IDENTIFIERS */
 
-export const MOBILE_MENU_OPENED = '[UI] MOBILE_MENU_OPENED';
-export const MOBILE_MENU_CLOSED = '[UI] MOBILE_MENU_CLOSED';
+const MOBILE_MENU_OPENED = '[UI] MOBILE_MENU_OPENED';
+const MOBILE_MENU_CLOSED = '[UI] MOBILE_MENU_CLOSED';
 
 /* FILTER MODAL IDENTIFIERS */
 
-export const FILTER_MODAL_CLOSED = '[UI] FILTER_MODAL_CLOSED';
-export const FILTER_MODAL_OPENED = '[UI] FILTER_MODAL_OPENED';
+const FILTER_MODAL_CLOSED = '[UI] FILTER_MODAL_CLOSED';
+const FILTER_MODAL_OPENED = '[UI] FILTER_MODAL_OPENED';
 
 /* MOBILE ROADMAP CURRENT TAB IDENTIFIERS */
 
-export const MOBILE_ROADMAP_CURRENT_TAB_CHANGED = '[UI] MOBILE_ROADMAP_CURRENT_TAB_CHANGED';
+const MOBILE_ROADMAP_CURRENT_TAB_CHANGED = '[UI] MOBILE_ROADMAP_CURRENT_TAB_CHANGED';
 
 
 /* MOBILE MENU ACTIONS */
 
-export class MobileMenuOpened implements Action {
-  readonly type = MOBILE_MENU_OPENED;
-}
-
-export class MobileMenuClosed implements Action {
-  readonly type = MOBILE_MENU_CLOSED;
-}
+const MobileMenuOpened = createAction(MOBILE_MENU_OPENED);
+const MobileMenuClosed = createAction(MOBILE_MENU_CLOSED);
 
 /* FILTER MODAL ACTIONS */
+const FilterModalOpened = createAction(FILTER_MODAL_OPENED);
+const FilterModalClosed = createAction(FILTER_MODAL_CLOSED);
 
-export class FilterModalOpened implements Action {
-  readonly type = FILTER_MODAL_OPENED;
-}
+const MobileRoadMapTabChanged = createAction(MOBILE_ROADMAP_CURRENT_TAB_CHANGED, props<{ currentTab: fromSuggestions.STATUS }>());
 
-export class FilterModalClosed implements Action {
-  readonly type = FILTER_MODAL_CLOSED;
-}
-
-export class MobileRoadMapTabChanged implements Action {
-  type: string = MOBILE_ROADMAP_CURRENT_TAB_CHANGED;
-  constructor(public currentTab: fromSuggestions.STATUS = fromSuggestions.STATUS.IN_PROGRESS) { }
-}
-
-export type UiActionsTypes =
-  MobileMenuOpened | MobileMenuClosed |
-  FilterModalOpened | FilterModalClosed |
-  MobileRoadMapTabChanged;
+export const LayoutActions = {
+  MobileMenuOpened,
+  MobileMenuClosed,
+  FilterModalOpened,
+  FilterModalClosed,
+  MobileRoadMapTabChanged
+};
