@@ -1,5 +1,5 @@
 <div class="root container">
-  <div *ngIf="feedback" class="wrapper">
+  <div *ngIf="(feedback | async) as feedback" class="wrapper">
     <div class="top">
       <a routerLink="/suggestions">Go Back</a>
       <a (click)="navigateToForm()" class="edit app-btn">
@@ -7,15 +7,14 @@
       </a>
     </div>
     <div [@fadeInOutY] class="suggestion">
-      <app-suggestion-item [suggestion]="feedback" [comments]="comments" [isUpvoted]="isUpvoted"></app-suggestion-item>
+      <app-suggestion-item [suggestion]="feedback" [comments]="comments"></app-suggestion-item>
     </div>
     <div *ngIf="comments" [@fadeInOutX] class="comments">
       <app-comments [feedback]="feedback" [comments]="comments"></app-comments>
     </div>
     <form [formGroup]="form" (submit)="onSubmit()" class="comment-form">
       <p>Add Comment</p>
-      <textarea class="message app-form-field" placeholder="Type your comment here" formControlName="comment"
-        #commentField></textarea>
+      <textarea class="message app-form-field" placeholder="Type your comment here" formControlName="comment"></textarea>
       <div class="cta">
         <p class="input-left"
           [ngClass]="{'--alert': charactersLeft < 50 && charactersLeft > 0, '--error': charactersLeft <= 0}">

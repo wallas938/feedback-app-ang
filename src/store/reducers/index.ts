@@ -8,7 +8,7 @@ import * as fromUser from './user.reducers';
 export const rootReducer = {};
 
 export interface AppState {
-  suggestions: fromSuggestions.State;
+  suggestionFeature: fromSuggestions.State;
   layout: fromLayout.State,
   router: fromRouter.State,
   comment: fromComment.State,
@@ -16,7 +16,7 @@ export interface AppState {
 }
 
 export const reducers: ActionReducerMap<AppState, any> = {
-  suggestions: fromSuggestions.suggestionReducer,
+  suggestionFeature: fromSuggestions.suggestionReducer,
   layout: fromLayout.uiReducer,
   router: fromRouter.routerReducer,
   comment: fromComment.commentReducer,

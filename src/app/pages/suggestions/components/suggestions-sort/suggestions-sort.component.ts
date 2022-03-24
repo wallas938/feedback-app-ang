@@ -4,6 +4,8 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import { SuggestionActions } from 'store/actions/suggestions.action';
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
+
 import * as fromLayout from 'store/reducers/layout.reducers';
 import * as fromLayoutActions from 'store/actions/layout.action';
 import * as fromApp from 'store/reducers/index';
@@ -63,12 +65,17 @@ export class SuggestionsSortComponent implements OnInit {
     private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    this.store.select('suggestions').subscribe(
-      (state: fromSuggestions.State) => {
-        this.suggestionsCount = state.suggestions.length;
-        this.currentSortValue = state.sortBy;
-        this.currentFilterValue = state.filterBy;
-      });
+    this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+      this.suggestionsCount = suggestions.length;
+    });
+
+    this.store.select(suggestionSelectors.getSortByValue).subscribe((currentSortValue: fromSuggestions.SORT) => {
+      this.currentSortValue = currentSortValue;
+    });
+
+    this.store.select(suggestionSelectors.getFilterByValue).subscribe((currentFilterValue: fromSuggestions.FILTER) => {
+      this.currentFilterValue = currentFilterValue;
+    });
 
     this.store.select('layout').subscribe((state: fromLayout.State) => {
       this.showSortByModal = state.sortModalOpened;

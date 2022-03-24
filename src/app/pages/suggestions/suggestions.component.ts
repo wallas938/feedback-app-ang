@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromUser from 'store/reducers/user.reducers';
 import { SuggestionActions } from "store/actions/suggestions.action";
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import * as fromUserActions from "store/actions/user.actions";
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-suggestions',
@@ -16,11 +18,12 @@ import * as fadeAnimations from '@shared/animations/fade';
   fadeAnimations.fadeInOutY
   ]
 })
-export class SuggestionsComponent implements OnInit {
+export class SuggestionsComponent implements OnInit, OnDestroy {
   suggestions: fromSuggestions.Suggestion[] = [];
+  suggestionsSubscription: Subscription;
   currentUser: fromUser.User;
-  loadingState = false;
-  upvotedSuggestions: number[];
+  loadingState: Observable<boolean>;
+  upvotedSuggestions: Observable<number[]>;
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
@@ -31,17 +34,18 @@ export class SuggestionsComponent implements OnInit {
       }
     });
 
-    this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
-      this.suggestions = state.suggestions;
-      this.loadingState = state.loadingState;
-      this.upvotedSuggestions = state.suggestionsUpvoted;
-      if (!state.filterBy) {
+    this.suggestionsSubscription = this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+      this.suggestions = suggestions;
+      if (!suggestions || suggestions.length <= 0) {
         this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
       }
     });
+
+    this.loadingState = this.store.select(suggestionSelectors.getLoadingState);
+    this.upvotedSuggestions = this.store.select(suggestionSelectors.getSuggestionsUpvoted);
   }
 
-  isUpvoted(id: number): boolean {
-    return this.upvotedSuggestions.includes(id);
+  ngOnDestroy(): void {
+    this.suggestionsSubscription.unsubscribe();
   }
 }
