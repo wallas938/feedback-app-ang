@@ -4,7 +4,7 @@ import * as fadeAnimations from '@/app/shared/animations/fade';
 import { Store } from '@ngrx/store';
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import { SuggestionActions } from 'store/actions/suggestions.action';
 
 @Component({
   selector: 'app-roadmap',
@@ -24,7 +24,7 @@ export class RoadmapComponent implements OnInit {
   ngOnInit(): void {
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
       if (!state.sortBy) {
-        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES }))
+        this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
         this.data = state.suggestions;
       } else {
         this.data = state.suggestions;

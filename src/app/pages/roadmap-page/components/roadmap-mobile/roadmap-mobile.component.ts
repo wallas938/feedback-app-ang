@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromLayout from 'store/reducers/layout.reducers';
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import { SuggestionActions } from 'store/actions/suggestions.action';
 import * as fromLayoutActions from 'store/actions/layout.action';
 import * as fadeAnimations from '@/app/shared/animations/fade';
 
@@ -38,7 +38,7 @@ export class RoadmapMobileComponent implements OnInit {
 
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
       if (!state.suggestions) {
-        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES }));
+        this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }));
       } else {
         this.data = state.suggestions;
       }

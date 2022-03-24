@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import { SuggestionActions } from 'store/actions/suggestions.action';
 
 @Component({
   selector: 'app-status-card',
@@ -13,33 +13,26 @@ import * as fromSuggestionActions from 'store/actions/suggestions.action';
 })
 export class StatusCardComponent implements OnInit {
 
-  @Input() suggestion!: any;
+  @Input() suggestion!: fromSuggestions.Suggestion;
   isUpvoted: boolean;
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
-      this.isUpvoted =  state.suggestionsUpvoted.includes(this.suggestion.id);
+      this.isUpvoted = state.suggestionsUpvoted.includes(this.suggestion.id);
     })
   }
 
-  getMessagesCount(comments: any[]): number {
-    if (comments) {
-      let globalMessageNumber = comments ? comments.length : 0;
-      comments.map(comment => {
-        globalMessageNumber += comment.replies ? comment.replies.length : 0;
-      })
-      return globalMessageNumber;
-    }
-    return 0;
+  getMessagesCount(): number {
+    return this.suggestion.numberOfComments;
   }
 
   onIncrement() {
-    this.store.dispatch(new fromSuggestionActions.IncrementUpvotesStart(this.suggestion))
+    this.store.dispatch(SuggestionActions.IncrementUpvotesStart({ suggestion: this.suggestion }))
   }
 
   onDecrement() {
-    this.store.dispatch(new fromSuggestionActions.DecrementUpvotesStart(this.suggestion))
+    this.store.dispatch(SuggestionActions.DecrementUpvotesStart({ suggestion: this.suggestion }))
   }
 
 }

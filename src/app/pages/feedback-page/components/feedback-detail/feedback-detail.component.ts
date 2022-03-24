@@ -1,4 +1,4 @@
- /* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
 import * as fromCommentActions from 'store/actions/comment.action';
 import * as fromUserActions from "store/actions/user.actions";
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import { SuggestionActions } from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -47,7 +47,7 @@ export class FeedbackDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.feedbackId = this.route.snapshot.params['id'];
-    this.store.dispatch(new fromSuggestionActions.FetchOneSuggestionStart(this.feedbackId));
+    this.store.dispatch(SuggestionActions.FetchOneSuggestionStart({ suggestionId: this.feedbackId }));
     this.store.dispatch(new fromCommentActions.FetchCommentsStart(this.feedbackId));
 
 
@@ -79,12 +79,12 @@ export class FeedbackDetailComponent implements OnInit {
   }
 
   navigateToForm() {
-    this.store.dispatch(new fromSuggestionActions.FormEditingMode())
+    this.store.dispatch(SuggestionActions.FormEditingMode());
     this.router.navigate(['edit-feedback'], { relativeTo: this.route })
   }
 
   onSubmit() {
-    if(this.form.get('comment').value.trim() !== '' && this.form.touched && this.form.valid) {
+    if (this.form.get('comment').value.trim() !== '' && this.form.touched && this.form.valid) {
       const comment: fromComment.AppMessage = {
         content: this.form.get('comment').value,
         from: this.currentUser.id,
