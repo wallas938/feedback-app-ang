@@ -6,7 +6,7 @@ import { catchError, EMPTY, map, of, switchMap, tap } from "rxjs";
 
 import * as fromCommentActions from "store/actions/comment.action";
 import * as fromRouterActions from "store/actions/router.actions";
-import * as fromSuggestionActions from "store/actions/suggestions.action";
+import { SuggestionActions } from "store/actions/suggestions.action";
 import * as fromApp from "store/reducers/index";
 import * as fromComment from "store/reducers/comment.reducers";
 import * as fromSuggestion from "store/reducers/suggestions.reducers";
@@ -46,7 +46,8 @@ export class CommentEffects {
                 switchMap((suggestion: fromSuggestion.Suggestion) => of(suggestion)))
           }),
           switchMap((suggestion: fromSuggestion.Suggestion) => {
-            this.store.dispatch(new fromSuggestionActions.IncrementNumberOfCommentsStart({...this.suggestion, numberOfComments: this.suggestion.numberOfComments + 1}))
+            /* this.store.dispatch(SuggestionActions.IncrementNumberOfCommentsStart({...this.suggestion, numberOfComments: this.suggestion.numberOfComments + 1})) */
+            this.store.dispatch(SuggestionActions.IncrementNumberOfCommentsStart({ suggestion: { ...suggestion, numberOfComments: this.suggestion.numberOfComments + 1 } }));
             this.store.dispatch(new fromCommentActions.FetchCommentsStart(suggestion.id))
             return EMPTY
           }),
@@ -65,7 +66,7 @@ export class CommentEffects {
               switchMap((suggestion: fromSuggestion.Suggestion) => of(suggestion)))
         }),
         switchMap((suggestion: fromSuggestion.Suggestion) => {
-          this.store.dispatch(new fromSuggestionActions.IncrementNumberOfCommentsStart({...this.suggestion, numberOfComments: this.suggestion.numberOfComments + 1}))
+          this.store.dispatch(SuggestionActions.IncrementNumberOfCommentsStart({ suggestion: { ...suggestion, numberOfComments: this.suggestion.numberOfComments + 1 } }))
           this.store.dispatch(new fromCommentActions.FetchCommentsStart(suggestion.id))
           return EMPTY
         }),

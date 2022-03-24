@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { HttpErrorResponse } from "@angular/common/http";
-import { Action } from "@ngrx/store";
+import { Action, createAction, props } from "@ngrx/store";
 import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
 /*******
@@ -11,65 +11,65 @@ import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
 /* FETCH SUGGESTIONS IDENTIFIERS */
 
-export const FETCHING_SUGGESTIONS_START = '[Suggestions]  FETCHING_SUGGESTIONS_START';
-export const FETCHING_SUGGESTIONS_SUCCEEDED = '[Suggestions]  FETCHING_SUGGESTIONS_SUCCEEDED';
-export const FETCHING_SUGGESTIONS_FAILED = '[Suggestions]  FETCHING_SUGGESTIONS_FAILED';
+const FETCHING_SUGGESTIONS_START = '[Suggestions]  FETCHING_SUGGESTIONS_START';
+const FETCHING_SUGGESTIONS_SUCCEEDED = '[Suggestions]  FETCHING_SUGGESTIONS_SUCCEEDED';
+const FETCHING_SUGGESTIONS_FAILED = '[Suggestions]  FETCHING_SUGGESTIONS_FAILED';
 
 /* FETCH ONE SUGGESTION IDENTIFIERS */
 
-export const FETCHING_ONE_SUGGESTION_START = '[Suggestions]  FETCHING_ONE_SUGGESTION_START';
-export const FETCHING_ONE_SUGGESTION_SUCCEEDED = '[Suggestions]  FETCHING_ONE_SUGGESTION_SUCCEEDED';
-export const FETCHING_ONE_SUGGESTION_FAILED = '[Suggestions]  FETCHING_ONE_SUGGESTION_FAILED';
+const FETCHING_ONE_SUGGESTION_START = '[Suggestions]  FETCHING_ONE_SUGGESTION_START';
+const FETCHING_ONE_SUGGESTION_SUCCEEDED = '[Suggestions]  FETCHING_ONE_SUGGESTION_SUCCEEDED';
+const FETCHING_ONE_SUGGESTION_FAILED = '[Suggestions]  FETCHING_ONE_SUGGESTION_FAILED';
 
 
 /* SUGGESTIONS FORM MODE IDENTIFIERS */
 
-export const FORM_ADDING_MODE = '[Suggestions]  FORM_ADDING_MODE';
-export const FORM_EDITING_MODE = '[Suggestions]  FORM_EDITING_MODE';
+const FORM_ADDING_MODE = '[Suggestions]  FORM_ADDING_MODE';
+const FORM_EDITING_MODE = '[Suggestions]  FORM_EDITING_MODE';
 
 /* SUGGESTIONS SORTS IDENTIFIERS */
 
-export const SORT_BY_MOST_UPVOTES = '[Suggestions]  SORT_BY_MOST_UPVOTES';
-export const SORT_BY_LEAST_UPVOTES = '[Suggestions]  SORT_BY_LEAST_UPVOTES';
-export const SORT_BY_MOST_COMMENTS = '[Suggestions]  SORT_BY_MOST_COMMENTS';
-export const SORT_BY_LEAST_COMMENTS = '[Suggestions]  SORT_BY_LEAST_COMMENTS';
+const SORT_BY_MOST_UPVOTES = '[Suggestions]  SORT_BY_MOST_UPVOTES';
+const SORT_BY_LEAST_UPVOTES = '[Suggestions]  SORT_BY_LEAST_UPVOTES';
+const SORT_BY_MOST_COMMENTS = '[Suggestions]  SORT_BY_MOST_COMMENTS';
+const SORT_BY_LEAST_COMMENTS = '[Suggestions]  SORT_BY_LEAST_COMMENTS';
 
 /* INCREMENT UPVOTES IDENTIFIERS */
 
-export const INCREMENT_UPVOTES_START = '[Suggestions]  INCREMENT_UPVOTES_START';
-export const INCREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  INCREMENT_UPVOTES_SUCCEEDED';
-export const INCREMENT_UPVOTES_FAILED = '[Suggestions]  INCREMENT_UPVOTES_FAILED';
+const INCREMENT_UPVOTES_START = '[Suggestions]  INCREMENT_UPVOTES_START';
+const INCREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  INCREMENT_UPVOTES_SUCCEEDED';
+const INCREMENT_UPVOTES_FAILED = '[Suggestions]  INCREMENT_UPVOTES_FAILED';
 
 /* INCREMENT NUMBER_OF_COMMENTS IDENTIFIERS */
 
-export const INCREMENT_NUMBER_OF_COMMENTS_START = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_START';
-export const INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED';
-export const INCREMENT_NUMBER_OF_COMMENTS_FAILED = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_FAILED';
+const INCREMENT_NUMBER_OF_COMMENTS_START = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_START';
+const INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED';
+const INCREMENT_NUMBER_OF_COMMENTS_FAILED = '[Suggestions]  INCREMENT_NUMBER_OF_COMMENTS_FAILED';
 
 
 /* DECREMENT UPVOTES IDENTIFIERS */
 
-export const DECREMENT_UPVOTES_START = '[Suggestions]  DECREMENT_UPVOTES_START';
-export const DECREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  DECREMENT_UPVOTES_SUCCEEDED';
-export const DECREMENT_UPVOTES_FAILED = '[Suggestions]  DECREMENT_UPVOTES_FAILED';
+const DECREMENT_UPVOTES_START = '[Suggestions]  DECREMENT_UPVOTES_START';
+const DECREMENT_UPVOTES_SUCCEEDED = '[Suggestions]  DECREMENT_UPVOTES_SUCCEEDED';
+const DECREMENT_UPVOTES_FAILED = '[Suggestions]  DECREMENT_UPVOTES_FAILED';
 
 /* POST ONE SUGGESTION IDENTIFIERS */
 
-export const POST_SUGGESTION_START = '[Suggestions]  POST_SUGGESTION_START';
-export const POST_SUGGESTION_SUCCEEDED = '[Suggestions]  POST_SUGGESTION_SUCCEEDED';
-export const POST_SUGGESTION_FAILED = '[Suggestions]  POST_SUGGESTION_FAILED';
+const POST_SUGGESTION_START = '[Suggestions]  POST_SUGGESTION_START';
+const POST_SUGGESTION_SUCCEEDED = '[Suggestions]  POST_SUGGESTION_SUCCEEDED';
+const POST_SUGGESTION_FAILED = '[Suggestions]  POST_SUGGESTION_FAILED';
 
 /* UPDATE ONE SUGGESTION IDENTIFIERS */
 
-export const UPDATE_SUGGESTION_START = '[Suggestions]  UPDATE_SUGGESTION_START';
-export const UPDATE_SUGGESTION_SUCCEEDED = '[Suggestions]  UPDATE_SUGGESTION_SUCCEEDED';
-export const UPDATE_SUGGESTION_FAILED = '[Suggestions]  UPDATE_SUGGESTION_FAILED';
+const UPDATE_SUGGESTION_START = '[Suggestions]  UPDATE_SUGGESTION_START';
+const UPDATE_SUGGESTION_SUCCEEDED = '[Suggestions]  UPDATE_SUGGESTION_SUCCEEDED';
+const UPDATE_SUGGESTION_FAILED = '[Suggestions]  UPDATE_SUGGESTION_FAILED';
 
 /* REMOVE ONE SUGGESTION IDENTIFIERS */
 
-export const REMOVE_SUGGESTION_START = '[Suggestions]  REMOVE_SUGGESTION_START';
-export const REMOVE_SUGGESTION_SUCCEEDED = '[Suggestions]  REMOVE_SUGGESTION_SUCCEEDED';
-export const REMOVE_SUGGESTION_FAILED = '[Suggestions]  REMOVE_SUGGESTION_FAILED';
+const REMOVE_SUGGESTION_START = '[Suggestions]  REMOVE_SUGGESTION_START';
+const REMOVE_SUGGESTION_SUCCEEDED = '[Suggestions]  REMOVE_SUGGESTION_SUCCEEDED';
+const REMOVE_SUGGESTION_FAILED = '[Suggestions]  REMOVE_SUGGESTION_FAILED';
 
 /*******
  *
@@ -79,9 +79,13 @@ export const REMOVE_SUGGESTION_FAILED = '[Suggestions]  REMOVE_SUGGESTION_FAILED
 
 /* REMOVE SUGGESTION ACTIONS */
 
-export class RemoveOneSuggestionStart implements Action {
+const RemoveOneSuggestionStart = createAction(REMOVE_SUGGESTION_START, props<{ suggestionId: number }>());
+const RemoveOneSuggestionSucceeded = createAction(REMOVE_SUGGESTION_SUCCEEDED);
+const RemoveOneSuggestionFailed = createAction(REMOVE_SUGGESTION_FAILED, props<{ error: HttpErrorResponse }>());
+
+/* export class RemoveOneSuggestionStart implements Action {
   readonly type = REMOVE_SUGGESTION_START;
-  constructor(public suggestionId: number) { } /* ICI */
+  constructor(public suggestionId: number) { }
 }
 
 export class RemoveOneSuggestionSucceeded implements Action {
@@ -91,13 +95,17 @@ export class RemoveOneSuggestionSucceeded implements Action {
 export class RemoveOneSuggestionFailed implements Action {
   readonly type = REMOVE_SUGGESTION_FAILED;
   constructor(public error: HttpErrorResponse) { }
-}
+} */
 
 /* POST SUGGESTION ACTIONS */
 
-export class UpdateOneSuggestionStart implements Action {
+const UpdateOneSuggestionStart = createAction(UPDATE_SUGGESTION_START, props<{ updatedSuggestion: fromSuggestions.Suggestion, suggestionId: number }>());
+const UpdateOneSuggestionSucceeded = createAction(UPDATE_SUGGESTION_SUCCEEDED, props<{ updatedSuggestion: fromSuggestions.Suggestion }>());
+const UpdateOneSuggestionFailed = createAction(UPDATE_SUGGESTION_FAILED, props<{ error: HttpErrorResponse }>());
+
+/* export class UpdateOneSuggestionStart implements Action {
   readonly type = UPDATE_SUGGESTION_START;
-  constructor(public updatedSuggestion: fromSuggestions.Suggestion, public suggestionId: number) { } /* ICI */
+  constructor(public updatedSuggestion: fromSuggestions.Suggestion, public suggestionId: number) { }
 }
 
 export class UpdateOneSuggestionSucceeded implements Action {
@@ -108,11 +116,15 @@ export class UpdateOneSuggestionSucceeded implements Action {
 export class UpdateOneSuggestionFailed implements Action {
   readonly type = UPDATE_SUGGESTION_FAILED;
   constructor(public error: HttpErrorResponse) { }
-}
+} */
 
 /* POST SUGGESTION ACTIONS */
 
-export class PostOneSuggestionStart implements Action {
+const PostOneSuggestionStart = createAction(POST_SUGGESTION_START, props<{ suggestion: fromSuggestions.Suggestion }>());
+const PostOneSuggestionSucceeded = createAction(POST_SUGGESTION_SUCCEEDED, props<{ newSuggestion: fromSuggestions.Suggestion }>());
+const PostOneSuggestionFailed = createAction(POST_SUGGESTION_FAILED, props<{ error: HttpErrorResponse }>());
+
+/* export class PostOneSuggestionStart implements Action {
   readonly type = POST_SUGGESTION_START;
   constructor(public suggestion: fromSuggestions.Suggestion) { }
 }
@@ -125,12 +137,16 @@ export class PostOneSuggestionSucceeded implements Action {
 export class PostOneSuggestionFailed implements Action {
   readonly type = POST_SUGGESTION_FAILED;
   constructor(public error: HttpErrorResponse) { }
-}
+} */
 
 
 /* DECREMENT UPVOTES ACTIONS */
 
-export class DecrementUpvotesStart implements Action {
+const DecrementUpvotesStart = createAction(DECREMENT_UPVOTES_START, props<{ suggestion: fromSuggestions.Suggestion }>());
+const DecrementUpvotesSucceeded = createAction(DECREMENT_UPVOTES_SUCCEEDED, props<{ suggestionUpdated: fromSuggestions.Suggestion }>());
+const DecrementUpvotesFailed = createAction(DECREMENT_UPVOTES_FAILED, props<{ error: HttpErrorResponse }>());
+
+/* export class DecrementUpvotesStart implements Action {
   readonly type = DECREMENT_UPVOTES_START;
   constructor(public suggestion: fromSuggestions.Suggestion) { }
 }
@@ -143,11 +159,15 @@ export class DecrementUpvotesSucceeded implements Action {
 export class DecrementUpvotesFailed implements Action {
   readonly type = DECREMENT_UPVOTES_FAILED;
   constructor(public error: HttpErrorResponse) { }
-}
+} */
 
 /* INCREMENT UPVOTES ACTIONS */
 
-export class IncrementUpvotesStart implements Action {
+const IncrementUpvotesStart = createAction(INCREMENT_UPVOTES_START, props<{ suggestion: fromSuggestions.Suggestion }>());
+const IncrementUpvotesSucceeded = createAction(INCREMENT_UPVOTES_SUCCEEDED, props<{ suggestionUpdated: fromSuggestions.Suggestion }>());
+const IncrementUpvotesFailed = createAction(INCREMENT_UPVOTES_FAILED, props<{ error: HttpErrorResponse }>());
+
+/* export class IncrementUpvotesStart implements Action {
   readonly type = INCREMENT_UPVOTES_START;
   constructor(public suggestion: fromSuggestions.Suggestion) { }
 }
@@ -160,13 +180,17 @@ export class IncrementUpvotesSucceeded implements Action {
 export class IncrementUpvotesFailed implements Action {
   readonly type = INCREMENT_UPVOTES_FAILED;
   constructor(public error: HttpErrorResponse) { }
-}
+} */
 
 /* INCREMENT NUMBER OF COMMENTS ACTIONS */
 
-export class IncrementNumberOfCommentsStart implements Action {
+const IncrementNumberOfCommentsStart = createAction(INCREMENT_NUMBER_OF_COMMENTS_START, props<{ suggestion: fromSuggestions.Suggestion }>());
+const IncrementNumberOfCommentsSucceeded = createAction(INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED, props<{ suggestionUpdated: fromSuggestions.Suggestion }>());
+const IncrementNumberOfCommentsFailed = createAction(INCREMENT_NUMBER_OF_COMMENTS_FAILED, props<{ error: HttpErrorResponse }>());
+
+/* export class IncrementNumberOfCommentsStart implements Action {
   readonly type = INCREMENT_NUMBER_OF_COMMENTS_START;
-  constructor(public suggestion: fromSuggestions.Suggestion) { } /* HERE !!!!! */
+  constructor(public suggestion: fromSuggestions.Suggestion) { }
 }
 
 export class IncrementNumberOfCommentsSucceeded implements Action {
@@ -177,12 +201,16 @@ export class IncrementNumberOfCommentsSucceeded implements Action {
 export class IncrementNumberOfCommentsFailed implements Action {
   readonly type = INCREMENT_NUMBER_OF_COMMENTS_FAILED;
   constructor(public error: HttpErrorResponse) { }
-}
+} */
 
 
 /* FETCH SUGGESTIONS ACTIONS */
 
-export class FetchSuggestionsStart implements Action {
+const FetchSuggestionsStart = createAction(FETCHING_SUGGESTIONS_START, props<{ query: fromSuggestions.SuggestionsQuery }>());
+const FetchSuggestionsSucceeded = createAction(FETCHING_SUGGESTIONS_SUCCEEDED, props<{ suggestions: fromSuggestions.Suggestion[] }>());
+const FetchSuggestionsFailed = createAction(FETCHING_SUGGESTIONS_FAILED, props<{ error: HttpErrorResponse }>());
+
+/* export class FetchSuggestionsStart implements Action {
   readonly type = FETCHING_SUGGESTIONS_START;
   constructor(public query: fromSuggestions.SuggestionsQuery) { }
 }
@@ -198,11 +226,15 @@ export class FetchSuggestionsSucceeded implements Action {
 export class FetchSuggestionsFailed implements Action {
   readonly type = FETCHING_SUGGESTIONS_FAILED;
   constructor(public error: HttpErrorResponse) { }
-}
+} */
 
 /* FETCH ONE SUGGESTION ACTIONS */
 
-export class FetchOneSuggestionStart implements Action {
+const FetchOneSuggestionStart = createAction(FETCHING_ONE_SUGGESTION_START, props<{ suggestionId: number | null }>());
+const FetchOneSuggestionSucceeded = createAction(FETCHING_ONE_SUGGESTION_SUCCEEDED, props<{ suggestion: fromSuggestions.Suggestion }>());
+const FetchOneSuggestionFailed = createAction(FETCHING_ONE_SUGGESTION_FAILED, props<{ error: HttpErrorResponse }>());
+
+/* export class FetchOneSuggestionStart implements Action {
   readonly type = FETCHING_ONE_SUGGESTION_START;
   constructor(public payload: number | null) {
     this.payload = payload
@@ -217,21 +249,28 @@ export class FetchOneSuggestionSucceeded implements Action {
 export class FetchOneSuggestionFailed implements Action {
   readonly type = FETCHING_ONE_SUGGESTION_FAILED;
   constructor(public error: HttpErrorResponse) { }
-}
+} */
 
 /* SUGGESTION FORM MODE ACTIONS*/
+const FormAddingMode = createAction(FORM_ADDING_MODE);
+const FormEditingMode = createAction(FORM_EDITING_MODE);
 
-export class FormAddingMode implements Action {
+/* export class FormAddingMode implements Action {
   readonly type = FORM_ADDING_MODE;
 }
 
 export class FormEditingMode implements Action {
   readonly type = FORM_EDITING_MODE;
-}
+} */
 
 /* SUGGESTIONS SORT ACTIONS */
 
-export class SortByMostUpvotes implements Action {
+const SortByMostUpvotes = createAction(SORT_BY_MOST_UPVOTES);
+const SortByLeastUpvotes = createAction(SORT_BY_LEAST_UPVOTES);
+const SortByMostComments = createAction(SORT_BY_MOST_COMMENTS);
+const SortByLeastComments = createAction(SORT_BY_LEAST_COMMENTS);
+
+/* export class SortByMostUpvotes implements Action {
   readonly type = SORT_BY_MOST_UPVOTES;
 }
 
@@ -245,10 +284,41 @@ export class SortByMostComments implements Action {
 
 export class SortByLeastComments implements Action {
   readonly type = SORT_BY_LEAST_COMMENTS;
-}
+} */
 
-export type SuggestionActionsTypes =
-  FetchSuggestionsStart | FetchSuggestionsSucceeded | FetchSuggestionsFailed |
+export const SuggestionActions =  {
+  FetchSuggestionsStart: FetchSuggestionsStart,
+  FetchSuggestionsSucceeded: FetchSuggestionsSucceeded,
+  FetchSuggestionsFailed: FetchSuggestionsFailed,
+  FetchOneSuggestionStart: FetchOneSuggestionStart,
+  FetchOneSuggestionSucceeded: FetchOneSuggestionSucceeded,
+  FetchOneSuggestionFailed: FetchOneSuggestionFailed,
+  FormAddingMode: FormAddingMode,
+  FormEditingMode: FormEditingMode,
+  SortByMostUpvotes: SortByMostUpvotes,
+  SortByLeastUpvotes: SortByLeastUpvotes,
+  SortByMostComments: SortByMostComments,
+  SortByLeastComments: SortByLeastComments,
+  IncrementNumberOfCommentsStart: IncrementNumberOfCommentsStart,
+  IncrementNumberOfCommentsSucceeded: IncrementNumberOfCommentsSucceeded,
+  IncrementNumberOfCommentsFailed: IncrementNumberOfCommentsFailed,
+  IncrementUpvotesStart: IncrementUpvotesStart,
+  IncrementUpvotesSucceeded: IncrementUpvotesSucceeded,
+  IncrementUpvotesFailed: IncrementUpvotesFailed,
+  DecrementUpvotesStart: DecrementUpvotesStart,
+  DecrementUpvotesSucceeded: DecrementUpvotesSucceeded,
+  DecrementUpvotesFailed: DecrementUpvotesFailed,
+  PostOneSuggestionStart: PostOneSuggestionStart,
+  PostOneSuggestionSucceeded: PostOneSuggestionSucceeded,
+  PostOneSuggestionFailed: PostOneSuggestionFailed,
+  UpdateOneSuggestionStart: UpdateOneSuggestionStart,
+  UpdateOneSuggestionSucceeded: UpdateOneSuggestionSucceeded,
+  UpdateOneSuggestionFailed: UpdateOneSuggestionFailed,
+  RemoveOneSuggestionStart: RemoveOneSuggestionStart,
+  RemoveOneSuggestionSucceeded: RemoveOneSuggestionSucceeded,
+  RemoveOneSuggestionFailed: RemoveOneSuggestionFailed,
+};
+/*  |
   FetchOneSuggestionStart | FetchOneSuggestionSucceeded | FetchOneSuggestionFailed |
   FormAddingMode | FormEditingMode | SortByMostUpvotes | SortByLeastUpvotes |
   SortByMostComments | SortByLeastComments | IncrementUpvotesStart |
@@ -257,4 +327,4 @@ export type SuggestionActionsTypes =
   PostOneSuggestionSucceeded | PostOneSuggestionFailed | UpdateOneSuggestionStart |
   UpdateOneSuggestionSucceeded | UpdateOneSuggestionFailed |
   RemoveOneSuggestionStart | RemoveOneSuggestionSucceeded | RemoveOneSuggestionFailed |
-  IncrementNumberOfCommentsStart | IncrementNumberOfCommentsSucceeded | IncrementNumberOfCommentsFailed;
+  IncrementNumberOfCommentsStart | IncrementNumberOfCommentsSucceeded | IncrementNumberOfCommentsFailed */

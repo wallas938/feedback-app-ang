@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromUser from 'store/reducers/user.reducers';
-import * as fromSuggestionActions from "store/actions/suggestions.action";
+import { SuggestionActions } from "store/actions/suggestions.action";
 import * as fromUserActions from "store/actions/user.actions";
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
@@ -23,19 +23,6 @@ export class SuggestionsComponent implements OnInit {
   upvotedSuggestions: number[];
   constructor(private store: Store<fromApp.AppState>) { }
 
-  /*
-
-    {
-      "id": 1,
-      "title": "Add tags for solutions",
-      "category": "nhancement",
-      "upvotes": 131,
-      "status": "suggestion",
-      "description": "Easier to search for solutions based on a specific stack."
-    },
-
-  */
-
   ngOnInit(): void {
     this.store.select('user').subscribe((state: fromUser.State) => {
       this.currentUser = state.currentUser;
@@ -49,7 +36,7 @@ export class SuggestionsComponent implements OnInit {
       this.loadingState = state.loadingState;
       this.upvotedSuggestions = state.suggestionsUpvoted;
       if (!state.filterBy) {
-        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES }))
+        this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
       }
     });
   }

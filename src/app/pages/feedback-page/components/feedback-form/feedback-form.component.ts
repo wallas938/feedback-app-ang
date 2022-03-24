@@ -6,7 +6,7 @@ import * as fadeAnimations from '@/app/shared/animations/fade';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromUser from 'store/reducers/user.reducers';
 import * as fromRouter from 'store/reducers/router.reducers';
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import { SuggestionActions } from 'store/actions/suggestions.action';
 import * as fromUserActions from "store/actions/user.actions";
 import * as fromRouterActions from 'store/actions/router.actions';
 import * as fromApp from 'store/reducers';
@@ -65,7 +65,7 @@ export class FeedbackFormComponent implements OnInit {
 
     this.store.select('router').subscribe((state: fromRouter.State) => {
       if (state.toRedirect) {
-        this.store.dispatch(new fromSuggestionActions.FormAddingMode())
+        this.store.dispatch(SuggestionActions.FormAddingMode())
         this.router.navigate([state.redirectTo]);
         this.store.dispatch(new fromRouterActions.RedirectTo(false, null));
       }
@@ -126,15 +126,15 @@ export class FeedbackFormComponent implements OnInit {
       };
 
       if (this.isEditMode) {
-        this.store.dispatch(new fromSuggestionActions.UpdateOneSuggestionStart(newSuggestions, this.feedback.id));
+        this.store.dispatch(SuggestionActions.UpdateOneSuggestionStart({ suggestionId: this.feedback.id, updatedSuggestion: newSuggestions }));
         return;
       }
 
-      this.store.dispatch(new fromSuggestionActions.PostOneSuggestionStart(newSuggestions));
+      this.store.dispatch(SuggestionActions.PostOneSuggestionStart({ suggestion: newSuggestions }));
     }
   }
 
   remove(suggestionId: number) {
-    this.store.dispatch(new fromSuggestionActions.RemoveOneSuggestionStart(suggestionId));
+    this.store.dispatch(SuggestionActions.RemoveOneSuggestionStart({ suggestionId: this.feedback.id }));
   }
 }

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromComment from 'store/reducers/comment.reducers';
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import { SuggestionActions } from 'store/actions/suggestions.action';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -32,11 +32,11 @@ export class SuggestionItemComponent implements OnInit {
   }
 
   onIncrement() {
-    this.store.dispatch(new fromSuggestionActions.IncrementUpvotesStart(this.suggestion))
+    this.store.dispatch(SuggestionActions.IncrementUpvotesStart({ suggestion: this.suggestion }))
   }
 
   onDecrement() {
-    this.store.dispatch(new fromSuggestionActions.DecrementUpvotesStart(this.suggestion))
+    this.store.dispatch(SuggestionActions.DecrementUpvotesStart({ suggestion: this.suggestion }))
   }
 
   getMessagesCount(): number {
