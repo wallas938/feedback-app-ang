@@ -139,7 +139,7 @@ const SortByLeastUpvotes = createAction(SORT_BY_LEAST_UPVOTES);
 const SortByMostComments = createAction(SORT_BY_MOST_COMMENTS);
 const SortByLeastComments = createAction(SORT_BY_LEAST_COMMENTS);
 
-export const SuggestionActions =  {
+export const suggestionActions =  {
   FetchSuggestionsStart: FetchSuggestionsStart,
   FetchSuggestionsSucceeded: FetchSuggestionsSucceeded,
   FetchSuggestionsFailed: FetchSuggestionsFailed,

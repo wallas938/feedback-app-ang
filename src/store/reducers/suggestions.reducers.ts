@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpErrorResponse } from "@angular/common/http";
 import { Action, createReducer, on } from "@ngrx/store";
-import { SuggestionActions } from "store/actions/suggestions.action";
+import { suggestionActions } from "store/actions/suggestions.action";
 
 export enum FORM_MODES {
   FORM_ADDING_MODE = "FORM_ADDING_MODE",
@@ -34,7 +34,7 @@ export enum STATUS {
 export interface SuggestionsQuery {
   _sort: SORT,
   _filter: FILTER,
-  /* type?: SuggestionActions */
+  /* type?: suggestionActions */
 }
 
 
@@ -72,7 +72,7 @@ export const initialState: State = {
 
 export const _suggestionReducer = createReducer(
   initialState,
-  on(SuggestionActions.FetchSuggestionsStart, (state, { query }) => {
+  on(suggestionActions.FetchSuggestionsStart, (state, { query }) => {
     return {
       ...state,
       loadingState: true,
@@ -80,169 +80,169 @@ export const _suggestionReducer = createReducer(
       sortBy: query._sort,
     }
   }),
-  on(SuggestionActions.FetchSuggestionsSucceeded, (state, { suggestions }) => {
+  on(suggestionActions.FetchSuggestionsSucceeded, (state, { suggestions }) => {
     return {
       ...state,
       loadingState: false,
       suggestions: [...suggestions]
     }
   }),
-  on(SuggestionActions.FetchSuggestionsFailed, (state, { error }) => {
+  on(suggestionActions.FetchSuggestionsFailed, (state, { error }) => {
     return {
       ...state,
       loadingState: false,
       error: error
     }
   }),
-  on(SuggestionActions.FetchOneSuggestionStart, (state, { suggestionId }) => {
+  on(suggestionActions.FetchOneSuggestionStart, (state, { suggestionId }) => {
     return {
       ...state,
       loadingState: true
     }
   }),
-  on(SuggestionActions.FetchOneSuggestionSucceeded, (state, { suggestion }) => {
+  on(suggestionActions.FetchOneSuggestionSucceeded, (state, { suggestion }) => {
     return {
       ...state,
       loadingState: false,
       suggestion: suggestion
     }
   }),
-  on(SuggestionActions.FetchSuggestionsFailed, (state, { error }) => {
+  on(suggestionActions.FetchSuggestionsFailed, (state, { error }) => {
     return {
       ...state,
       loadingState: false,
       error: error
     }
   }),
-  on(SuggestionActions.PostOneSuggestionStart, (state, { suggestion }) => {
+  on(suggestionActions.PostOneSuggestionStart, (state, { suggestion }) => {
     return {
       ...state,
       loadingState: true
     }
   }),
-  on(SuggestionActions.PostOneSuggestionSucceeded, (state, { newSuggestion }) => {
+  on(suggestionActions.PostOneSuggestionSucceeded, (state, { newSuggestion }) => {
     return {
       ...state,
       loadingState: false,
       suggestion: newSuggestion
     }
   }),
-  on(SuggestionActions.PostOneSuggestionFailed, (state, { error }) => {
+  on(suggestionActions.PostOneSuggestionFailed, (state, { error }) => {
     return {
       ...state,
       loadingState: false,
       error: error
     }
   }),
-  on(SuggestionActions.UpdateOneSuggestionStart, (state, { suggestionId, updatedSuggestion }) => {
+  on(suggestionActions.UpdateOneSuggestionStart, (state, { suggestionId, updatedSuggestion }) => {
     return {
       ...state,
       loadingState: true
     }
   }),
-  on(SuggestionActions.UpdateOneSuggestionSucceeded, (state, { updatedSuggestion }) => {
+  on(suggestionActions.UpdateOneSuggestionSucceeded, (state, { updatedSuggestion }) => {
     return {
       ...state,
       loadingState: false,
       suggestion: updatedSuggestion
     }
   }),
-  on(SuggestionActions.UpdateOneSuggestionFailed, (state, { error }) => {
+  on(suggestionActions.UpdateOneSuggestionFailed, (state, { error }) => {
     return {
       ...state,
       loadingState: false,
       error: error
     }
   }),
-  on(SuggestionActions.RemoveOneSuggestionStart, (state, { suggestionId }) => {
+  on(suggestionActions.RemoveOneSuggestionStart, (state, { suggestionId }) => {
     return {
       ...state,
       loadingState: true,
       suggestion: null
     }
   }),
-  on(SuggestionActions.RemoveOneSuggestionSucceeded, (state) => {
+  on(suggestionActions.RemoveOneSuggestionSucceeded, (state) => {
     return {
       ...state,
       loadingState: false,
     }
   }),
-  on(SuggestionActions.RemoveOneSuggestionFailed, (state, { error }) => {
+  on(suggestionActions.RemoveOneSuggestionFailed, (state, { error }) => {
     return {
       ...state,
       loadingState: false,
       error: error
     }
   }),
-  on(SuggestionActions.IncrementUpvotesStart, (state, { suggestion }) => {
+  on(suggestionActions.IncrementUpvotesStart, (state, { suggestion }) => {
     return {
       ...state,
       loadingState: true,
       suggestionsUpvoted: [...state.suggestionsUpvoted, suggestion.id]
     }
   }),
-  on(SuggestionActions.IncrementUpvotesSucceeded, (state, { suggestionUpdated }) => {
+  on(suggestionActions.IncrementUpvotesSucceeded, (state, { suggestionUpdated }) => {
     return {
       ...state,
       loadingState: true,
       suggestion: suggestionUpdated
     }
   }),
-  on(SuggestionActions.IncrementUpvotesFailed, (state, { error }) => {
+  on(suggestionActions.IncrementUpvotesFailed, (state, { error }) => {
     return {
       ...state,
       loadingState: false,
       error: error
     }
   }),
-  on(SuggestionActions.IncrementNumberOfCommentsStart, (state, { suggestion }) => {
+  on(suggestionActions.IncrementNumberOfCommentsStart, (state, { suggestion }) => {
     return {
       ...state,
       loadingState: true,
     }
   }),
-  on(SuggestionActions.IncrementNumberOfCommentsSucceeded, (state, { suggestionUpdated }) => {
+  on(suggestionActions.IncrementNumberOfCommentsSucceeded, (state, { suggestionUpdated }) => {
     return {
       ...state,
       loadingState: true,
       suggestion: suggestionUpdated
     }
   }),
-  on(SuggestionActions.IncrementNumberOfCommentsFailed, (state, { error }) => {
+  on(suggestionActions.IncrementNumberOfCommentsFailed, (state, { error }) => {
     return {
       ...state,
       loadingState: false,
       error: error
     }
   }),
-  on(SuggestionActions.DecrementUpvotesStart, (state, { suggestion }) => {
+  on(suggestionActions.DecrementUpvotesStart, (state, { suggestion }) => {
     return {
       ...state,
       loadingState: true,
       suggestionsUpvoted: state.suggestionsUpvoted.filter((id: number) => suggestion.id !== id)
     }
   }),
-  on(SuggestionActions.DecrementUpvotesSucceeded, (state, { suggestionUpdated }) => {
+  on(suggestionActions.DecrementUpvotesSucceeded, (state, { suggestionUpdated }) => {
     return {
       ...state,
       loadingState: true,
       suggestion: suggestionUpdated
     }
   }),
-  on(SuggestionActions.DecrementUpvotesFailed, (state, { error }) => {
+  on(suggestionActions.DecrementUpvotesFailed, (state, { error }) => {
     return {
       ...state,
       loadingState: false,
       error: error
     }
   }),
-  on(SuggestionActions.FormAddingMode, (state) => {
+  on(suggestionActions.FormAddingMode, (state) => {
     return {
       ...state,
       formMode: FORM_MODES.FORM_ADDING_MODE
     }
   }),
-  on(SuggestionActions.FormEditingMode, (state) => {
+  on(suggestionActions.FormEditingMode, (state) => {
     return {
       ...state,
       formMode: FORM_MODES.FORM_EDITING_MODE
@@ -254,159 +254,159 @@ export function suggestionReducer(state: State | undefined, action: Action) {
   return _suggestionReducer(state, action);
 }
 
-/* export function suggestionReducer(state: State = initialState, action: SuggestionActions.) {
+/* export function suggestionReducer(state: State = initialState, action: suggestionActions.) {
   switch (action.type) {
-    case SuggestionActions.FETCHING_SUGGESTIONS_START:
+    case suggestionActions.FETCHING_SUGGESTIONS_START:
       return {
         ...state,
         loadingState: true,
         filterBy: action.query._filter,
         sortBy: action.query._sort,
       }
-    case SuggestionActions.FETCHING_SUGGESTIONS_SUCCEEDED:
+    case suggestionActions.FETCHING_SUGGESTIONS_SUCCEEDED:
       return {
         ...state,
         loadingState: false,
         suggestions: [...action.payload]
       }
-    case SuggestionActions.FETCHING_SUGGESTIONS_FAILED:
+    case suggestionActions.FETCHING_SUGGESTIONS_FAILED:
 
       return {
         ...state,
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.FETCHING_ONE_SUGGESTION_START:
+    case suggestionActions.FETCHING_ONE_SUGGESTION_START:
       return {
         ...state,
         loadingState: true
       }
-    case SuggestionActions.FETCHING_ONE_SUGGESTION_SUCCEEDED:
+    case suggestionActions.FETCHING_ONE_SUGGESTION_SUCCEEDED:
       return {
         ...state,
         loadingState: false,
         suggestion: action.payload
       }
-    case SuggestionActions.FETCHING_ONE_SUGGESTION_FAILED:
+    case suggestionActions.FETCHING_ONE_SUGGESTION_FAILED:
       return {
         ...state,
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.POST_SUGGESTION_START:
+    case suggestionActions.POST_SUGGESTION_START:
 
       return {
         ...state,
         loadingState: true
       }
-    case SuggestionActions.POST_SUGGESTION_SUCCEEDED:
+    case suggestionActions.POST_SUGGESTION_SUCCEEDED:
       return {
         ...state,
         loadingState: false,
         suggestion: action.newSuggestion
       }
-    case SuggestionActions.POST_SUGGESTION_FAILED:
+    case suggestionActions.POST_SUGGESTION_FAILED:
       return {
         ...state,
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.UPDATE_SUGGESTION_START:
+    case suggestionActions.UPDATE_SUGGESTION_START:
 
       return {
         ...state,
         loadingState: true
       }
-    case SuggestionActions.UPDATE_SUGGESTION_SUCCEEDED:
+    case suggestionActions.UPDATE_SUGGESTION_SUCCEEDED:
       return {
         ...state,
         loadingState: false,
         suggestion: action.updatedSuggestion
       }
-    case SuggestionActions.UPDATE_SUGGESTION_FAILED:
+    case suggestionActions.UPDATE_SUGGESTION_FAILED:
       return {
         ...state,
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.REMOVE_SUGGESTION_START:
+    case suggestionActions.REMOVE_SUGGESTION_START:
 
       return {
         ...state,
         loadingState: true
       }
-    case SuggestionActions.REMOVE_SUGGESTION_SUCCEEDED:
+    case suggestionActions.REMOVE_SUGGESTION_SUCCEEDED:
       return {
         ...state,
         loadingState: false,
         suggestion: null
       }
-    case SuggestionActions.REMOVE_SUGGESTION_FAILED:
+    case suggestionActions.REMOVE_SUGGESTION_FAILED:
       return {
         ...state,
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.INCREMENT_UPVOTES_START:
+    case suggestionActions.INCREMENT_UPVOTES_START:
       return {
         ...state,
         loadingState: true,
         suggestionsUpvoted: [...state.suggestionsUpvoted, action.suggestion.id]
       }
-    case SuggestionActions.INCREMENT_UPVOTES_SUCCEEDED:
+    case suggestionActions.INCREMENT_UPVOTES_SUCCEEDED:
       return {
         ...state,
         loadingState: true,
         suggestion: action.suggestionUpdated
       }
-    case SuggestionActions.INCREMENT_UPVOTES_FAILED:
+    case suggestionActions.INCREMENT_UPVOTES_FAILED:
       return {
         ...state,
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.INCREMENT_NUMBER_OF_COMMENTS_START:
+    case suggestionActions.INCREMENT_NUMBER_OF_COMMENTS_START:
       return {
         ...state,
         loadingState: true,
       }
-    case SuggestionActions.INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED:
+    case suggestionActions.INCREMENT_NUMBER_OF_COMMENTS_SUCCEEDED:
       return {
         ...state,
         loadingState: true,
         suggestion: action.suggestionUpdated
       }
-    case SuggestionActions.INCREMENT_NUMBER_OF_COMMENTS_FAILED:
+    case suggestionActions.INCREMENT_NUMBER_OF_COMMENTS_FAILED:
       return {
         ...state,
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.DECREMENT_UPVOTES_START:
+    case suggestionActions.DECREMENT_UPVOTES_START:
       return {
         ...state,
         loadingState: true,
         suggestionsUpvoted: state.suggestionsUpvoted.filter((id: number) => action.suggestion.id !== id)
       }
-    case SuggestionActions.DECREMENT_UPVOTES_SUCCEEDED:
+    case suggestionActions.DECREMENT_UPVOTES_SUCCEEDED:
       return {
         ...state,
         loadingState: true,
         suggestion: action.suggestionUpdated
       }
-    case SuggestionActions.DECREMENT_UPVOTES_FAILED:
+    case suggestionActions.DECREMENT_UPVOTES_FAILED:
       return {
         ...state,
         loadingState: false,
         error: action.error
       }
-    case SuggestionActions.FORM_ADDING_MODE:
+    case suggestionActions.FORM_ADDING_MODE:
 
       return {
         ...state,
         formMode: FORM_MODES.FORM_ADDING_MODE
       }
-    case SuggestionActions.FORM_EDITING_MODE:
+    case suggestionActions.FORM_EDITING_MODE:
       return {
         ...state,
         formMode: FORM_MODES.FORM_EDITING_MODE

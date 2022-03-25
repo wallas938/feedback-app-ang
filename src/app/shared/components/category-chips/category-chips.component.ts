@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
-import { SuggestionActions } from 'store/actions/suggestions.action';
+import { suggestionActions } from 'store/actions/suggestions.action';
 import * as fromApp from 'store/reducers';
 
 @Component({
@@ -32,19 +32,19 @@ export class CategoryChipsComponent implements OnInit {
 
   onSetFilter() {
     if (fromSuggestions.FILTER.BY_ALL.toLowerCase().includes(this.categoryValue.toLowerCase())) {
-      this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: this.sortBy } }));
+      this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: this.sortBy } }));
     } else if (fromSuggestions.FILTER.BY_BUG.toLowerCase().includes(this.categoryValue.toLowerCase())) {
-      this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_BUG, _sort: this.sortBy } }));
+      this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_BUG, _sort: this.sortBy } }));
     } else if (fromSuggestions.FILTER.BY_ENHANCEMENT.toLowerCase().includes(this.categoryValue.toLowerCase())) {
-      this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ENHANCEMENT, _sort: this.sortBy } }));
+      this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ENHANCEMENT, _sort: this.sortBy } }));
     } else if (fromSuggestions.FILTER.BY_FEATURE.toLowerCase().includes(this.categoryValue.toLowerCase())) {
-      this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_FEATURE, _sort: this.sortBy } }));
+      this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_FEATURE, _sort: this.sortBy } }));
     } else if (fromSuggestions.FILTER.BY_UI.toLowerCase().includes(this.categoryValue.toLowerCase())) {
-      this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_UI, _sort: this.sortBy } }));
+      this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_UI, _sort: this.sortBy } }));
     } else if (fromSuggestions.FILTER.BY_UX.toLowerCase().includes(this.categoryValue.toLowerCase())) {
-      this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_UX, _sort: this.sortBy } }));
+      this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_UX, _sort: this.sortBy } }));
     } else {
-      this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: this.sortBy } }));
+      this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: this.sortBy } }));
     }
   }
 }

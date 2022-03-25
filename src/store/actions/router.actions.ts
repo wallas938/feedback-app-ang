@@ -1,5 +1,4 @@
-import { Action } from "@ngrx/store";
-import * as fromSuggestions from "store/reducers/suggestions.reducers";
+import { createAction, props } from "@ngrx/store";
 
 /*******
  *
@@ -9,13 +8,16 @@ import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
 /* FETCH SUGGESTIONS IDENTIFIERS */
 
-export const REDIRECT_TO = '[Router]  REDIRECT_TO';
+ const REDIRECT_TO = '[Router]  REDIRECT_TO';
 
+const RedirectTo = createAction(REDIRECT_TO, props<{ toRedirect: boolean, redirectTo: string }>());
 
-export class RedirectTo implements Action {
+/* export class RedirectTo implements Action {
   readonly type = REDIRECT_TO;
   constructor(public toRedirect: boolean, public redirectTo: string) { }
-}
+} */
 
 
-export type RouterActionsTypes = RedirectTo;
+export const routerActions = {
+  RedirectTo
+};

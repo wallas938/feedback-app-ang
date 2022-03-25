@@ -4,7 +4,7 @@ import * as fadeAnimations from '@/app/shared/animations/fade';
 import { Store } from '@ngrx/store';
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import { SuggestionActions } from 'store/actions/suggestions.action';
+import { suggestionActions } from 'store/actions/suggestions.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 
 
@@ -28,7 +28,7 @@ export class RoadmapComponent implements OnInit {
     this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
       this.data = suggestions;
       if (!suggestions || suggestions.length <= 0) {
-        this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
+        this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
       }
     });
   }

@@ -8,7 +8,7 @@ import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
 import * as fromCommentActions from 'store/actions/comment.action';
 import * as fromUserActions from "store/actions/user.actions";
-import { SuggestionActions } from 'store/actions/suggestions.action';
+import { suggestionActions } from 'store/actions/suggestions.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
@@ -48,7 +48,7 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.feedbackId = this.route.snapshot.params['id'];
-    this.store.dispatch(SuggestionActions.FetchOneSuggestionStart({ suggestionId: this.feedbackId }));
+    this.store.dispatch(suggestionActions.FetchOneSuggestionStart({ suggestionId: this.feedbackId }));
     this.store.dispatch(new fromCommentActions.FetchCommentsStart(this.feedbackId));
 
     this.feedback = this.store.select(suggestionSelectors.getSuggestion);
@@ -79,7 +79,7 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
   }
 
   navigateToForm() {
-    this.store.dispatch(SuggestionActions.FormEditingMode());
+    this.store.dispatch(suggestionActions.FormEditingMode());
     this.router.navigate(['edit-feedback'], { relativeTo: this.route })
   }
 

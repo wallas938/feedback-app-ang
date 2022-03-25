@@ -8,7 +8,7 @@ import * as fromUser from 'store/reducers/user.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
 import * as fromCommentActions from 'store/actions/comment.action';
 import * as fromUserActions from 'store/actions/user.actions';
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import * as fromsuggestionActions from 'store/actions/suggestions.action';
 import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-message',
