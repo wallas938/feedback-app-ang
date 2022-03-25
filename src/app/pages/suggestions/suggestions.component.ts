@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromUser from 'store/reducers/user.reducers';
-import { SuggestionActions } from "store/actions/suggestions.action";
+import { suggestionActions } from "store/actions/suggestions.action";
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import * as fromUserActions from "store/actions/user.actions";
 import * as fromApp from 'store/reducers';
@@ -37,7 +37,7 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
     this.suggestionsSubscription = this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
       this.suggestions = suggestions;
       if (!suggestions || suggestions.length <= 0) {
-        this.store.dispatch(SuggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
+        this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
       }
     });
 

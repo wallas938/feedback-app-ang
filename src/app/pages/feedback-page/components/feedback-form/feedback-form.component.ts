@@ -6,10 +6,11 @@ import * as fadeAnimations from '@/app/shared/animations/fade';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromUser from 'store/reducers/user.reducers';
 import * as fromRouter from 'store/reducers/router.reducers';
-import { SuggestionActions } from 'store/actions/suggestions.action';
+import { suggestionActions } from 'store/actions/suggestions.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
+import { routerSelectors } from 'store/selectors/router.selectors';
 import * as fromUserActions from "store/actions/user.actions";
-import * as fromRouterActions from 'store/actions/router.actions';
+import { routerActions } from 'store/actions/router.actions';
 import * as fromApp from 'store/reducers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -69,11 +70,11 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.store.select('router').subscribe((state: fromRouter.State) => {
+    this.store.select(routerSelectors.getGloabalState).subscribe((state: fromRouter.State) => {
       if (state.toRedirect) {
-        this.store.dispatch(SuggestionActions.FormAddingMode())
+        this.store.dispatch(suggestionActions.FormAddingMode())
         this.router.navigate([state.redirectTo]);
-        this.store.dispatch(new fromRouterActions.RedirectTo(false, null));
+        this.store.dispatch(routerActions.RedirectTo({ redirectTo: null, toRedirect: false }));
       }
     })
   }
@@ -134,16 +135,16 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
       };
 
       if (this.isEditMode) {
-        this.store.dispatch(SuggestionActions.UpdateOneSuggestionStart({ suggestionId: this.feedback.id, updatedSuggestion: newSuggestions }));
+        this.store.dispatch(suggestionActions.UpdateOneSuggestionStart({ suggestionId: this.feedback.id, updatedSuggestion: newSuggestions }));
         return;
       }
 
-      this.store.dispatch(SuggestionActions.PostOneSuggestionStart({ suggestion: newSuggestions }));
+      this.store.dispatch(suggestionActions.PostOneSuggestionStart({ suggestion: newSuggestions }));
     }
   }
 
   remove(suggestionId: number) {
-    this.store.dispatch(SuggestionActions.RemoveOneSuggestionStart({ suggestionId: suggestionId }));
+    this.store.dispatch(suggestionActions.RemoveOneSuggestionStart({ suggestionId: suggestionId }));
   }
 
   ngOnDestroy(): void {

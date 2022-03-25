@@ -5,9 +5,9 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, map, of, Subscription, switchMap, tap } from "rxjs";
 
-import { SuggestionActions } from "store/actions/suggestions.action";
+import { suggestionActions } from "store/actions/suggestions.action";
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
-import * as fromRouterActions from "store/actions/router.actions";
+import { routerActions } from "store/actions/router.actions";
 import * as fromApp from "store/reducers/index";
 import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
@@ -29,62 +29,62 @@ export class SuggestionEffects implements OnDestroy {
 
   fetchSuggestionsEffect$ = createEffect(
     () => this.actions$.pipe(
-      ofType(SuggestionActions.FetchSuggestionsStart),
+      ofType(suggestionActions.FetchSuggestionsStart),
       switchMap(({ query }) => this.suggestionService.fetchSuggestions({ _filter: query._filter, _sort: query._sort }).pipe(
-        map((suggestions: fromSuggestions.Suggestion[]) => SuggestionActions.FetchSuggestionsSucceeded({ suggestions: suggestions })),
-        catchError((error) => of((SuggestionActions.FetchSuggestionsFailed(error))))))));
+        map((suggestions: fromSuggestions.Suggestion[]) => suggestionActions.FetchSuggestionsSucceeded({ suggestions: suggestions })),
+        catchError((error) => of((suggestionActions.FetchSuggestionsFailed(error))))))));
 
   fetchOneSuggestionEffect$ = createEffect(
     () => this.actions$.pipe(
-      ofType(SuggestionActions.FetchOneSuggestionStart),
+      ofType(suggestionActions.FetchOneSuggestionStart),
       switchMap(({ suggestionId }) => {
         return this.suggestionService.fetchSuggestion(suggestionId).pipe(
           map((suggestion: fromSuggestions.Suggestion) => {
-            return SuggestionActions.FetchOneSuggestionSucceeded({ suggestion: suggestion })
+            return suggestionActions.FetchOneSuggestionSucceeded({ suggestion: suggestion })
           }),
-          catchError((error) => of(SuggestionActions.FetchOneSuggestionFailed(error))))
+          catchError((error) => of(suggestionActions.FetchOneSuggestionFailed(error))))
       }
       )));
 
   postOneSuggestion$ = createEffect(
     () => this.actions$.pipe(
-      ofType(SuggestionActions.PostOneSuggestionStart),
+      ofType(suggestionActions.PostOneSuggestionStart),
       switchMap(({ suggestion }) => this.suggestionService.postOneSuggestion(suggestion)
         .pipe(map((newSuggestion: fromSuggestions.Suggestion) => {
           const redirectTo = `feedbacks/${newSuggestion.id}`
-          this.store.dispatch(SuggestionActions.PostOneSuggestionSucceeded({ newSuggestion: newSuggestion }));
-          this.store.dispatch(new fromRouterActions.RedirectTo(true, redirectTo));
+          this.store.dispatch(suggestionActions.PostOneSuggestionSucceeded({ newSuggestion: newSuggestion }));
+          this.store.dispatch(routerActions.RedirectTo({ redirectTo: redirectTo, toRedirect: true }));
         }),
-          switchMap(() => of(SuggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
-          catchError((error) => of(SuggestionActions.PostOneSuggestionFailed(error)))))));
+          switchMap(() => of(suggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
+          catchError((error) => of(suggestionActions.PostOneSuggestionFailed(error)))))));
 
   updateOneSuggestion$ = createEffect(
     () => this.actions$.pipe(
-      ofType(SuggestionActions.UpdateOneSuggestionStart),
+      ofType(suggestionActions.UpdateOneSuggestionStart),
       switchMap(({ updatedSuggestion, suggestionId }) => this.suggestionService.updateOneSuggestion(updatedSuggestion, suggestionId)
         .pipe(map((updatedSuggestion: fromSuggestions.Suggestion) => {
           const redirectTo = `feedbacks/${updatedSuggestion.id}`;
-          this.store.dispatch(SuggestionActions.UpdateOneSuggestionSucceeded({ updatedSuggestion: updatedSuggestion }));
-          this.store.dispatch(new fromRouterActions.RedirectTo(true, redirectTo));
+          this.store.dispatch(suggestionActions.UpdateOneSuggestionSucceeded({ updatedSuggestion: updatedSuggestion }));
+          this.store.dispatch(routerActions.RedirectTo({ redirectTo: redirectTo, toRedirect: true }));
         }),
-          switchMap(() => of(SuggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
-          catchError((error) => of(SuggestionActions.UpdateOneSuggestionFailed(error)))))));
+          switchMap(() => of(suggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
+          catchError((error) => of(suggestionActions.UpdateOneSuggestionFailed(error)))))));
 
   removeOneSuggestion$ = createEffect(
     () => this.actions$.pipe(
-      ofType(SuggestionActions.RemoveOneSuggestionStart),
+      ofType(suggestionActions.RemoveOneSuggestionStart),
       switchMap(({ suggestionId }) => this.suggestionService.deleteOneSuggestion(suggestionId)
         .pipe(map(() => {
           const redirectTo = `suggestions`;
-          this.store.dispatch(SuggestionActions.RemoveOneSuggestionSucceeded());
-          this.store.dispatch(new fromRouterActions.RedirectTo(true, redirectTo));
+          this.store.dispatch(suggestionActions.RemoveOneSuggestionSucceeded());
+          this.store.dispatch(routerActions.RedirectTo({ redirectTo: redirectTo, toRedirect: true }));
         }),
-          switchMap(() => of(SuggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
-          catchError((error) => of(SuggestionActions.RemoveOneSuggestionFailed(error)))))));
+          switchMap(() => of(suggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
+          catchError((error) => of(suggestionActions.RemoveOneSuggestionFailed(error)))))));
 
   incrementUpvotesEffect$ = createEffect(
     () => this.actions$.pipe(
-      ofType(SuggestionActions.IncrementUpvotesStart),
+      ofType(suggestionActions.IncrementUpvotesStart),
       tap(() => {
         this.store.select(suggestionSelectors.getSortByValue).subscribe((sortByValue: fromSuggestions.SORT) => {
           this._sortBy = sortByValue;
@@ -97,17 +97,17 @@ export class SuggestionEffects implements OnDestroy {
         this.suggestionService.incrementSuggestionUpvotes(suggestion)
           .pipe(
             map((suggestionUpdated: fromSuggestions.Suggestion) => {
-              this.store.dispatch(SuggestionActions.IncrementUpvotesSucceeded({ suggestionUpdated: suggestionUpdated }));
+              this.store.dispatch(suggestionActions.IncrementUpvotesSucceeded({ suggestionUpdated: suggestionUpdated }));
               return suggestionUpdated;
             }),
-            switchMap(() => of(SuggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
-            catchError((error: HttpErrorResponse) => of(SuggestionActions.IncrementUpvotesFailed(error))))
+            switchMap(() => of(suggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
+            catchError((error: HttpErrorResponse) => of(suggestionActions.IncrementUpvotesFailed(error))))
       )
     ));
 
   decrementUpvotesEffect$ = createEffect(
     () => this.actions$.pipe(
-      ofType(SuggestionActions.DecrementUpvotesStart),
+      ofType(suggestionActions.DecrementUpvotesStart),
       tap(() => {
         this.store.select(suggestionSelectors.getSortByValue).subscribe((sortByValue: fromSuggestions.SORT) => {
           this._sortBy = sortByValue;
@@ -120,26 +120,26 @@ export class SuggestionEffects implements OnDestroy {
         this.suggestionService.decrementSuggestionUpvotes(suggestion)
           .pipe(
             map((suggestionUpdated: fromSuggestions.Suggestion) => {
-              this.store.dispatch(SuggestionActions.DecrementUpvotesSucceeded({ suggestionUpdated: suggestionUpdated }));
+              this.store.dispatch(suggestionActions.DecrementUpvotesSucceeded({ suggestionUpdated: suggestionUpdated }));
               return suggestionUpdated;
             }),
-            switchMap(() => of(SuggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
-            catchError((error: HttpErrorResponse) => of(SuggestionActions.IncrementUpvotesFailed(error))))
+            switchMap(() => of(suggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
+            catchError((error: HttpErrorResponse) => of(suggestionActions.IncrementUpvotesFailed(error))))
       )
     ));
 
   incrementNumberOfCommentsEffect$ = createEffect(
     () => this.actions$.pipe(
-      ofType(SuggestionActions.IncrementNumberOfCommentsStart),
+      ofType(suggestionActions.IncrementNumberOfCommentsStart),
       switchMap(({ suggestion }) =>
         this.suggestionService.incrementSuggestionNumberOfComments(suggestion)
           .pipe(
             map((suggestionUpdated: fromSuggestions.Suggestion) => {
-              this.store.dispatch(SuggestionActions.PostOneSuggestionSucceeded({ newSuggestion: suggestionUpdated }));
+              this.store.dispatch(suggestionActions.PostOneSuggestionSucceeded({ newSuggestion: suggestionUpdated }));
               return suggestionUpdated;
             }),
-            switchMap(() => of(SuggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
-            catchError((error: HttpErrorResponse) => of(SuggestionActions.IncrementNumberOfCommentsFailed(error))))
+            switchMap(() => of(suggestionActions.FetchSuggestionsStart({ query: { _filter: this._filterBy, _sort: this._sortBy } }))),
+            catchError((error: HttpErrorResponse) => of(suggestionActions.IncrementNumberOfCommentsFailed(error))))
       )
     ));
 }
