@@ -1,4 +1,4 @@
-import { Action } from "@ngrx/store";
+import { Action, createAction, props } from "@ngrx/store";
 import * as fromComment from "store/reducers/comment.reducers";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ReplyData } from "@/app/pages/feedback-page/models/reply-data";
@@ -11,29 +11,29 @@ import { ReplyData } from "@/app/pages/feedback-page/models/reply-data";
 
 /* FETCH COMMENTS IDENTIFIERS */
 
-export const FETCH_COMMENTS_START = '[COMMENTS]  FETCH_COMMENTS_START';
-export const FETCH_COMMENTS_SUCCEEDED = '[COMMENTS]  FETCH_COMMENTS_SUCCEEDED';
-export const FETCH_COMMENTS_FAILED = '[COMMENTS]  FETCH_COMMENTS_FAILED';
+const FETCH_COMMENTS_START = '[COMMENTS]  FETCH_COMMENTS_START';
+const FETCH_COMMENTS_SUCCEEDED = '[COMMENTS]  FETCH_COMMENTS_SUCCEEDED';
+const FETCH_COMMENTS_FAILED = '[COMMENTS]  FETCH_COMMENTS_FAILED';
 
 /* FETCH ONE COMMENT IDENTIFIERS */
 
-export const FETCH_ONE_COMMENT_START = '[COMMENTS]  FETCH_ONE_COMMENT_START';
-export const FETCH_ONE_COMMENT_SUCCEEDED = '[COMMENTS]  FETCH_ONE_COMMENT_SUCCEEDED';
-export const FETCH_ONE_COMMENT_FAILED = '[COMMENTS]  FETCH_ONE_COMMENT_FAILED';
+const FETCH_ONE_COMMENT_START = '[COMMENTS]  FETCH_ONE_COMMENT_START';
+const FETCH_ONE_COMMENT_SUCCEEDED = '[COMMENTS]  FETCH_ONE_COMMENT_SUCCEEDED';
+const FETCH_ONE_COMMENT_FAILED = '[COMMENTS]  FETCH_ONE_COMMENT_FAILED';
 
-export const POST_COMMENT_START = '[COMMENTS]  POST_COMMENT_START';
-export const POST_COMMENT_SUCCEEDED = '[COMMENTS]  POST_COMMENT_SUCCEEDED';
-export const POST_COMMENT_FAILED = '[COMMENTS]  POST_COMMENT_FAILED';
+const POST_COMMENT_START = '[COMMENTS]  POST_COMMENT_START';
+const POST_COMMENT_SUCCEEDED = '[COMMENTS]  POST_COMMENT_SUCCEEDED';
+const POST_COMMENT_FAILED = '[COMMENTS]  POST_COMMENT_FAILED';
 
 /* FETCH REPLIES IDENTIFIERS */
 
-export const FETCH_REPLIES_START = '[COMMENTS]  FETCH_REPLIES_START';
-export const FETCH_REPLIES_SUCCEEDED = '[COMMENTS]  FETCH_REPLIES_SUCCEEDED';
-export const FETCH_REPLIES_FAILED = '[COMMENTS]  FETCH_REPLIES_FAILED';
+const FETCH_REPLIES_START = '[COMMENTS]  FETCH_REPLIES_START';
+const FETCH_REPLIES_SUCCEEDED = '[COMMENTS]  FETCH_REPLIES_SUCCEEDED';
+const FETCH_REPLIES_FAILED = '[COMMENTS]  FETCH_REPLIES_FAILED';
 
-export const POST_REPLY_START = '[COMMENTS]  POST_REPLY_START';
-export const POST_REPLY_SUCCEEDED = '[COMMENTS]  POST_REPLY_SUCCEEDED';
-export const POST_REPLY_FAILED = '[COMMENTS]  POST_REPLY_FAILED';
+const POST_REPLY_START = '[COMMENTS]  POST_REPLY_START';
+const POST_REPLY_SUCCEEDED = '[COMMENTS]  POST_REPLY_SUCCEEDED';
+const POST_REPLY_FAILED = '[COMMENTS]  POST_REPLY_FAILED';
 
 
 /*******
@@ -44,90 +44,43 @@ export const POST_REPLY_FAILED = '[COMMENTS]  POST_REPLY_FAILED';
 
 /* REPLIES ACTIONS */
 
-export class FetchRepliesStart implements Action {
-  readonly type = FETCH_REPLIES_START;
-  constructor(public suggestionId: number) { }
-}
-
-export class FetchRepliesSucceeded implements Action {
-  readonly type = FETCH_REPLIES_SUCCEEDED;
-  constructor(public replies: fromComment.AppMessage[]) { }
-}
-
-export class FetchRepliesFailed implements Action {
-  readonly type = FETCH_REPLIES_FAILED;
-  constructor(public error: HttpErrorResponse) { }
-}
-
-export class PostReplyStart implements Action {
-  readonly type = POST_REPLY_START;
-  constructor(public reply: fromComment.AppMessage) { }
-}
-
-export class PostReplySucceeded implements Action {
-  readonly type = POST_REPLY_SUCCEEDED;
-  constructor(public comments: fromComment.AppMessage[]) { }
-}
-
-export class PostReplyFailed implements Action {
-  readonly type = POST_REPLY_FAILED;
-  constructor(public error: HttpErrorResponse) { }
-}
+const FetchRepliesStart = createAction(FETCH_REPLIES_START, props<{ suggestionId: number }>());
+const FetchRepliesSucceeded = createAction(FETCH_REPLIES_SUCCEEDED, props<{ replies: fromComment.AppMessage[] }>());
+const FetchRepliesFailed = createAction(FETCH_REPLIES_FAILED, props<{ error: HttpErrorResponse }>());
+const PostReplyStart = createAction(POST_REPLY_START, props<{ reply: fromComment.AppMessage }>());
+const PostReplySucceeded = createAction(POST_REPLY_SUCCEEDED, props<{ comments: fromComment.AppMessage[] }>());
+const PostReplyFailed = createAction(POST_REPLY_FAILED, props<{ error: HttpErrorResponse }>());
 
 
 /* COMMENTS ACTIONS */
-
-export class PostCommentStart implements Action {
-  readonly type = POST_COMMENT_START;
-  constructor(public comment: fromComment.AppMessage) { }
-}
-
-export class PostCommentSucceeded implements Action {
-  readonly type = POST_COMMENT_SUCCEEDED;
-  constructor(public comments: fromComment.AppMessage[]) { }
-}
-
-export class PostCommentFailed implements Action {
-  readonly type = POST_COMMENT_FAILED;
-  constructor(public error: HttpErrorResponse) { }
-}
+const PostCommentStart = createAction(POST_COMMENT_START, props<{ comment: fromComment.AppMessage }>());
+const PostCommentSucceeded = createAction(POST_COMMENT_SUCCEEDED, props<{ comments: fromComment.AppMessage[] }>());
+const PostCommentFailed = createAction(POST_COMMENT_FAILED, props<{ error: HttpErrorResponse }>());
 
 
-export class FetchOneCommentStart implements Action {
-  readonly type = FETCH_ONE_COMMENT_START;
-  constructor(public fromId: number) { }
-}
+const FetchOneCommentStart = createAction(FETCH_ONE_COMMENT_START, props<{ fromId: number }>());
+const FetchOneCommentSucceeded = createAction(FETCH_ONE_COMMENT_SUCCEEDED, props<{ comment: Comment }>());
+const FetchOneCommentFailed = createAction(FETCH_ONE_COMMENT_FAILED, props<{ error: HttpErrorResponse }>());
 
-export class FetchOneCommentSucceeded implements Action {
-  readonly type = FETCH_ONE_COMMENT_SUCCEEDED;
-  constructor(public comment: Comment) { }
-}
-
-export class FetchOneCommentFailed implements Action {
-  readonly type = FETCH_ONE_COMMENT_FAILED;
-  constructor(public error: HttpErrorResponse) { }
-}
-
-export class FetchCommentsStart implements Action {
-  readonly type = FETCH_COMMENTS_START;
-  constructor(public suggestionId: number) { }
-}
-
-export class FetchCommentsSucceeded implements Action {
-  readonly type = FETCH_COMMENTS_SUCCEEDED;
-  constructor(public comments: fromComment.AppMessage[]) { }
-}
-
-export class FetchCommentsFailed implements Action {
-  readonly type = FETCH_COMMENTS_FAILED;
-  constructor(public error: HttpErrorResponse) { }
-}
+const FetchCommentsStart = createAction(FETCH_COMMENTS_START, props<{ suggestionId: number }>());
+const FetchCommentsSucceeded = createAction(FETCH_COMMENTS_SUCCEEDED, props<{ comments: fromComment.AppMessage[] }>());
+const FetchCommentsFailed = createAction(FETCH_COMMENTS_FAILED, props<{ error: HttpErrorResponse }>());
 
 
-export type CommentActionsTypes =
-  FetchCommentsStart | FetchCommentsSucceeded |
-  FetchCommentsFailed | FetchOneCommentStart |
-  FetchOneCommentSucceeded | FetchOneCommentFailed |
-  FetchRepliesStart | FetchRepliesSucceeded | FetchRepliesFailed |
-  PostCommentStart | PostCommentSucceeded | PostCommentFailed |
-  PostReplyStart | PostReplySucceeded | PostReplyFailed;
+export const CommentActions = {
+  FetchCommentsStart,
+  FetchCommentsSucceeded,
+  FetchCommentsFailed,
+  FetchOneCommentStart,
+  FetchOneCommentSucceeded,
+  FetchOneCommentFailed,
+  FetchRepliesStart,
+  FetchRepliesSucceeded,
+  FetchRepliesFailed,
+  PostCommentStart,
+  PostCommentSucceeded,
+  PostCommentFailed,
+  PostReplyStart,
+  PostReplySucceeded,
+  PostReplyFailed
+};
