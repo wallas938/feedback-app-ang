@@ -119,7 +119,7 @@
       "upvotes": 130,
       "status": "planned",
       "description": "It would be great to see a more detailed breakdown of solutions.",
-      "numberOfComments": 3,
+      "numberOfComments": 5,
       "id": 6
     },
     {
@@ -173,6 +173,20 @@
       "replies": [],
       "main": true,
       "id": 1
+    },
+    {
+      "content": "Hello",
+      "from": 2,
+      "suggestionId": "6",
+      "user": {
+        "id": 2,
+        "image": "./assets/user-images/image-suzanne.jpg",
+        "name": "Suzanne Chang",
+        "username": "upbeat1811"
+      },
+      "replies": [],
+      "main": true,
+      "id": 2
     }
   ],
   "replies": [
@@ -205,6 +219,21 @@
       "replyingTo": "hummingbird1",
       "suggestionId": "6",
       "id": 2
+    },
+    {
+      "main": false,
+      "mainId": 2,
+      "content": "Yes",
+      "user": {
+        "id": 2,
+        "image": "./assets/user-images/image-suzanne.jpg",
+        "name": "Suzanne Chang",
+        "username": "upbeat1811"
+      },
+      "from": 2,
+      "replyingTo": "upbeat1811",
+      "suggestionId": "6",
+      "id": 3
     }
   ]
 }

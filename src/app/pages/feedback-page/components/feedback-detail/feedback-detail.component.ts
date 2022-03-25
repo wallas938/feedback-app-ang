@@ -6,7 +6,8 @@ import { Store } from '@ngrx/store';
 import * as fromUser from 'store/reducers/user.reducers';
 import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
-import * as fromCommentActions from 'store/actions/comment.action';
+import { CommentActions } from 'store/actions/comment.action';
+import { commentSelectors } from 'store/selectors/comment.selectors';
 import * as fromUserActions from "store/actions/user.actions";
 import { suggestionActions } from 'store/actions/suggestions.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
@@ -27,7 +28,7 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
   feedbackId: number;
   isUpvoted: boolean;
   isUpvotedSubscription: Subscription;
-  comments: fromComment.AppMessage[];
+  comments$: Observable<fromComment.AppMessage[]>;
   replies: fromComment.AppMessage[];
   currentUser: fromUser.User;
   charactersLeft = 250;
@@ -49,7 +50,7 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.feedbackId = this.route.snapshot.params['id'];
     this.store.dispatch(suggestionActions.FetchOneSuggestionStart({ suggestionId: this.feedbackId }));
-    this.store.dispatch(new fromCommentActions.FetchCommentsStart(this.feedbackId));
+    this.store.dispatch(CommentActions.FetchCommentsStart({ suggestionId: this.feedbackId }));
 
     this.feedback = this.store.select(suggestionSelectors.getSuggestion);
 
@@ -57,9 +58,7 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
       this.isUpvoted = ids.includes(this.feedbackId);
     });
 
-    this.store.select('comment').subscribe(((state: fromComment.State) => {
-      this.comments = state.comments;
-    }));
+    this.comments$ = this.store.select(commentSelectors.getComments);
 
     this.store.select('user').subscribe(((state: fromUser.State) => {
       this.currentUser = state.currentUser;
@@ -93,7 +92,7 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
         replies: [],
         main: true
       };
-      this.store.dispatch(new fromCommentActions.PostCommentStart(comment));
+      this.store.dispatch(CommentActions.PostCommentStart({ comment: comment }));
       this.resetForm();
     }
   }

@@ -7,10 +7,10 @@
       </a>
     </div>
     <div [@fadeInOutY] class="suggestion">
-      <app-suggestion-item [suggestion]="feedback" [comments]="comments"></app-suggestion-item>
+      <app-suggestion-item [suggestion]="feedback" [comments]="comments$ | async"></app-suggestion-item>
     </div>
-    <div *ngIf="comments" [@fadeInOutX] class="comments">
-      <app-comments [feedback]="feedback" [comments]="comments"></app-comments>
+    <div *ngIf="comments$ | async" [@fadeInOutX] class="comments">
+      <app-comments [feedback]="feedback" [comments]="comments$ | async"></app-comments>
     </div>
     <form [formGroup]="form" (submit)="onSubmit()" class="comment-form">
       <p>Add Comment</p>

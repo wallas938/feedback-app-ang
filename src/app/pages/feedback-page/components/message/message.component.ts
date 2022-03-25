@@ -6,9 +6,8 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as fromApp from 'store/reducers/index';
 import * as fromUser from 'store/reducers/user.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
-import * as fromCommentActions from 'store/actions/comment.action';
 import * as fromUserActions from 'store/actions/user.actions';
-import * as fromsuggestionActions from 'store/actions/suggestions.action';
+import { CommentActions } from 'store/actions/comment.action';
 import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-message',
@@ -74,7 +73,7 @@ export class MessageComponent implements OnInit {
         replyingTo: replyingTo,
         suggestionId: this.comment.suggestionId
       };
-      this.store.dispatch(new fromCommentActions.PostReplyStart(reply));
+      this.store.dispatch(CommentActions.PostReplyStart({ reply: reply }));
     }
   }
 }
