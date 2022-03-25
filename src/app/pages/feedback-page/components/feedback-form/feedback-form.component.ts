@@ -9,7 +9,8 @@ import * as fromRouter from 'store/reducers/router.reducers';
 import { suggestionActions } from 'store/actions/suggestions.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import { routerSelectors } from 'store/selectors/router.selectors';
-import * as fromUserActions from "store/actions/user.actions";
+import { UserActions } from "store/actions/user.actions";
+import { userSelectors } from "store/selectors/user.selectors";
 import { routerActions } from 'store/actions/router.actions';
 import * as fromApp from 'store/reducers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -63,10 +64,10 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.store.select('user').subscribe((state: fromUser.State) => {
-      this.currentUser = state.currentUser;
+    this.store.select(userSelectors.getCurrentUser).subscribe((currentUser: fromUser.User) => {
+      this.currentUser = currentUser;
       if (!this.currentUser) {
-        this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
+        this.store.dispatch(UserActions.FetchUserSucceeded({ userId: Math.floor(Math.random() * 11) + 1 }))
       }
     });
 
