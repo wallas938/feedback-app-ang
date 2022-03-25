@@ -119,7 +119,7 @@
       "upvotes": 130,
       "status": "planned",
       "description": "It would be great to see a more detailed breakdown of solutions.",
-      "numberOfComments": 5,
+      "numberOfComments": 6,
       "id": 6
     },
     {
@@ -187,6 +187,20 @@
       "replies": [],
       "main": true,
       "id": 2
+    },
+    {
+      "content": "Yo!",
+      "from": 10,
+      "suggestionId": "6",
+      "user": {
+        "id": 10,
+        "image": "./assets/user-images/image-victoria.jpg",
+        "name": "Victoria Mejia",
+        "username": "arlen_the_marlin"
+      },
+      "replies": [],
+      "main": true,
+      "id": 3
     }
   ],
   "replies": [

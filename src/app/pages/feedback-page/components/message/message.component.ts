@@ -6,7 +6,8 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as fromApp from 'store/reducers/index';
 import * as fromUser from 'store/reducers/user.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
-import * as fromUserActions from 'store/actions/user.actions';
+import { UserActions } from "store/actions/user.actions";
+import { userSelectors } from "store/selectors/user.selectors";
 import { CommentActions } from 'store/actions/comment.action';
 import { Store } from '@ngrx/store';
 @Component({
@@ -50,10 +51,10 @@ export class MessageComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
-    this.store.select('user').subscribe((state: fromUser.State) => {
-      this.currentUser = state.currentUser;
+    this.store.select(userSelectors.getCurrentUser).subscribe((currentUser: fromUser.User) => {
+      this.currentUser = currentUser;
       if (!this.currentUser) {
-        this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
+        this.store.dispatch(UserActions.FetchUserSucceeded({ userId: Math.floor(Math.random() * 11) + 1 }))
       }
     });
   }

@@ -8,7 +8,8 @@ import * as fromComment from 'store/reducers/comment.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
 import { CommentActions } from 'store/actions/comment.action';
 import { commentSelectors } from 'store/selectors/comment.selectors';
-import * as fromUserActions from "store/actions/user.actions";
+import { UserActions } from "store/actions/user.actions";
+import { userSelectors } from "store/selectors/user.selectors";
 import { suggestionActions } from 'store/actions/suggestions.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import * as fromApp from 'store/reducers';
@@ -60,10 +61,10 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
 
     this.comments$ = this.store.select(commentSelectors.getComments);
 
-    this.store.select('user').subscribe(((state: fromUser.State) => {
-      this.currentUser = state.currentUser;
+    this.store.select(userSelectors.getCurrentUser).subscribe(((currentUser: fromUser.User) => {
+      this.currentUser = currentUser;
       if (!this.currentUser) {
-        this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
+        this.store.dispatch(UserActions.FetchUserSucceeded({ userId: Math.floor(Math.random() * 11) + 1 }))
       }
     }));
 
