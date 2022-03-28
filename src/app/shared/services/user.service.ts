@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of} from 'rxjs';
 import { AppState } from 'store/reducers';
 import { User } from 'store/reducers/user.reducers';
+import { UserActions } from 'store/actions/user.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,7 @@ export class UserService {
         "username": "countryspirit"
       }
     ];
+    this.store.dispatch(UserActions.FetchUserSucceeded({ userId: randomIndex }))
     return of(user[randomIndex]);
   }
 }
