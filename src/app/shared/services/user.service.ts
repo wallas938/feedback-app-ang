@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { first, Observable, of, take, tap } from 'rxjs';
+import { Observable, of} from 'rxjs';
 import { AppState } from 'store/reducers';
 import { User } from 'store/reducers/user.reducers';
-import { userSelectors } from 'store/selectors/user.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -84,9 +82,6 @@ export class UserService {
         "username": "countryspirit"
       }
     ];
-    console.log("random", randomIndex);
-    console.log("user", user[randomIndex]);
-
     return of(user[randomIndex]);
   }
 }
