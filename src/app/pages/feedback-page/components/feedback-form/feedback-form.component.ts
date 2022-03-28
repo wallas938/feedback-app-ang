@@ -9,7 +9,6 @@ import * as fromRouter from 'store/reducers/router.reducers';
 import { suggestionActions } from 'store/actions/suggestions.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import { routerSelectors } from 'store/selectors/router.selectors';
-import { UserActions } from "store/actions/user.actions";
 import { userSelectors } from "store/selectors/user.selectors";
 import { routerActions } from 'store/actions/router.actions';
 import * as fromApp from 'store/reducers';
@@ -91,7 +90,6 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
 
         return false;
       case fromSuggestions.FORM_MODES.FORM_EDITING_MODE:
-        console.log(formMode);
         return true;
       default:
         return false;
