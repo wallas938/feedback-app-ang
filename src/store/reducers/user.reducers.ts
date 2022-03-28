@@ -24,7 +24,8 @@ export const _userReducer = createReducer(
     }
   }),
   on(UserActions.FetchUserSucceeded, (state, { userId }) => {
-    const currentUser = [
+    const randomIndex = userId > 0 ? userId : 0;
+    const users = [
       {
         "id": 1,
         "image": "./assets/user-images/image-zena.jpg",
@@ -91,18 +92,11 @@ export const _userReducer = createReducer(
         "name": "Jackson Barker",
         "username": "countryspirit"
       }
-    ].find(u => {
-      const randomIndex = userId;
-
-      if (randomIndex <= 0) {
-        return u.id === 1
-      }
-      return u.id === randomIndex
-    });
+    ];
 
     return {
       ...state,
-      currentUser: currentUser
+      currentUser: users[randomIndex]
     }
   }),
 )

@@ -15,16 +15,16 @@ import { Subscription } from 'rxjs';
 export class LargeScreenHeaderComponent implements OnInit, OnDestroy {
 
   currentFilterValue: fromSuggestions.FILTER;
-  suggestionsSubscription: Subscription;
+  allSubscriptions = new Subscription();
   suggestions: fromSuggestions.Suggestion[];
   public categories: string[] = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
 
   constructor(private store: Store<fromApp.AppState>, private router: Router) { }
 
   ngOnInit(): void {
-    this.suggestionsSubscription = this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
       this.suggestions = suggestions
-    });
+    }));
   }
 
   getPlannedSuggestionsCount(): number {
@@ -43,7 +43,7 @@ export class LargeScreenHeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.suggestionsSubscription.unsubscribe();
+    this.allSubscriptions.unsubscribe();
   }
 
 }

@@ -23,7 +23,7 @@ import { Subscription } from 'rxjs';
 export class RoadmapMobileComponent implements OnInit, OnDestroy {
 
   suggestions: fromSuggestions.Suggestion[];
-  suggestionsSubscription: Subscription;
+  allSubscriptions = new Subscription();
   toDisplay: fromSuggestions.Suggestion[] = [];
   currentTab!: fromSuggestions.STATUS;
   statusCount!: string;
@@ -39,13 +39,13 @@ export class RoadmapMobileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.suggestionsSubscription = this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
       if (!suggestions || suggestions.length <= 0) {
         this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }));
       } else {
         this.suggestions = suggestions;
       }
-    });
+    }));
 
     this.store.select(layoutSelectors.getMobileRoadmapCurrentTab).subscribe((mobileRoadmapCurrentTab: fromSuggestions.STATUS) => {
       this.currentTab = mobileRoadmapCurrentTab;
@@ -121,6 +121,6 @@ export class RoadmapMobileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.suggestionsSubscription.unsubscribe();
+    this.allSubscriptions.unsubscribe();
   }
 }

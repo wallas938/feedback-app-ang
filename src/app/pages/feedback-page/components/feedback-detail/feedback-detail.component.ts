@@ -28,7 +28,7 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
   feedback: Observable<fromSuggestion.Suggestion>;
   feedbackId: number;
   isUpvoted: boolean;
-  isUpvotedSubscription: Subscription;
+  allSubscriptions = new Subscription();
   comments$: Observable<fromComment.AppMessage[]>;
   replies: fromComment.AppMessage[];
   currentUser: fromUser.User;
@@ -55,27 +55,24 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
 
     this.feedback = this.store.select(suggestionSelectors.getSuggestion);
 
-    this.store.select(suggestionSelectors.getSuggestionsUpvoted).subscribe((ids: number[]) => {
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestionsUpvoted).subscribe((ids: number[]) => {
       this.isUpvoted = ids.includes(this.feedbackId);
-    });
+    }));
 
     this.comments$ = this.store.select(commentSelectors.getComments);
 
-    this.store.select(userSelectors.getCurrentUser).subscribe(((currentUser: fromUser.User) => {
+    this.allSubscriptions.add(this.store.select(userSelectors.getCurrentUser).subscribe(((currentUser: fromUser.User) => {
       this.currentUser = currentUser;
-      if (!this.currentUser) {
-        this.store.dispatch(UserActions.FetchUserSucceeded({ userId: Math.floor(Math.random() * 11) + 1 }))
-      }
-    }));
+    })));
 
-    this.form.get('comment').valueChanges.subscribe((value) => {
+    this.allSubscriptions.add(this.form.get('comment').valueChanges.subscribe((value) => {
       if (value) {
         this.charactersLeft = this.maxCharacters - value.length;
         if (this.charactersLeft <= 0) {
           this.charactersLeft = 0;
         }
       }
-    });
+    }));
   }
 
   navigateToForm() {
@@ -103,5 +100,6 @@ export class FeedbackDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribe()
   }
 }

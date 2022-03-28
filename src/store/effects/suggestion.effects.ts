@@ -16,15 +16,13 @@ export class SuggestionEffects implements OnDestroy {
   _filterBy: fromSuggestions.FILTER;
   _sortBy: fromSuggestions.SORT;
 
-  _filterBySubscription: Subscription;
-  _sortBySubscription: Subscription;
+  allSubscriptions = new Subscription();
 
   constructor(private actions$: Actions,
     private suggestionService: SuggestionService,
     private store: Store<fromApp.AppState>) { }
   ngOnDestroy(): void {
-    this._filterBySubscription.unsubscribe();
-    this._sortBySubscription.unsubscribe();
+    this.allSubscriptions.unsubscribe();
   }
 
   fetchSuggestionsEffect$ = createEffect(
@@ -86,12 +84,12 @@ export class SuggestionEffects implements OnDestroy {
     () => this.actions$.pipe(
       ofType(suggestionActions.IncrementUpvotesStart),
       tap(() => {
-        this.store.select(suggestionSelectors.getSortByValue).subscribe((sortByValue: fromSuggestions.SORT) => {
+        this.allSubscriptions.add(this.store.select(suggestionSelectors.getSortByValue).subscribe((sortByValue: fromSuggestions.SORT) => {
           this._sortBy = sortByValue;
-        });
-        this.store.select(suggestionSelectors.getFilterByValue).subscribe((filterByValue: fromSuggestions.FILTER) => {
+        }));
+        this.allSubscriptions.add(this.store.select(suggestionSelectors.getFilterByValue).subscribe((filterByValue: fromSuggestions.FILTER) => {
           this._filterBy = filterByValue;
-        });
+        }));
       }),
       switchMap(({ suggestion }) =>
         this.suggestionService.incrementSuggestionUpvotes(suggestion)

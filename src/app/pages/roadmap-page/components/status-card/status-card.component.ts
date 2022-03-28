@@ -17,16 +17,14 @@ export class StatusCardComponent implements OnInit, OnDestroy {
 
   @Input() suggestion!: fromSuggestions.Suggestion;
   isUpvoted: boolean;
-  suggestionUpvotedSubscription: Subscription;
+  allSubscriptions = new Subscription();
   constructor(private store: Store<fromApp.AppState>) { }
-  ngOnDestroy(): void {
-    this.suggestionUpvotedSubscription.unsubscribe()
-  }
+
 
   ngOnInit(): void {
-    this.suggestionUpvotedSubscription = this.store.select(suggestionSelectors.getSuggestionsUpvoted).subscribe((ids: number[]) => {
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestionsUpvoted).subscribe((ids: number[]) => {
       this.isUpvoted = ids.includes(this.suggestion.id);
-    })
+    }))
   }
 
   getMessagesCount(): number {
@@ -39,6 +37,10 @@ export class StatusCardComponent implements OnInit, OnDestroy {
 
   onDecrement() {
     this.store.dispatch(suggestionActions.DecrementUpvotesStart({ suggestion: this.suggestion }))
+  }
+
+  ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribe()
   }
 
 }
