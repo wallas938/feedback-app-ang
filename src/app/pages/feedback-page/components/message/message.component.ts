@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import * as fromComment from 'store/reducers/comment.reducers';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -10,6 +10,7 @@ import { UserActions } from "store/actions/user.actions";
 import { userSelectors } from "store/selectors/user.selectors";
 import { CommentActions } from 'store/actions/comment.action';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -32,13 +33,14 @@ import { Store } from '@ngrx/store';
     ])
   ]
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements OnInit, OnDestroy {
 
   @Input() feedback: fromSuggestion.Suggestion;
   @Input() isLastComment: boolean;
   @Input() comment: fromComment.AppMessage;
   @Input() isMain: boolean;
   currentUser: fromUser.User;
+  allSubscriptions = new Subscription();
 
   /* @Output() reply: EventEmitter<ReplyData> = new EventEmitter<ReplyData>(); */
   state = "in";
@@ -51,12 +53,9 @@ export class MessageComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
-    this.store.select(userSelectors.getCurrentUser).subscribe((currentUser: fromUser.User) => {
+    this.allSubscriptions.add(this.store.select(userSelectors.getCurrentUser).subscribe((currentUser: fromUser.User) => {
       this.currentUser = currentUser;
-      if (!this.currentUser) {
-        this.store.dispatch(UserActions.FetchUserSucceeded({ userId: Math.floor(Math.random() * 11) + 1 }))
-      }
-    });
+    }));
   }
 
   showForm() {
@@ -76,5 +75,9 @@ export class MessageComponent implements OnInit {
       };
       this.store.dispatch(CommentActions.PostReplyStart({ reply: reply }));
     }
+  }
+
+  ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribe();
   }
 }

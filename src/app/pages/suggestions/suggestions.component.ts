@@ -21,32 +21,27 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class SuggestionsComponent implements OnInit, OnDestroy {
   suggestions: fromSuggestions.Suggestion[] = [];
-  suggestionsSubscription: Subscription;
-  currentUser: fromUser.User;
+  allSubscriptions = new Subscription();
+  currentUser: Observable<fromUser.User>;
   loadingState: Observable<boolean>;
   upvotedSuggestions: Observable<number[]>;
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
-    this.store.select(userSelectors.getCurrentUser).subscribe((currentUser: fromUser.User) => {
-      this.currentUser = currentUser;
-      if (!this.currentUser) {
-        this.store.dispatch(UserActions.FetchUserSucceeded({ userId: Math.floor(Math.random() * 11) + 1 }))
-      }
-    });
+    this.currentUser = this.store.select(userSelectors.getCurrentUser);
 
-    this.suggestionsSubscription = this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
       this.suggestions = suggestions;
       if (!suggestions || suggestions.length <= 0) {
         this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
       }
-    });
+    }));
 
     this.loadingState = this.store.select(suggestionSelectors.getLoadingState);
     this.upvotedSuggestions = this.store.select(suggestionSelectors.getSuggestionsUpvoted);
   }
 
   ngOnDestroy(): void {
-    this.suggestionsSubscription.unsubscribe();
+    this.allSubscriptions.unsubscribe();
   }
 }

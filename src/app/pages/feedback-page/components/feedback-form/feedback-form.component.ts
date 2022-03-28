@@ -25,9 +25,7 @@ import { Subscription } from 'rxjs';
 export class FeedbackFormComponent implements OnInit, OnDestroy {
   currentUser: fromUser.User;
   feedback: fromSuggestions.Suggestion;
-  currentFormModeSubscription: Subscription;
-  feedbackSubscription: Subscription;
-  /* editMode: fromSuggestions.FORM_MODES = fromSuggestions.FORM_MODES.FORM_ADDING_MODE; */
+  allSubscriptions = new Subscription();
   isEditMode = false;
   categories = ['Feature', 'UI', 'UX', 'Enhancement', 'Bug'];
   suggestionStatus = ['Planned', 'Suggestion', 'In-Progress', 'Live'];
@@ -51,24 +49,21 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.feedbackSubscription = this.store.select(suggestionSelectors.getSuggestion).subscribe((suggestion: fromSuggestions.Suggestion) => {
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestion).subscribe((suggestion: fromSuggestions.Suggestion) => {
       this.feedback = suggestion
-    })
+    }));
 
-    this.currentFormModeSubscription = this.store.select(suggestionSelectors.getFormMode).subscribe((currentFormMode: fromSuggestions.FORM_MODES) => {
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getFormMode).subscribe((currentFormMode: fromSuggestions.FORM_MODES) => {
       this.isEditMode = this.setFormMode(currentFormMode);
       if (this.isEditMode) {
         this.initFormValues(this.feedback);
       } else if (!this.isEditMode && this.router.url.includes('edit')) {
         this.router.navigate(['suggestions']);
       }
-    });
+    }));
 
     this.store.select(userSelectors.getCurrentUser).subscribe((currentUser: fromUser.User) => {
       this.currentUser = currentUser;
-      if (!this.currentUser) {
-        this.store.dispatch(UserActions.FetchUserSucceeded({ userId: Math.floor(Math.random() * 11) + 1 }))
-      }
     });
 
     this.store.select(routerSelectors.getGloabalState).subscribe((state: fromRouter.State) => {
@@ -149,7 +144,6 @@ export class FeedbackFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.currentFormModeSubscription.unsubscribe();
-    this.feedbackSubscription.unsubscribe();
+    this.allSubscriptions.unsubscribe();
   }
 }

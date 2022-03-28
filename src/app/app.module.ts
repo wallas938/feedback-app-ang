@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from '@/app/app-routing.module';
 import { AppComponent } from '@/app/app.component';
@@ -16,6 +16,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppEffects } from 'store/effects';
 import { SuggestionsSortComponent } from './pages/suggestions/components/suggestions-sort/suggestions-sort.component';
+import { Observable, tap } from 'rxjs';
+import { User } from 'store/reducers/user.reducers';
+import { UserService } from './shared/services/user.service';
+
+function initializeApp(userService: UserService): () => Observable<User> {
+  return () => userService.getUser()
+}
+
 
 @NgModule({
   declarations: [
@@ -35,7 +43,12 @@ import { SuggestionsSortComponent } from './pages/suggestions/components/suggest
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [],
+  providers: [{
+    provide: APP_INITIALIZER,
+    useFactory: initializeApp,
+    deps: [UserService],
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
