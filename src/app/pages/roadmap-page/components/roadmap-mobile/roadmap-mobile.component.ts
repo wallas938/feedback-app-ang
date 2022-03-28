@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from 'store/reducers/index';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromLayout from 'store/reducers/layout.reducers';
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
-import * as fromLayoutActions from 'store/actions/layout.action';
+import { suggestionActions } from 'store/actions/suggestions.action';
+import { LayoutActions } from 'store/actions/layout.action';
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
+import { layoutSelectors } from "store/selectors/layout.selectors";
 import * as fadeAnimations from '@/app/shared/animations/fade';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-roadmap-mobile',
@@ -18,9 +20,10 @@ import * as fadeAnimations from '@/app/shared/animations/fade';
     fadeAnimations.fadeInOutX
   ]
 })
-export class RoadmapMobileComponent implements OnInit {
+export class RoadmapMobileComponent implements OnInit, OnDestroy {
 
-  data: fromSuggestions.Suggestion[];
+  suggestions: fromSuggestions.Suggestion[];
+  allSubscriptions = new Subscription();
   toDisplay: fromSuggestions.Suggestion[] = [];
   currentTab!: fromSuggestions.STATUS;
   statusCount!: string;
@@ -36,16 +39,16 @@ export class RoadmapMobileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
-      if (!state.suggestions) {
-        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES }));
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+      if (!suggestions || suggestions.length <= 0) {
+        this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }));
       } else {
-        this.data = state.suggestions;
+        this.suggestions = suggestions;
       }
-    });
+    }));
 
-    this.store.select('layout').subscribe((state: fromLayout.State) => {
-      this.currentTab = state.mobileRoadmapCurrentTab;
+    this.store.select(layoutSelectors.getMobileRoadmapCurrentTab).subscribe((mobileRoadmapCurrentTab: fromSuggestions.STATUS) => {
+      this.currentTab = mobileRoadmapCurrentTab;
       this.initData(this.currentTab);
     })
   }
@@ -67,52 +70,57 @@ export class RoadmapMobileComponent implements OnInit {
         break;
     }
   }
+
   onSelectTab(tab: fromSuggestions.STATUS) {
     switch (tab) {
       case fromSuggestions.STATUS.PLANNED:
-        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.PLANNED));
+        this.store.dispatch(LayoutActions.MobileRoadMapTabChanged({ currentTab: fromSuggestions.STATUS.PLANNED }));
         this.displayPlanned();
         break;
       case fromSuggestions.STATUS.IN_PROGRESS:
-        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.IN_PROGRESS));
+        this.store.dispatch(LayoutActions.MobileRoadMapTabChanged({ currentTab: fromSuggestions.STATUS.IN_PROGRESS }));
         this.displayInProgress();
         break;
       case fromSuggestions.STATUS.LIVE:
-        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.LIVE));
+        this.store.dispatch(LayoutActions.MobileRoadMapTabChanged({ currentTab: fromSuggestions.STATUS.LIVE }));
         this.displayLive();
         break;
 
       default:
-        this.store.dispatch(new fromLayoutActions.MobileRoadMapTabChanged(fromSuggestions.STATUS.IN_PROGRESS));
+        this.store.dispatch(LayoutActions.MobileRoadMapTabChanged({ currentTab: fromSuggestions.STATUS.IN_PROGRESS }));
         this.displayInProgress();
         break;
     }
   }
+
   displayPlanned() {
-    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned');
+    this.toDisplay = this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned');
     this.statusCount = `Planned ${this.getPlannedCount()}`;
     this.statusText = 'Ideas prioritized for research';
   }
   displayInProgress() {
-    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress');
+    this.toDisplay = this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress');
     this.statusCount = `In-Progress ${this.getInProgressCount()}`;
     this.statusText = 'Currently being developed';
   }
   displayLive() {
-    this.toDisplay = this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'live');
+    this.toDisplay = this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'live');
     this.statusCount = `Live ${this.getLiveCount()}`;
     this.statusText = 'Released features';
   }
   getPlannedCount(): number {
-    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned').length;
+    return this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned').length;
 
   }
   getInProgressCount(): number {
-    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress').length;
+    return this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress').length;
 
   }
   getLiveCount(): number {
-    return this.data?.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
+    return this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'live').length;
   }
 
+  ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribe();
+  }
 }

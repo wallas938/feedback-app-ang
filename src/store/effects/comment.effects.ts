@@ -4,9 +4,8 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, EMPTY, map, of, switchMap, tap } from "rxjs";
 
-import * as fromCommentActions from "store/actions/comment.action";
-import * as fromRouterActions from "store/actions/router.actions";
-import * as fromSuggestionActions from "store/actions/suggestions.action";
+import { CommentActions } from 'store/actions/comment.action';
+import { suggestionActions } from "store/actions/suggestions.action";
 import * as fromApp from "store/reducers/index";
 import * as fromComment from "store/reducers/comment.reducers";
 import * as fromSuggestion from "store/reducers/suggestions.reducers";
@@ -23,21 +22,21 @@ export class CommentEffects {
     private store: Store<fromApp.AppState>) { }
 
   fetchComments$ = createEffect(() => this.actions$.pipe(
-    ofType(fromCommentActions.FETCH_COMMENTS_START),
-    switchMap(({ suggestionId }: fromCommentActions.FetchCommentsStart) => {
+    ofType(CommentActions.FetchCommentsStart),
+    switchMap(({ suggestionId }) => {
       this.suggestionId = suggestionId;
       return this.commentService.fetchOneSuggestionComments(suggestionId)
         .pipe(switchMap((comments: fromComment.AppMessage[]) => {
-          this.store.dispatch(new fromCommentActions.FetchCommentsSucceeded(comments));
+          this.store.dispatch(CommentActions.FetchCommentsSucceeded({ comments: comments }));
           return of()
         }),
-          catchError((error: HttpErrorResponse) => of(new fromCommentActions.FetchCommentsFailed(error))))
+          catchError((error: HttpErrorResponse) => of(CommentActions.FetchCommentsFailed(error))))
     })
   ));
 
   postComment$ = createEffect(() => this.actions$.pipe(
-    ofType(fromCommentActions.POST_COMMENT_START),
-    switchMap(({ comment }: fromCommentActions.PostCommentStart) => {
+    ofType(CommentActions.PostCommentStart),
+    switchMap(({ comment }) => {
       return this.commentService.postOneComment(comment)
         .pipe(
           switchMap((comment: fromComment.AppMessage) => {
@@ -46,17 +45,18 @@ export class CommentEffects {
                 switchMap((suggestion: fromSuggestion.Suggestion) => of(suggestion)))
           }),
           switchMap((suggestion: fromSuggestion.Suggestion) => {
-            this.store.dispatch(new fromSuggestionActions.IncrementNumberOfCommentsStart({...this.suggestion, numberOfComments: this.suggestion.numberOfComments + 1}))
-            this.store.dispatch(new fromCommentActions.FetchCommentsStart(suggestion.id))
+            /* this.store.dispatch(suggestionActions.IncrementNumberOfCommentsStart({...this.suggestion, numberOfComments: this.suggestion.numberOfComments + 1})) */
+            this.store.dispatch(suggestionActions.IncrementNumberOfCommentsStart({ suggestion: { ...suggestion, numberOfComments: this.suggestion.numberOfComments + 1 } }));
+            this.store.dispatch(CommentActions.FetchCommentsStart({ suggestionId: suggestion.id }))
             return EMPTY
           }),
-          catchError((error: HttpErrorResponse) => of(new fromCommentActions.PostCommentFailed(error))))
+          catchError((error: HttpErrorResponse) => of(CommentActions.PostCommentFailed(error))))
     })
   ));
 
   postReply$ = createEffect(() => this.actions$.pipe(
-    ofType(fromCommentActions.POST_REPLY_START),
-    switchMap(({ reply }: fromCommentActions.PostReplyStart) => {
+    ofType(CommentActions.PostReplyStart),
+    switchMap(({ reply }) => {
 
       return this.commentService.postReply(reply).pipe(
         switchMap((reply: fromComment.AppMessage) => {
@@ -65,11 +65,11 @@ export class CommentEffects {
               switchMap((suggestion: fromSuggestion.Suggestion) => of(suggestion)))
         }),
         switchMap((suggestion: fromSuggestion.Suggestion) => {
-          this.store.dispatch(new fromSuggestionActions.IncrementNumberOfCommentsStart({...this.suggestion, numberOfComments: this.suggestion.numberOfComments + 1}))
-          this.store.dispatch(new fromCommentActions.FetchCommentsStart(suggestion.id))
+          this.store.dispatch(suggestionActions.IncrementNumberOfCommentsStart({ suggestion: { ...suggestion, numberOfComments: this.suggestion.numberOfComments + 1 } }))
+          this.store.dispatch(CommentActions.FetchCommentsStart({ suggestionId: suggestion.id }))
           return EMPTY
         }),
-        catchError((error: HttpErrorResponse) => of(new fromCommentActions.PostCommentFailed(error))))
+        catchError((error: HttpErrorResponse) => of(CommentActions.PostCommentFailed(error))))
     })
   ));
 }

@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import * as fromComment from 'store/reducers/comment.reducers';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import * as fromApp from 'store/reducers/index';
 import * as fromUser from 'store/reducers/user.reducers';
 import * as fromSuggestion from 'store/reducers/suggestions.reducers';
-import * as fromCommentActions from 'store/actions/comment.action';
-import * as fromUserActions from 'store/actions/user.actions';
-import * as fromSuggestionActions from 'store/actions/suggestions.action';
+import { UserActions } from "store/actions/user.actions";
+import { userSelectors } from "store/selectors/user.selectors";
+import { CommentActions } from 'store/actions/comment.action';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -32,13 +33,14 @@ import { Store } from '@ngrx/store';
     ])
   ]
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements OnInit, OnDestroy {
 
   @Input() feedback: fromSuggestion.Suggestion;
   @Input() isLastComment: boolean;
   @Input() comment: fromComment.AppMessage;
   @Input() isMain: boolean;
   currentUser: fromUser.User;
+  allSubscriptions = new Subscription();
 
   /* @Output() reply: EventEmitter<ReplyData> = new EventEmitter<ReplyData>(); */
   state = "in";
@@ -51,12 +53,9 @@ export class MessageComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
-    this.store.select('user').subscribe((state: fromUser.State) => {
-      this.currentUser = state.currentUser;
-      if (!this.currentUser) {
-        this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
-      }
-    });
+    this.allSubscriptions.add(this.store.select(userSelectors.getCurrentUser).subscribe((currentUser: fromUser.User) => {
+      this.currentUser = currentUser;
+    }));
   }
 
   showForm() {
@@ -74,7 +73,11 @@ export class MessageComponent implements OnInit {
         replyingTo: replyingTo,
         suggestionId: this.comment.suggestionId
       };
-      this.store.dispatch(new fromCommentActions.PostReplyStart(reply));
+      this.store.dispatch(CommentActions.PostReplyStart({ reply: reply }));
     }
+  }
+
+  ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribe();
   }
 }

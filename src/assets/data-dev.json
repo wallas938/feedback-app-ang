@@ -116,10 +116,10 @@
     {
       "title": "More comprehensive reports",
       "category": "Feature",
-      "upvotes": 125,
+      "upvotes": 130,
       "status": "planned",
       "description": "It would be great to see a more detailed breakdown of solutions.",
-      "numberOfComments": 0,
+      "numberOfComments": 6,
       "id": 6
     },
     {
@@ -134,7 +134,7 @@
     {
       "title": "One-click portfolio generation",
       "category": "Feature",
-      "upvotes": 63,
+      "upvotes": 65,
       "status": "in-progress",
       "description": "Add ability to create professional looking portfolio from profile.",
       "numberOfComments": 0,
@@ -143,7 +143,7 @@
     {
       "title": "Add micro-interactions",
       "category": "Enhancement",
-      "upvotes": 73,
+      "upvotes": 74,
       "status": "live",
       "description": "Small animations at specific points can add delight.",
       "numberOfComments": 0,
@@ -153,12 +153,101 @@
       "title": "Add a dark theme option",
       "category": "feature",
       "status": "planned",
-      "upvotes": 99,
+      "upvotes": 101,
       "description": "It would help people with light sensitivities and who prefer dark mode.",
       "numberOfComments": 0,
       "id": 10
     }
   ],
-  "comments": [],
-  "replies": []
+  "comments": [
+    {
+      "content": "Hiz",
+      "from": 5,
+      "suggestionId": "6",
+      "user": {
+        "id": 5,
+        "image": "./assets/user-images/image-james.jpg",
+        "name": "James Skinner",
+        "username": "hummingbird1"
+      },
+      "replies": [],
+      "main": true,
+      "id": 1
+    },
+    {
+      "content": "Hello",
+      "from": 2,
+      "suggestionId": "6",
+      "user": {
+        "id": 2,
+        "image": "./assets/user-images/image-suzanne.jpg",
+        "name": "Suzanne Chang",
+        "username": "upbeat1811"
+      },
+      "replies": [],
+      "main": true,
+      "id": 2
+    },
+    {
+      "content": "Yo!",
+      "from": 10,
+      "suggestionId": "6",
+      "user": {
+        "id": 10,
+        "image": "./assets/user-images/image-victoria.jpg",
+        "name": "Victoria Mejia",
+        "username": "arlen_the_marlin"
+      },
+      "replies": [],
+      "main": true,
+      "id": 3
+    }
+  ],
+  "replies": [
+    {
+      "main": false,
+      "mainId": 1,
+      "content": "Tetst",
+      "user": {
+        "id": 5,
+        "image": "./assets/user-images/image-james.jpg",
+        "name": "James Skinner",
+        "username": "hummingbird1"
+      },
+      "from": 5,
+      "replyingTo": "hummingbird1",
+      "suggestionId": "6",
+      "id": 1
+    },
+    {
+      "main": false,
+      "mainId": 1,
+      "content": "a new one",
+      "user": {
+        "id": 4,
+        "image": "./assets/user-images/image-elijah.jpg",
+        "name": "Elijah Moss",
+        "username": "hexagon.bestagon"
+      },
+      "from": 4,
+      "replyingTo": "hummingbird1",
+      "suggestionId": "6",
+      "id": 2
+    },
+    {
+      "main": false,
+      "mainId": 2,
+      "content": "Yes",
+      "user": {
+        "id": 2,
+        "image": "./assets/user-images/image-suzanne.jpg",
+        "name": "Suzanne Chang",
+        "username": "upbeat1811"
+      },
+      "from": 2,
+      "replyingTo": "upbeat1811",
+      "suggestionId": "6",
+      "id": 3
+    }
+  ]
 }

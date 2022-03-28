@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromApp from 'store/reducers/index';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-import * as fromLayoutActions from 'store/actions/layout.action';
+import { LayoutActions } from 'store/actions/layout.action';
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-mobile-side-nav',
   templateUrl: './mobile-side-nav.component.html',
@@ -25,20 +28,19 @@ import * as fromLayoutActions from 'store/actions/layout.action';
     ]),
   ]
 })
-export class MobileSideNavComponent implements OnInit {
+export class MobileSideNavComponent implements OnInit, OnDestroy {
 
-  currentFilterValue: fromSuggestions.FILTER;
+  allSubscriptions = new Subscription();
   suggestions: fromSuggestions.Suggestion[];
   public categories: string[] = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
 
   constructor(private store: Store<fromApp.AppState>, private router: Router) { }
 
   ngOnInit(): void {
-    this.store.select('suggestions').subscribe(
-      (state: fromSuggestions.State) => {
-        this.currentFilterValue = state.filterBy;
-        this.suggestions = state.suggestions;
-      })
+
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+      this.suggestions = suggestions
+    }))
   }
 
   getPlannedSuggestionsCount(): number {
@@ -53,7 +55,11 @@ export class MobileSideNavComponent implements OnInit {
 
   navigateTo() {
     this.router.navigate(['/roadmap']);
-    this.store.dispatch(new fromLayoutActions.MobileMenuClosed)
+    this.store.dispatch(LayoutActions.MobileMenuClosed())
+  }
+
+  ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribe();
   }
 
 }

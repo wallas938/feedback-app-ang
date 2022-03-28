@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import * as fromCommentActions from "store/actions/comment.action";
+import { Action, createReducer, on } from "@ngrx/store";
+import { CommentActions } from "store/actions/comment.action";
 import { User } from "./user.reducers";
 
 export interface AppMessage {
@@ -26,7 +27,77 @@ const initialState: State = {
   error: null
 }
 
-export function commentReducer(state: State = initialState, action: fromCommentActions.CommentActionsTypes) {
+
+export const _commentReducer = createReducer(
+  initialState,
+  on(CommentActions.FetchCommentsStart, (state) => {
+    return {
+      ...state,
+      loading: true
+    }
+  }),
+  on(CommentActions.FetchCommentsSucceeded, (state, { comments }) => {
+    return {
+      ...state,
+      loading: false,
+      comments: comments
+    }
+  }),
+  on(CommentActions.FetchCommentsFailed, (state, { error }) => {
+    return {
+      ...state,
+      loading: false,
+      error: error
+    }
+  }),
+  on(CommentActions.PostCommentStart, (state) => {
+    return {
+      ...state,
+      loading: true
+    }
+  }),
+  on(CommentActions.PostCommentSucceeded, (state, { comments }) => {
+    return {
+      ...state,
+      loading: false,
+      comments: comments
+    }
+  }),
+  on(CommentActions.PostCommentFailed, (state, { error }) => {
+    return {
+      ...state,
+      loading: false,
+      error: error
+    }
+  }),
+  on(CommentActions.PostReplyStart, (state) => {
+    return {
+      ...state,
+      loading: true
+    }
+  }),
+  on(CommentActions.PostReplySucceeded, (state, { comments }) => {
+    return {
+      ...state,
+      loading: false,
+      comments: comments
+    }
+  }),
+  on(CommentActions.PostReplyFailed, (state, { error }) => {
+    return {
+      ...state,
+      loading: false,
+      error: error
+    }
+  }),
+)
+
+export function commentReducer(state: State | undefined, action: Action) {
+  return _commentReducer(state, action);
+}
+
+/* export function commentReducer(state: State = initialState, action: fromCommentActions.CommentActionsTypes) {
+
   switch (action.type) {
 
     case fromCommentActions.FETCH_COMMENTS_START:
@@ -86,3 +157,4 @@ export function commentReducer(state: State = initialState, action: fromCommentA
       }
   }
 }
+ */

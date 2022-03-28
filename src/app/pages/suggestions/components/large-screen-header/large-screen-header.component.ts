@@ -1,29 +1,30 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
-import * as fromLayoutActions from 'store/actions/layout.action';
+import { LayoutActions } from 'store/actions/layout.action';
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import * as fromApp from 'store/reducers/index';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-large-screen-header',
   templateUrl: './large-screen-header.component.html',
   styleUrls: ['./large-screen-header.component.scss']
 })
-export class LargeScreenHeaderComponent implements OnInit {
+export class LargeScreenHeaderComponent implements OnInit, OnDestroy {
 
   currentFilterValue: fromSuggestions.FILTER;
+  allSubscriptions = new Subscription();
   suggestions: fromSuggestions.Suggestion[];
   public categories: string[] = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
 
   constructor(private store: Store<fromApp.AppState>, private router: Router) { }
 
   ngOnInit(): void {
-    this.store.select('suggestions').subscribe(
-      (state: fromSuggestions.State) => {
-        this.suggestions = state.suggestions
-        this.currentFilterValue = state.filterBy;
-      })
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+      this.suggestions = suggestions
+    }));
   }
 
   getPlannedSuggestionsCount(): number {
@@ -38,7 +39,11 @@ export class LargeScreenHeaderComponent implements OnInit {
 
   navigateToRoadmap() {
     this.router.navigate(['/roadmap']);
-    this.store.dispatch(new fromLayoutActions.FilterModalClosed());
+    this.store.dispatch(LayoutActions.FilterModalClosed());
+  }
+
+  ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribe();
   }
 
 }

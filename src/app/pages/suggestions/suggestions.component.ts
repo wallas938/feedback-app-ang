@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromSuggestions from 'store/reducers/suggestions.reducers';
 import * as fromUser from 'store/reducers/user.reducers';
-import * as fromSuggestionActions from "store/actions/suggestions.action";
-import * as fromUserActions from "store/actions/user.actions";
+import { suggestionActions } from "store/actions/suggestions.action";
+import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
+import { UserActions } from "store/actions/user.actions";
+import { userSelectors } from "store/selectors/user.selectors";
 import * as fromApp from 'store/reducers';
 import * as fadeAnimations from '@shared/animations/fade';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-suggestions',
@@ -16,45 +19,29 @@ import * as fadeAnimations from '@shared/animations/fade';
   fadeAnimations.fadeInOutY
   ]
 })
-export class SuggestionsComponent implements OnInit {
+export class SuggestionsComponent implements OnInit, OnDestroy {
   suggestions: fromSuggestions.Suggestion[] = [];
-  currentUser: fromUser.User;
-  loadingState = false;
-  upvotedSuggestions: number[];
+  allSubscriptions = new Subscription();
+  currentUser: Observable<fromUser.User>;
+  loadingState: Observable<boolean>;
+  upvotedSuggestions: Observable<number[]>;
   constructor(private store: Store<fromApp.AppState>) { }
 
-  /*
-
-    {
-      "id": 1,
-      "title": "Add tags for solutions",
-      "category": "nhancement",
-      "upvotes": 131,
-      "status": "suggestion",
-      "description": "Easier to search for solutions based on a specific stack."
-    },
-
-  */
-
   ngOnInit(): void {
-    this.store.select('user').subscribe((state: fromUser.State) => {
-      this.currentUser = state.currentUser;
-      if (!this.currentUser) {
-        this.store.dispatch(new fromUserActions.FetchUserSucceeded(Math.floor(Math.random() * 11) + 1))
-      }
-    });
+    this.currentUser = this.store.select(userSelectors.getCurrentUser);
 
-    this.store.select('suggestions').subscribe((state: fromSuggestions.State) => {
-      this.suggestions = state.suggestions;
-      this.loadingState = state.loadingState;
-      this.upvotedSuggestions = state.suggestionsUpvoted;
-      if (!state.filterBy) {
-        this.store.dispatch(new fromSuggestionActions.FetchSuggestionsStart({ _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES }))
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
+      this.suggestions = suggestions;
+      if (!suggestions || suggestions.length <= 0) {
+        this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
       }
-    });
+    }));
+
+    this.loadingState = this.store.select(suggestionSelectors.getLoadingState);
+    this.upvotedSuggestions = this.store.select(suggestionSelectors.getSuggestionsUpvoted);
   }
 
-  isUpvoted(id: number): boolean {
-    return this.upvotedSuggestions.includes(id);
+  ngOnDestroy(): void {
+    this.allSubscriptions.unsubscribe();
   }
 }
