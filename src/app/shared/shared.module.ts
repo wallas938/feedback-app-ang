@@ -7,6 +7,8 @@ import { UpvoteItemComponent } from './components/upvote-item/upvote-item.compon
 import { CommentsCountComponent } from './components/comments-count/comments-count.component';
 import { LoadingStripeComponent } from './components/loading-stripe/loading-stripe.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserIdentityModalComponent } from './components/user-identity-modal/user-identity-modal.component';
+import { AllModalsComponent } from './components/all-modals/all-modals.component';
 
 
 @NgModule({
@@ -15,10 +17,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     CategoryChipsComponent,
     UpvoteItemComponent,
     CommentsCountComponent,
-    LoadingStripeComponent
+    LoadingStripeComponent,
+    UserIdentityModalComponent,
+    AllModalsComponent
   ],
   imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
-  exports: [CommonModule, ReactiveFormsModule, SuggestionItemComponent, CategoryChipsComponent, UpvoteItemComponent, CommentsCountComponent, LoadingStripeComponent],
+  exports: [CommonModule, ReactiveFormsModule, SuggestionItemComponent, CategoryChipsComponent, UpvoteItemComponent, CommentsCountComponent, LoadingStripeComponent, AllModalsComponent],
   providers: []
 })
 export class SharedModule { }

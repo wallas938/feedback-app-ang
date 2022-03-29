@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --aot",
     "start:server": "json-server --watch ./src/assets/data-dev.json",
     "start:prd-server": "json-server --watch ./src/assets/data-dev.json",
     "build": "ng build",
