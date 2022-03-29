@@ -16,7 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppEffects } from 'store/effects';
 import { SuggestionsSortComponent } from './pages/suggestions/components/suggestions-sort/suggestions-sort.component';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from 'store/reducers/user.reducers';
 import { UserService } from './shared/services/user.service';
 

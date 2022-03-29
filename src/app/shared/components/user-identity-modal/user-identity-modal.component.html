@@ -1,0 +1,19 @@
+<div [@enter-in] *ngIf="userIndentityModalState | async" class="root">
+  <div *ngIf="(currentUser | async) as user" class="card">
+    <button class="close" (click)="onClose()">
+      <img src="assets/shared/mobile/icon-close.svg" alt="close icon">
+    </button>
+    <div class="card__left">
+      <img class="card__picture" [src]="user.image" alt="user picture">
+      <p class="card__name">{{user.name}}</p>
+      <p class="card__username">@{{user.username}}</p>
+    </div>
+    <div class="card__right">
+      <p class="card__message">
+        Hi user! <br> Welcome to my feedback app !<br> <br> <strong><em>{{user.name}}</em></strong> is your current name
+        and <span style="color: #E98888;">@{{user.username}}</span> your username, if you're not pleased with it
+        reload the page .
+      </p>
+    </div>
+  </div>
+</div>
