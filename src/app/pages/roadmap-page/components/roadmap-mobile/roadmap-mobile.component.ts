@@ -40,11 +40,7 @@ export class RoadmapMobileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
-      if (!suggestions || suggestions.length <= 0) {
-        this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }));
-      } else {
-        this.suggestions = suggestions;
-      }
+      this.suggestions = suggestions;
     }));
 
     this.store.select(layoutSelectors.getMobileRoadmapCurrentTab).subscribe((mobileRoadmapCurrentTab: fromSuggestions.STATUS) => {

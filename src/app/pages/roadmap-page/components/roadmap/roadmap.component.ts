@@ -27,9 +27,6 @@ export class RoadmapComponent implements OnInit {
 
     this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
       this.data = suggestions;
-      if (!suggestions || suggestions.length <= 0) {
-        this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }))
-      }
     });
   }
 
