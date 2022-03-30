@@ -28,8 +28,18 @@ export class SuggestionEffects implements OnDestroy {
   fetchSuggestionsEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(suggestionActions.FetchSuggestionsStart),
+      tap(() => {
+        this.allSubscriptions.add(this.store.select(suggestionSelectors.getSortByValue).subscribe((sortByValue: fromSuggestions.SORT) => {
+          this._sortBy = sortByValue;
+        }));
+        this.allSubscriptions.add(this.store.select(suggestionSelectors.getFilterByValue).subscribe((filterByValue: fromSuggestions.FILTER) => {
+          this._filterBy = filterByValue;
+        }));
+      }),
       switchMap(({ query }) => this.suggestionService.fetchSuggestions({ _filter: query._filter, _sort: query._sort }).pipe(
-        map((suggestions: fromSuggestions.Suggestion[]) => suggestionActions.FetchSuggestionsSucceeded({ suggestions: suggestions })),
+        map((suggestions: fromSuggestions.Suggestion[]) => {
+          return suggestionActions.FetchSuggestionsSucceeded({ suggestions: suggestions })
+        }),
         catchError((error) => of((suggestionActions.FetchSuggestionsFailed(error))))))));
 
   fetchOneSuggestionEffect$ = createEffect(

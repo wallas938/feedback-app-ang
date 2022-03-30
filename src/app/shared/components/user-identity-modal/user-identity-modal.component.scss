@@ -1,0 +1,113 @@
+@import '../../../../sass/variables';
+@import '../../../../sass/colors';
+
+.root {
+
+  .card {
+    position: relative;
+    margin: 9rem auto;
+    width: 20rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: .666666rem;
+    overflow: hidden;
+    background-color: #fff;
+    padding-bottom: 1.2rem;
+    .close {
+      position: absolute;
+      background-color: $red;
+      top: .933333rem;
+      right: .933333rem;
+      border: transparent;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 100%;
+      cursor: pointer;
+
+      img {
+        width: 50%;
+        height: auto;
+      }
+
+      &:hover {
+        background-color: $hovered-red;
+      }
+    }
+
+    .card__left {
+      padding: 1.4rem .933333rem 1rem .933333rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: $grey-blue;
+
+      .card__picture {
+        border-radius: 100%;
+        margin-bottom: .933333rem;
+        width: 6rem;
+        height: auto;
+      }
+
+      .card__name {
+        font-size: 1.066666rem;
+        font-style: normal;
+        letter-spacing: -.18px;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .card__username {
+        text-align: center;
+        margin-bottom: .866666rem;
+        color: $hovered-red;
+        font-style: normal;
+        font-weight: bold;
+        line-height: 21.68px;
+      }
+    }
+
+    .card__right {
+      text-align: center;
+      padding: .933333rem .933333rem 1rem .933333rem;
+
+      .card__message {
+        font-size: 1.066666rem;
+        font-style: normal;
+        letter-spacing: -.18px;
+        font-weight: 400;
+        color: $grey-blue;
+        line-height: 23.12px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .root {
+
+    .card {
+      width: 30rem;
+      height: 25rem;
+      display: flex;
+      align-items: stretch;
+      padding-bottom: unset;
+      .card__left {
+        padding: 1.4rem 1rem 1rem 1rem;
+        justify-content: center;
+        align-items: center;
+        width: 45%;
+      }
+
+      .card__right {
+        padding: .933333rem .933333rem 1rem .933333rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+      }
+    }
+  }
+}

@@ -3,12 +3,14 @@ import { LayoutActions } from "store/actions/layout.action";
 import * as fromSuggestions from "store/reducers/suggestions.reducers";
 
 export interface State {
+  userIdentityModalState: boolean;
   mobileMenuOpened: boolean;
   sortModalOpened: boolean;
   mobileRoadmapCurrentTab: fromSuggestions.STATUS;
 }
 
 const initialState: State = {
+  userIdentityModalState: true,
   mobileMenuOpened: false,
   sortModalOpened: false,
   mobileRoadmapCurrentTab: fromSuggestions.STATUS.IN_PROGRESS
@@ -17,6 +19,22 @@ const initialState: State = {
 
 export const _layoutReducer = createReducer(
   initialState,
+  on(LayoutActions.UserIdentityModalClosed, (state) => {
+    return {
+      ...state,
+      userIdentityModalState: false,
+      mobileMenuOpened: false,
+      sortModalOpened: false
+    }
+  }),
+  on(LayoutActions.UserIdentityModalOpened, (state) => {
+    return {
+      ...state,
+      userIdentityModalState: true,
+      mobileMenuOpened: true,
+      sortModalOpened: false
+    }
+  }),
   on(LayoutActions.MobileMenuClosed, (state) => {
     return {
       ...state,
@@ -45,10 +63,10 @@ export const _layoutReducer = createReducer(
       sortModalOpened: true
     }
   }),
-  on(LayoutActions.MobileRoadMapTabChanged, (state) => {
+  on(LayoutActions.MobileRoadMapTabChanged, (state, { currentTab }) => {
     return {
       ...state,
-      mobileRoadmapCurrentTab: state.mobileRoadmapCurrentTab
+      mobileRoadmapCurrentTab: currentTab
     }
   })
 )

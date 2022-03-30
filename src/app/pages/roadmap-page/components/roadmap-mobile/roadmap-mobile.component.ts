@@ -9,7 +9,7 @@ import { LayoutActions } from 'store/actions/layout.action';
 import { suggestionSelectors } from 'store/selectors/suggestion.selectors';
 import { layoutSelectors } from "store/selectors/layout.selectors";
 import * as fadeAnimations from '@/app/shared/animations/fade';
-import { Subscription } from 'rxjs';
+import { mergeMap, Subscription, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-roadmap-mobile',
@@ -39,18 +39,14 @@ export class RoadmapMobileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions).subscribe((suggestions: fromSuggestions.Suggestion[]) => {
-      if (!suggestions || suggestions.length <= 0) {
-        this.store.dispatch(suggestionActions.FetchSuggestionsStart({ query: { _filter: fromSuggestions.FILTER.BY_ALL, _sort: fromSuggestions.SORT.MOST_UPVOTES } }));
-      } else {
+    this.allSubscriptions.add(this.store.select(suggestionSelectors.getSuggestions)
+      .pipe(switchMap((suggestions: fromSuggestions.Suggestion[]) => {
         this.suggestions = suggestions;
-      }
-    }));
-
-    this.store.select(layoutSelectors.getMobileRoadmapCurrentTab).subscribe((mobileRoadmapCurrentTab: fromSuggestions.STATUS) => {
-      this.currentTab = mobileRoadmapCurrentTab;
-      this.initData(this.currentTab);
-    })
+        return this.store.select(layoutSelectors.getMobileRoadmapCurrentTab).pipe(tap((mobileRoadmapCurrentTab: fromSuggestions.STATUS) => {
+          this.currentTab = mobileRoadmapCurrentTab;
+          this.initData(this.currentTab);
+        }))
+      })).subscribe());
   }
 
   initData(tab: fromSuggestions.STATUS) {
@@ -99,7 +95,9 @@ export class RoadmapMobileComponent implements OnInit, OnDestroy {
     this.statusText = 'Ideas prioritized for research';
   }
   displayInProgress() {
-    this.toDisplay = this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'in-progress');
+    this.toDisplay = this.suggestions?.filter((request: fromSuggestions.Suggestion) => {
+      return request.status === 'in-progress';
+    });
     this.statusCount = `In-Progress ${this.getInProgressCount()}`;
     this.statusText = 'Currently being developed';
   }
@@ -108,6 +106,8 @@ export class RoadmapMobileComponent implements OnInit, OnDestroy {
     this.statusCount = `Live ${this.getLiveCount()}`;
     this.statusText = 'Released features';
   }
+
+
   getPlannedCount(): number {
     return this.suggestions?.filter((request: fromSuggestions.Suggestion) => request.status === 'planned').length;
 
