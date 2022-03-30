@@ -119,7 +119,7 @@
       "upvotes": 132,
       "status": "planned",
       "description": "It would be great to see a more detailed breakdown of solutions.",
-      "numberOfComments": 3,
+      "numberOfComments": 0,
       "id": 6
     },
     {
@@ -151,7 +151,7 @@
     },
     {
       "title": "Add a dark theme option",
-      "category": "feature",
+      "category": "Feature",
       "status": "planned",
       "upvotes": 102,
       "description": "It would help people with light sensitivities and who prefer dark mode.",
@@ -159,51 +159,6 @@
       "id": 10
     }
   ],
-  "comments": [
-    {
-      "content": "kjvgZELIHVFBze²",
-      "from": 1,
-      "suggestionId": "6",
-      "user": {
-        "id": 1,
-        "image": "./assets/user-images/image-zena.jpg",
-        "name": "Zena Kelley",
-        "username": "velvetround"
-      },
-      "replies": [],
-      "main": true,
-      "id": 1
-    },
-    {
-      "content": "zzzz",
-      "from": 8,
-      "suggestionId": "6",
-      "user": {
-        "id": 8,
-        "image": "./assets/user-images/image-george.jpg",
-        "name": "George Partridge",
-        "username": "soccerviewer8"
-      },
-      "replies": [],
-      "main": true,
-      "id": 2
-    }
-  ],
-  "replies": [
-    {
-      "main": false,
-      "mainId": 1,
-      "content": "fefefe",
-      "user": {
-        "id": 7,
-        "image": "./assets/user-images/image-ryan.jpg",
-        "name": "Ryan Welles",
-        "username": "voyager.344"
-      },
-      "from": 7,
-      "replyingTo": "velvetround",
-      "suggestionId": "6",
-      "id": 1
-    }
-  ]
+  "comments": [],
+  "replies": []
 }
