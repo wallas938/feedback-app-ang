@@ -7,12 +7,11 @@
     position: relative;
     margin: 9rem auto;
     width: 20rem;
-    height: 25rem;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: .666666rem;
     overflow: hidden;
     background-color: #fff;
-
+    padding-bottom: 1.2rem;
     .close {
       position: absolute;
       background-color: $red;
@@ -93,8 +92,7 @@
       height: 25rem;
       display: flex;
       align-items: stretch;
-
-
+      padding-bottom: unset;
       .card__left {
         padding: 1.4rem 1rem 1rem 1rem;
         justify-content: center;

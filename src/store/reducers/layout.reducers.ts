@@ -63,10 +63,10 @@ export const _layoutReducer = createReducer(
       sortModalOpened: true
     }
   }),
-  on(LayoutActions.MobileRoadMapTabChanged, (state) => {
+  on(LayoutActions.MobileRoadMapTabChanged, (state, { currentTab }) => {
     return {
       ...state,
-      mobileRoadmapCurrentTab: state.mobileRoadmapCurrentTab
+      mobileRoadmapCurrentTab: currentTab
     }
   })
 )
