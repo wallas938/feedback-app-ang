@@ -12,6 +12,11 @@
     overflow: hidden;
     background-color: #fff;
     padding-bottom: 1.2rem;
+
+    @media (orientation: landscape) {
+      margin: 4rem auto;
+    }
+
     .close {
       position: absolute;
       background-color: $red;
