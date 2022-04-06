@@ -11,7 +11,9 @@
     </div>
   </div>
   <div [@backdropRemovalAnimation] *ngIf="menuOpened" class="side-nav">
-    <div (click)="closeMenu()" class="backdrop"></div>
-    <app-mobile-side-nav></app-mobile-side-nav>
+    <div class="grey-bg">
+      <div (click)="closeMenu()" class="backdrop"></div>
+      <app-mobile-side-nav></app-mobile-side-nav>
+    </div>
   </div>
 </div>
