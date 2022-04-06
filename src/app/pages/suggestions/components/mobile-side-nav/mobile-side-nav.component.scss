@@ -3,11 +3,11 @@
 
 .root {
   width: 18.066666rem;
-  height: 100vh;
   background-color: $light-white;
   padding: 1.6rem;
   position: relative;
   z-index: 10;
+  min-height: 100%;
 
   .wrapper {
     .card {

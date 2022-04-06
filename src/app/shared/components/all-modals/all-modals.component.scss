@@ -4,4 +4,11 @@
   height: 100vh;
   background-color: rgba(#000, .25);
   z-index: 99;
+  overflow: scroll;
+
+  .modals {
+    @media (orientation: landscape) {
+      height: 30rem;
+    }
+  }
 }
